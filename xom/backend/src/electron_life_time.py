@@ -11,7 +11,7 @@ import matplotlib.dates as mdates          # for plotting dates
 from matplotlib import gridspec            # to arrange the plots nicely
 import pandas as pd
 from collections import defaultdict
-from scipy.stats import iqr as IQR
+from scipy.stats import iqr as IQR      # for an automatic bining of the data (x or y-axis)
 
 from iminuit import Minuit, describe, Struct
 from fitter_minuit import Chi2Functor, exponential, exponential_plus_const
@@ -23,7 +23,7 @@ class ElectronLifetime(object):
     
     """
     - This class is based on straxen, it needs more tuning
-    - This is first attempt to use straxen data to be able to calculate electron life time using KR
+    - This is first attempt to use straxen data to be able to calculate electron life time using Krm
     - This a workround to select data that can give an electron life time
 
     """
@@ -228,6 +228,8 @@ class ElectronLifetime(object):
             print("Could not get the HESSE matrix")
             raise e
         
+        # Here test if the minimization takes place succefully or not
+        
         if not self.fitM.migrad_ok():
             print("The minimization did not take place, we are going to write 0 in the json file")
             return {'el_lifetime':
@@ -277,7 +279,7 @@ class ElectronLifetime(object):
         matplotlib.rc('font', size=16)
         plt.rcParams['figure.figsize'] = (10.0, 8.0) # resize plots
         plt.set_cmap('autumn')
-        hist, binsx, binsy = np.histogram2d(self.drift_time, self.df["s2_a_bottom"],\
+        hist, binsx, binsy = np.histogram2d(self.drift_time, self.df["s2_bottom"],\
                                             bins=(np.linspace(self.min_time_drift, self.max_time_drift, 25),\
                                                   np.linspace(self.min_s2, self.max_s2, 25)))
         plt.pcolormesh(binsx, binsy, hist.T, norm = matplotlib.colors.LogNorm())
@@ -296,6 +298,5 @@ class ElectronLifetime(object):
         plt.figtext(0.5, 0.75, r"$\chi^2$ / ndof =%.2f / %i" %(self.chi2, self.ndof))
         print("the figure name is: ", self.fig_name)    
         plt.savefig(self.fig_name, bbox_inches='tight')
-        
             
         plt.close("all")
