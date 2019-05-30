@@ -4,6 +4,7 @@ import warnings
 import numpy as np
 import time
 from numpy import trapz # For integration
+from pprint import pprint
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import patches
@@ -27,15 +28,17 @@ class ElectronLifetime(object):
     - This a workround to select data that can give an electron life time
 
     """
-    def __init__(self, data, plot_file_name , correction = True, source = "kr"):
+    def __init__(self, data, plot_file_name , run_number = 1234567, source = "Kr"):
         """
 	- Here the cut variable is used to clean the data to be able to have the lifetime 
 	"""
-        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(self.df["event_time"][0]/1e9))
-        self.run_number = data["run_number"][0]
         self.source = source
         self.fig_name = plot_file_name
-        self.df = data 
+        self.df = data
+        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", \
+                                       time.localtime(self.df["time"][0]/1e9))
+        #self.run_number = self.df["run_number"][0]
+        self.run_number = run_number
         if self.source == "Kr":   
             self.tpc_length = 96.9
             self.tpc_radius = 47.9
@@ -63,7 +66,8 @@ class ElectronLifetime(object):
     def clean_data(self):
         """
         - Apply the cuts to the data through this function
-	- There is a list variables we want to cut on, varies from source to source and also can can be extended 
+	- There is a list variables we want to cut on, varies from source to source 
+        - The list of variables for a given source can be extended 
         """
         if self.source == "Kr":
             
@@ -75,10 +79,10 @@ class ElectronLifetime(object):
                 mask_1 = (~np.isnan(self.df[list_varibales_cut[0]]))  & (~np.isnan(self.df[list_varibales_cut[1]]))
                 
                 #Energy cuts (cs1 and cs2)
-                mask_2  = (self.df[list_varibales_cut[0]]  < self.cs1_max) &\
-                          (self.df[list_varibales_cut[0]] > self.cs1_min) &\
-                          (self.df[list_varibales_cut[1]] < self.cs2_max) &\
-                          (self.df[list_varibales_cut[1]] > self.cs2_min)
+                mask_2  = (self.df[list_varibales_cut[0]]  < 10**self.cs1_max) &\
+                          (self.df[list_varibales_cut[0]] > 10**self.cs1_min) &\
+                          (self.df[list_varibales_cut[1]] < 10**self.cs2_max) &\
+                          (self.df[list_varibales_cut[1]] > 10**self.cs2_min)
                 
                 # Position and Fiducial Volum cuts 
                 mask_3 = (self.df[list_varibales_cut[3]] < self.tpc_radius_cut) &\
@@ -117,7 +121,16 @@ class ElectronLifetime(object):
                 print("Check the list of variables in your Data", list_variables_cut)
                 # quit here because the list of variables you want to cut on has a problem: maybe all variables or one does not exist in the frame
                 sys.exit(1)
-                
+    def get_rid_nans(self, variable):
+        """
+        In this function we look for nans in either the Y-value of error on Y
+        - Replace the nan values with mean of the given vector/list
+        
+        """
+        where_are_NaNs = np.isnan(variable)
+        variable[where_are_NaNs] = variable[~np.isnan(variable)].mean()
+        
+        return variable
     
     def get_bins(self, variable):
         """
@@ -178,6 +191,11 @@ class ElectronLifetime(object):
             self.median_S2_err = np.array([1.253*sigmaS2/(counts**0.5) for sigmaS2,counts in \
                                            zip(groups_dt["s2_bottom"].std(),\
                                                groups_dt["s2_bottom"].count())])
+            
+            
+            self.median_S2 = self.get_rid_nans(self.median_S2)
+            self.median_S2_err = self.get_rid_nans(self.median_S2_err)
+            
         else:
             warnings.warn("The number of entries in data after the cut is < 3 entries")
             print("number of bins for the time is 0")
@@ -215,15 +233,20 @@ class ElectronLifetime(object):
         fitfunction = np.polyfit(self.mean_dt[mask_time], np.log(self.median_S2[mask_time]), 1, full=True)
 
         # Fit the data: S2_bottom vs. drift time with an exponential 
-        chi2 = Chi2Functor(exponential, self.mean_dt[mask_time], self.median_S2[mask_time], self.median_S2_err[mask_time])
+        chi2 = Chi2Functor(exponential, self.mean_dt[mask_time], self.median_S2[mask_time], \
+                           self.median_S2_err[mask_time])
         
         self.fitM = Minuit(chi2, tau = 1./fitfunction[0][0], alpha = np.exp(fitfunction[0][1]),\
-                   error_tau = 100, error_alpha = 50,errordef = 0.1,\
-                           limit_tau =(-1000,-1), print_level = 2, pedantic = True)
+                   error_tau = 50, error_alpha = 600,errordef = 1,\
+                           limit_tau =(-1000,-100), print_level = 2, pedantic = True)
         
         self.fitM.migrad()
         try:
             self.fitM.hesse()
+            print("The correlation between the variables is: ")
+            pprint(self.fitM.matrix(correlation=True))
+            pprint(pprint(self.fitM.np_matrix()) )
+            
         except Exception as e:
             print("Could not get the HESSE matrix")
             raise e
