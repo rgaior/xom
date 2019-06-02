@@ -19,98 +19,106 @@ class LightYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  line, energy, data, source="Kr"):
+    def __init__(self,  data, line, energy, plot_file_name,run_number = 1234567,source="Kr"):
         """
         - Here comes the cut variables needed for this analysis
         """
-        self.correction = correction
-        self.df  = data
-        self.tpc_length = 96.9
-        self.tpc_radius = 47.9
-        self.zmin_cut = -92.9
-        self.zmax_cut = -9
-        self.tpc_radius_cut = 36.94
-        self.dtmin_cut = 500
-        self.dtmax_cut = 2000
-        self.nPmts_min = 3
-        self.nPmts_max = 30
-        self.s1_0_min_cut = 50
-        self.s1_0_max_cut = 700
-        self.s1_1_min_cut = 30
-        self.s1_1_max_cut = 500
-        self.s2_0_min_cut = 100
         self.source = source
+        self.fig_name = plot_file_name
+        self.df = data
         self.energy = energy
+        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", \
+                                       time.localtime(self.df["time"][0]/1e9))
+
+        # this line var. can take a or b, a would be the 9keV line, b would be 32keV line
         self.line = line
-        self.cut = cut
-        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(self.df["event_time"][0]/1e9))
-        self.run_number = int(self.df["run_number"][0])
-        
-        
+        self.run_number = run_number
+        if self.source == "Kr":   
+            self.tpc_length = 96.9
+            self.tpc_radius = 47.9
+            self.zmin_cut = -92.9
+            self.zmax_cut = -9
+            self.tpc_radius_cut = 36.95
+            self.cs1_min = 2.5   # this cut is in terms of log10(cs1)
+            self.cs1_max = 2.65  # this cut is in terms of log10(cs1)
+            self.cs2_min = 4.2   # this cut is in terms of log10(cs2)
+            self.cs2_max = 4.3   # this cut is in terms of log10(cs2)
+            
+        elif self.source == "Rn":
+            self.tpc_length = 96.9
+            self.tpc_radius = 47.9
+            self.zmin_cut = -92.9
+            self.zmax_cut = -9
+            self.tpc_radius_cut = 36.94
+            self.cs1_min = 2.5   # this cut is in terms of log10(cs1)
+            self.cs1_max = 2.65  # this cut is in terms of log10(cs1)
+            self.cs2_min = 4.2   # this cut is in terms of log10(cs2)
+            self.cs2_max = 4.3   # this cut is in terms of log10(cs2)
+
+
     def clean_data(self):
         """
-        Apply the cuts to the data through this function
-        1 - Time cut between s10 and s11
-        2 - Energy cut for s10& s11 and s20
+        - Apply the cuts to the data through this function
+	- There is a list variables we want to cut on, varies from source to source 
+        - The list of variables for a given source can be extended 
         """
         if self.source == "Kr":
-        
-            list_varibales_cut = ['ds_s1_b_n_distinct_channels','ds_s1_dt','s2_a', 's2_b', 'cs1_a',\
-                                      'cs1_b', 'cs2_a','int_a_r_3d_nn', 'int_a_z_3d_nn']
+            
+            list_varibales_cut = ['cs1', 'cs2', 'z','r']
+            
             if set(list_varibales_cut).issubset(self.df.columns):
-                mask_1 = (self.df[list_varibales_cut[0]] < self.nPmts_max) &\
-                         (self.df[list_varibales_cut[0]] > self.nPmts_min) &\
-                         (self.df[list_varibales_cut[1]] > self.dtmin_cut) &\
-                         (self.df[list_varibales_cut[1]] < self.dtmax_cut) &\
-                         (self.df[list_varibales_cut[2]] == self.df[list_varibales_cut[3]])
-                            
-                mask_2  =  (self.df[list_varibales_cut[4]] < self.s1_0_max_cut) &\
-                           (self.df[list_varibales_cut[4]] > self.s1_0_min_cut) &\
-			   (self.df[list_varibales_cut[5]] < self.s1_1_max_cut) &\
-                           (self.df[list_varibales_cut[5]] > self.s1_1_min_cut) &\
-			   (self.df[list_varibales_cut[6]] > self.s2_0_min_cut)
-                                
-                                
-                mask_3 = (self.df[list_varibales_cut[7]] < self.tpc_radius_cut) &\
-                         (self.df[list_varibales_cut[8]] < self.zmax_cut) &\
-			 (self.df[list_varibales_cut[8]] > self.zmin_cut)
-                   
-                             
+                
+                # Eliminate NaNs 
+                mask_1 = (~np.isnan(self.df[list_varibales_cut[0]]))  & (~np.isnan(self.df[list_varibales_cut[1]]))
+                
+                #Energy cuts (cs1 and cs2)
+                mask_2  = (self.df[list_varibales_cut[0]]  < 10**self.cs1_max) &\
+                          (self.df[list_varibales_cut[0]] > 10**self.cs1_min) &\
+                          (self.df[list_varibales_cut[1]] < 10**self.cs2_max) &\
+                          (self.df[list_varibales_cut[1]] > 10**self.cs2_min)
+                
+                # Position and Fiducial Volum cuts 
+                mask_3 = (self.df[list_varibales_cut[3]] < self.tpc_radius_cut) &\
+                         (self.df[list_varibales_cut[2]] < self.zmax_cut) &\
+                         (self.df[list_varibales_cut[2]] > self.zmin_cut)
+
+                # return the data frame with applied cuts
                 return self.df[mask_1 & mask_2 & mask_3]
+            
             else:
-                print("One of the varibales in the list", list_varibales_cut)
-                print("Does not exists in the data frame")
-                warnings.warn('The data is not going to be cleaned')
+                print("Check the list of variables in your Data", list_variables_cut)
+                # quit here because the list of variables you want to cut on has a problem:
+                # maybe all variables or one does not exist in the frame
                 sys.exit(1)
+            
         elif self.source == "Rn":
-                list_varibales_cut = ['ds_s1_b_n_distinct_channels','ds_s1_dt','s2_a', 's2_b', 'cs1_a',\
-                                      'cs1_b', 'cs2_a','int_a_r_3d_nn', 'int_a_z_3d_nn']
+            list_varibales_cut = ['cs1', 'cs2', 'z','r']
+
             if set(list_varibales_cut).issubset(self.df.columns):
-                mask_1 = (self.df[list_varibales_cut[0]] < self.nPmts_max) &\
-                         (self.df[list_varibales_cut[0]] > self.nPmts_min) &\
-                         (self.df[list_varibales_cut[1]] > self.dtmin_cut) &\
-                         (self.df[list_varibales_cut[1]] < self.dtmax_cut) &\
-                         (self.df[list_varibales_cut[2]] == self.df[list_varibales_cut[3]])
-                            
-                mask_2  =  (self.df[list_varibales_cut[4]] < self.s1_0_max_cut) &\
-                           (self.df[list_varibales_cut[4]] > self.s1_0_min_cut) &\
-			   (self.df[list_varibales_cut[5]] < self.s1_1_max_cut) &\
-                           (self.df[list_varibales_cut[5]] > self.s1_1_min_cut) &\
-			   (self.df[list_varibales_cut[6]] > self.s2_0_min_cut)
-                                
-                                
-                mask_3 = (self.df[list_varibales_cut[7]] < self.tpc_radius_cut) &\
-                         (self.df[list_varibales_cut[8]] < self.zmax_cut) &\
-			 (self.df[list_varibales_cut[8]] > self.zmin_cut)
-                   
-                             
+                # Eliminate NaNs 
+                mask_1 = (~np.isnan(self.df[list_varibales_cut[0]])) \
+                         & (~np.isnan(self.df[list_varibales_cut[1]]))
+                
+                #Energy cuts (cs1 and cs2)
+                mask_2  = (self.df[list_varibales_cut[0]]  < self.cs1_max) &\
+                          (self.df[list_varibales_cut[0]] > self.cs1_min) &\
+                          (self.df[list_varibales_cut[1]] < self.cs2_max) &\
+                          (self.df[list_varibales_cut[1]] > self.cs2_min)
+                
+                # Position and Fiducial Volum cuts 
+                mask_3 = (self.df[list_varibales_cut[3]] < self.tpc_radius_cut) &\
+                         (self.df[list_varibales_cut[2]] < self.zmax_cut) &\
+                         (self.df[list_varibales_cut[2]] > self.zmin_cut)
+
+                # return the data frame with applied cuts
                 return self.df[mask_1 & mask_2 & mask_3]
             else:
-                print("One of the varibales in the list", list_varibales_cut)
-                print("Does not exists in the data frame")
-                warnings.warn('The data is not going to be cleaned')
+                print("Check the list of variables in your Data", list_variables_cut)
+                # quit here because the list of variables you want to cut on has a problem:
+                #maybe all variables or one does not exist in the frame
                 sys.exit(1)
 
+   
 
     def get_bins(self, variable):
         """
@@ -130,31 +138,13 @@ class LightYield(object):
         else:
             nbins = int( (xInitial.max() - xInitial.min())/binwidth )
             return nbins
-    
-    def get_rid_nans(self, variable):
-        """
-        In this function we look for nans and get rid of them
-        - We need to check first the percentage of NaNs in this variable
-        - If the number of NaNs is > 30% of the total data then we stop even calculating the light yield  
-        
-        """
-        where_are_NaNs = np.isnan(variable)
-        if len(where_are_NaNs)/len(variable)<0.3: 
-            return variable[~np.isnan(variable)]
-        else:
-            # here we are going to stop the whole class
-            nings.warn("Warning the data has more than 30% of NaNs, check it !!!")
-            sys.exit(1)
-        
-        return variable
+             
 
     def get_fit_parameters(self, x,y):
         """
         this function runs Minuit and migrad to obtain the fit parameters of the gaussian
-        and returns a tupe of the parameters and errors: (values, errors)
-        data: is the histogram that we want to fit to a gaussian
-        make use of the np.histogram to get the (x,y) values of the distribution
-        range where the histgrom should be plotted is in the range=binrage, that is a tuple
+        and returns a tuple of the parameters and errors: (values, errors)
+        x,y: are the variables that we want to fit with Iminuit
         """
         # initial paramerts: mean:mu can't be estimated, but the sigma
         kwdargs = dict( a=y[np.argmax(y)], mu = x[np.argmax(y)], sigma=10 )
@@ -213,15 +203,15 @@ class LightYield(object):
             print(len(self.df) )
             warnings.warn("you can't proceed with the calculations of the light yield")
             return {'light_yield':
-                    {"names"   : ["light_yield"],
-                     "values"  : 0,
-                     "errors"  : 0,
+                    {"name"   : "light_yield",
+                     "value"  : 0,
+                     "error"  : 0,
                      "chi2"    : 0,
                      "ndof"    : 0,
                      "time"    : self.file_time,
                      "run_number": self.run_number,
                      "pvalue"  : 0,
-                     "figures" : [None]}} 
+                     "figure" : None}} 
         
 
 
@@ -236,12 +226,13 @@ class LightYield(object):
         groups_s1 = self.df.groupby(np.digitize(xline_s1, bins_x_s1))
         x = groups_s1["%s" % self.line].mean()
         y = groups_s1["%s" % self.line].count()
+        
+        # lets see if there are NaNs in x, y after we have grouped them
+        mask_nans = (~np.isnan(x)) & (np.isnan(y))
+        x = x[mask_nans]
+        y = y[mask_nans]
         ndof = len(x) - 3 # the gaussian has 3 parameters
 
-        # lets see if there are NaNs in x, y after we have grouped them
-        x = self.get_rid_nans(x)
-        y = self.get_rid_nans(y)
-        
         print("the length of the data after the cuts:%i" % len(x))
         
         fitParameters, fitErrors,chi2 = self.get_fit_parameters(x.values, y.values)
@@ -250,15 +241,15 @@ class LightYield(object):
         if fitParameters["mu"] == 0:
             print("the fit did not converge for this data")
             return {'light_yield':
-                    {"names"   : ["light_yield"],
-                     "values"  : 0,
-                     "errors"  : 0,
+                    {"name"   : "light_yield",
+                     "value"  : 0,
+                     "error"  : 0,
                      "chi2"    : 0,
                      "ndof"    : 0,
                      "time"    : self.file_time,
                      "run_number": self.run_number,
                      "pvalue"  : 0,
-                     "figures" : [None]}} 
+                     "figure" : None}} 
         else:
             #calculate the p-value of the fit for a given ndof and a chisqr
             pvalue = 1 - sp.stats.chi2.cdf(x=chi2,  df=ndof) # Find the p-value
@@ -267,15 +258,15 @@ class LightYield(object):
                                          plot_file_name, chi2, ndof)
                 
             return {'light_yield':
-                    {"names"   : ["light_yield"],
-                     "values"  : [ fitParameters["mu"]/self.energy],
-                     "errors"  : [fitErrors["mu"]/self.energy],
+                    {"name"   : "light_yield",
+                     "values"  : fitParameters["mu"]/self.energy,
+                     "error"  : fitErrors["mu"]/self.energy,
                      "chi2"    : chi2,
                      "ndof"    : ndof,
                      "time"    : self.file_time,
                      "run_number": self.run_number,
                      "pvalue"  : "%.1f" % (pvalue*100),
-                    "figures" : [os.path.basename(plot_file_name)] }}                
+                    "figure" : [os.path.basename(plot_file_name)] }}                
 
     def save_light_yield_figure(self, x,y,fitparameters,errfitparameters,filename, chi2, ndof):
         """
