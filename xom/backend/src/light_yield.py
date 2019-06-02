@@ -259,14 +259,14 @@ class LightYield(object):
                 
             return {'light_yield':
                     {"name"   : "light_yield",
-                     "values"  : fitParameters["mu"]/self.energy,
+                     "value"  : fitParameters["mu"]/self.energy,
                      "error"  : fitErrors["mu"]/self.energy,
                      "chi2"    : chi2,
                      "ndof"    : ndof,
                      "time"    : self.file_time,
                      "run_number": self.run_number,
                      "pvalue"  : "%.1f" % (pvalue*100),
-                    "figure" : [os.path.basename(plot_file_name)] }}                
+                    "figure" : os.path.basename(plot_file_name) }}                
 
     def save_light_yield_figure(self, x,y,fitparameters,errfitparameters,filename, chi2, ndof):
         """
