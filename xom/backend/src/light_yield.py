@@ -19,7 +19,7 @@ class LightYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  data, line, energy, plot_file_name,run_number = 1234567,source="Kr"):
+    def __init__(self,  data=None, line="cs1", energy=39, plot_file_name= None,run_number = 1234567,source="Kr"):
         """
         - Here comes the cut variables needed for this analysis
         """
@@ -188,7 +188,7 @@ class LightYield(object):
         
 
 
-    def get_light_yield(self, plot_file_name):
+    def get_light_yield(self):
         """
         this is the function that calculates the light yield it returns\
         a dict: dict(light_yield, sigma)
@@ -217,18 +217,18 @@ class LightYield(object):
 
         # Now lets calculate the light yield for a given line (in Kr there are two)
         xline_s1 =  self.df["%s" % self.line]
-        
+        print(len(xline_s1))
         nbins = self.get_bins(xline_s1)
         print("number of bins: ", nbins)
         bins_x = np.linspace( xline_s1.min(),xline_s1.max(), nbins)
         
         # group the data to get the x, y values to be fitted with minuit
-        groups_s1 = self.df.groupby(np.digitize(xline_s1, bins_x_s1))
+        groups_s1 = self.df.groupby(np.digitize(xline_s1, bins_x))
         x = groups_s1["%s" % self.line].mean()
         y = groups_s1["%s" % self.line].count()
         
         # lets see if there are NaNs in x, y after we have grouped them
-        mask_nans = (~np.isnan(x)) & (np.isnan(y))
+        mask_nans = (~np.isnan(x)) & (~np.isnan(y))
         x = x[mask_nans]
         y = y[mask_nans]
         ndof = len(x) - 3 # the gaussian has 3 parameters
@@ -253,9 +253,9 @@ class LightYield(object):
         else:
             #calculate the p-value of the fit for a given ndof and a chisqr
             pvalue = 1 - sp.stats.chi2.cdf(x=chi2,  df=ndof) # Find the p-value
-            print("save now the figure %s" %plot_file_name)
-            self.save_light_yield_figure(x.values, y.values,fitParameters,fitErrors,\
-                                         plot_file_name, chi2, ndof)
+            print("save now the figure %s" %self.fig_name)
+            self.save_figure(x.values, y.values,fitParameters,fitErrors,\
+                                         self.fig_name, chi2, ndof)
                 
             return {'light_yield':
                     {"name"   : "light_yield",
@@ -266,9 +266,9 @@ class LightYield(object):
                      "time"    : self.file_time,
                      "run_number": self.run_number,
                      "pvalue"  : "%.1f" % (pvalue*100),
-                    "figure" : os.path.basename(plot_file_name) }}                
+                    "figure" : os.path.basename(self.fig_name) }}                
 
-    def save_light_yield_figure(self, x,y,fitparameters,errfitparameters,filename, chi2, ndof):
+    def save_figure(self, x,y,fitparameters,errfitparameters,filename, chi2, ndof):
         """
         return the figure that shows the fit on top of the light yield
         the fit parameters are given as dictionary
