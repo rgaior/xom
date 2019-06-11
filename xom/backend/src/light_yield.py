@@ -19,7 +19,7 @@ class LightYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  data=None, line="cs1", energy=39, plot_file_name= None,run_number = 1234567,source="Kr"):
+    def __init__(self,  data=None, line="cs1", energy=41, run_number = 1234567,source="Kr"):
         """
         - Here comes the cut variables needed for this analysis
         """
@@ -182,10 +182,7 @@ class LightYield(object):
             print(iniMinuit.fval)
             
                  
-        return (iniMinuit.values, iniMinuit.errors, iniMinuit.fval)
-        
-                
-        
+        return (iniMinuit.values, iniMinuit.errors, iniMinuit.fval) 
 
 
     def get_light_yield(self):
@@ -196,9 +193,10 @@ class LightYield(object):
         """
         
         print("The number of events in the file before the cuts: ", len(self.df))
-        self.df = self.clean_data() # apply the cuts
+        # apply the cuts
+        self.df = self.clean_data() 
         print("the number of events in the file is: ", len(self.df))
-        if (len(self.df) < 40):
+        if (len(self.df) < 10):
             warnings.warn("Warning the data has an entries")
             print(len(self.df) )
             warnings.warn("you can't proceed with the calculations of the light yield")
