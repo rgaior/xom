@@ -19,7 +19,7 @@ class LightYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  data=None, line="cs1", energy=41, run_number = 1234567,source="Kr"):
+    def __init__(self,  data=None, line="cs1", energy=41, run_number = 1234567,figname = plot_file_name ,source="Kr"):
         """
         - Here comes the cut variables needed for this analysis
         """
