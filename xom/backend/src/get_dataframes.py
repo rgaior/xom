@@ -4,47 +4,61 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from glob import glob
-import pickle
-import hax
-from hax import cuts
-from pax import configuration, units, datastructure
+import straxen 
+import warnings
 
 
-class GetDataFrame():
+class GetDataFrame(object):
     
-    """this class uses hax to read the a given minitree and returns back the corresponding pandas data frame"""
+    """this class uses straxen to read a give data sets (like: calibration Kr) 
+    and returns back a panda data frame for a given run_number or a run_name
+    - you need to give the proper plugins in order to get the variables needed
+    - you need to specify which data_type you have.
+    - In the future, it will be wise to add in the run data base, data_stream which will decide if we are dealing with DM or calibration
+    
+    """
 
-    def __init__(self, run_number= None , minitree_name="", pax_version="", directory="" ):
-        """Get the minitree name corresponding to runnumber and processed with a given pax_version"""
-        self.pax_version = pax_version
+    def __init__(self, run_number = None , run_name = None, plugins =['event_info'], data_stream = "calibration", data_type = "kr"):
+        
+
+        
         self.run_number = run_number
-        self.minitree   = minitree_name
-        self.directory  = directory 
+        self.run_name   = run_name
+        self.plugins = plugins
+        self.data_stream = data_stream
+        self.data_type = data_type
         
     def get_df(self):
-        """ make use of hax and get the data frame """
-        if (self.pax_version!="") and (self.run_number != None) and (self.minitree != "") and (self.directory!=""):
-            # here combine the subdirectory with the pax version
-            main_directory = self.directory + "/" + self.pax_version
-            if os.path.exists("%s" % main_directory):
+        
+        """ 
+        Get the data frame corresponding to the run_number/run_name and processed it with straxen        
+        """
+        if (self.run_number != None) and (self.run_name != None) :
+            
+            # This solution is temporary: once we start taking data with XENONnT this needs to be changed
+            warnings.warn("THIS NEEDS TO BE LOOKED AT ONCE XENONnT STARTS TAKING DATA")
+            try:
+                # load all contexts from straxen, this is also temporary
+                st = straxen.contexts.strax_workshop_dali()
 
-                # lets call now hax and process the minitrees
-                hax.init(experiment='XENON1T', minitree_paths =["%s" % main_directory],\
-                         #main_data_paths=['/project2/lgrandi/xenon1t/processed/%s/'%pax_version],\
-                         detector='tpc')
-                    
-                return hax.minitrees.load([self.run_number],["%s" % self.minitree,"Basics", "Fundamentals"])
-            else:
-                print("the path: %s" % main_directory)
-                print("does not exists")
-                print("the class GetDataFrame is going to quit here")
-                sys.exit(0)
+                # get the data sets, here we are interested in Kr data and only one run
+                dsets = st.select_runs(run_mode=self.data_type + "*")
+                mask_name = dsets["name"].values == self.run_name
+                df = st.get_df(dsets["name"][mask_name], self.plugins)
+                
+                # here also it is another temporary addition: s2_bottom
+                # It does not exist yet in this testing mode
+                df["s2_bottom"] = pd.Series((1-df.s2_area_fraction_top)*df.s2_area, index=df.index)
+
+                return df
+            
+            except Exception as err:
+                print(" the errro {}".format(err) )
+                 
+                return None
+            
         else:
-            print("Make sure that the arguments you give to the class GetDataFrame are all ok")
-            print("The run_number: ", self.run_number)
-            print("The tree name: ", self.minitree)
-            print("The directory: ", self.dierctory)
+            warnings.warn(" you did not Specify the run number and run name")
             print("the class GetDataFrame is going to quit here")
-
             sys.exit(0)
-
+        
