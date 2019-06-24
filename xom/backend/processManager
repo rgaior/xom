@@ -1,0 +1,105 @@
+#!/usr/bin/env python
+
+
+import argparse
+import sys
+import os
+import configparser
+import warnings
+try:
+    from get_dataframes import GetDataFrame
+except Exception as err:
+    print("The class GetDataFrame can't be imported", err)
+#agument to be provided to the process manager
+parser = argparse.ArgumentParser(description="process manager")
+config = configparser.ConfigParser()
+
+
+#def copy_files(olddir_name):
+ #   """
+ #   Help function that copy all files:
+ #   -png files as figure output from every module
+ #   -json file that has the results of all modules
+ #   """
+ #   #first check for the
+def main():
+    # read pm.init to set the paths where the files can be saved
+    config.read("pm.ini")
+    #get the configs for straxen
+    straxen_version = config["pm"]["straxen_version"]
+
+    parser.add_argument('--dataType',
+                        default='calibration',
+                        required=True,
+                        type=str,
+                        help="Name of the type of analysis, either calibration or DM")
+    parser.add_argument('--source',
+                        default='',
+                        type=str,
+                        help="Name of source of calibration")
+    parser.add_argument('--runName',
+                        default='191001_',
+                        required=True,
+                        type=str,
+                        help="Input file name")
+    parser.add_argument('--runId',
+                        default=1234,
+                        required=True,
+                        type=int,
+                        help="Input run_number")
+    parser.add_argument('--outFolder',
+                        default='%s' % config["pm"]["json_fig_path"],
+                        type=str,
+                        help="Output folder name")
+    parser.add_argument('--plugins',
+                        default=config["pm"]["plugins"],
+                        type=str,
+                        nargs="*"
+                        help="plugins needed for straxen to produce DF")
+
+    """ Start the process manager """
+
+    # Get the object of the arguments, args
+    args = parser.parse_args()
+    if args.dataType == 'calibration' and args.source == ' ':
+        warnings.warn('If you are dealing with calibration, the source is mandotry as an argument')
+        sys.exit(1)
+    if not (args.runId):
+        warnings.warn('The run ID is missed, it is mandatory')
+        sys.exit(1)
+    # if not (args.outFolder):
+    #     print ("Please specify the output folder")
+    #     exit()
+        
+    base_dir = os.path.dirname(__file__) or '.'
+    algo_dir = os.path.join(base_dir, "algorithms")
+    sys.path.insert(0, algo_dir)
+    #from manage_processes import ProcessManager
+    dataFrame = GetDataFrame(run_number=args.runId, run_name=args.runName, source=args.source, plugins=args.plugins)
+    df = dataFrame.get_df()
+    if len(df) == 0:
+        print('the data frame was extracted but it is empty')
+        print("We are going to writ the basic infos of this run")
+        #run write_jason_file
+        warnings.warn("The run:%s you have provided has no entries" % args.runName, exc_info=1)
+        sys.exit(1)
+        #write the json file and that is it
+        #manager.write_json_file()
+    else:
+        print("well here are the args:")
+        print(args.config)
+        print(args.outFolder)
+        print(args.inFolder)
+        print(args.runName)
+        print(args.runId)
+
+    #manager = ProcessManager(args.inFolder, args.input, args.outFolder)
+    
+    #manager.produce_data_frame()
+    #manager.process()
+    #manager.write_json_file()
+
+
+                        
+if __name__ == "__main__":
+    main()
