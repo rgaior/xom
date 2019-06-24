@@ -9,7 +9,7 @@ import matplotlib
 import warnings
 import matplotlib.pyplot as plt
 from fitter_minuit import Chi2Functor, gaussian
-from scipy.optimize import curve_fit
+
 
 
 
@@ -19,16 +19,15 @@ class LightYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  data=None, line="cs1", energy=41, run_number = 1234567,figname = plot_file_name ,source="Kr"):
+    def __init__(self,  data=None, line="cs1", energy=41, run_number=1234567, figname=" ", source=" "):
         """
         - Here comes the cut variables needed for this analysis
         """
         self.source = source
-        self.fig_name = plot_file_name
+        self.fig_name = figname
         self.df = data
         self.energy = energy
-        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", \
-                                       time.localtime(self.df["time"][0]/1e9))
+        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(self.df["time"][0]/1e9))
 
         # this line var. can take a or b, a would be the 9keV line, b would be 32keV line
         self.line = line
@@ -59,7 +58,7 @@ class LightYield(object):
     def clean_data(self):
         """
         - Apply the cuts to the data through this function
-	- There is a list variables we want to cut on, varies from source to source 
+	    - There is a list variables we want to cut on, they vary from source to source
         - The list of variables for a given source can be extended 
         """
         if self.source == "Kr":

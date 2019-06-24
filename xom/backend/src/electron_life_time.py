@@ -28,15 +28,14 @@ class ElectronLifetime(object):
     - This a workround to select data that can give an electron life time
 
     """
-    def __init__(self, data, plot_file_name , run_number = 1234567, source = "Kr"):
+    def __init__(self, data=None, figname=" " , run_number=None, source=" "):
         """
 	- Here the cut variable is used to clean the data to be able to have the lifetime 
 	"""
         self.source = source
-        self.fig_name = plot_file_name
+        self.fig_name = figname
         self.df = data
-        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", \
-                                       time.localtime(self.df["time"][0]/1e9))
+        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(self.df["time"][0]/1e9))
         #self.run_number = self.df["run_number"][0]
         self.run_number = run_number
         if self.source == "Kr":   
@@ -66,7 +65,7 @@ class ElectronLifetime(object):
     def clean_data(self):
         """
         - Apply the cuts to the data through this function
-	- There is a list variables we want to cut on, varies from source to source 
+	    - There is a list variables we want to cut on,  they vary from source to source
         - The list of variables for a given source can be extended 
         """
         if self.source == "Kr":

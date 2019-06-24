@@ -21,22 +21,19 @@ class ChargeYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  data = None ,line="cs2_bottom", energy=41, plot_file_name= None,run_number = 1234567, source="Kr"):
+    def __init__(self,  data=None ,line="cs2_bottom", energy=41, figname=" ", run_number=1234567, source=" "):
         """
         - Here comes the cut variables needed for this analysis
         """
         self.source = source
         self.energy = energy
-        self.line = line
-        self.run_number = run_number
-        self.fig_name = plot_file_name
-        self.df = data
-        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", \
-                                       time.localtime(self.df["time"][0]/1e9))
-
         # this line var. can take a or b, a would be the 9keV line, b would be 32keV line
         self.line = line
         self.run_number = run_number
+        self.fig_name = figname
+        self.df = data
+        self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(self.df["time"][0]/1e9))
+
         if self.source == "Kr":   
             self.tpc_length = 96.9
             self.tpc_radius = 47.9
@@ -58,10 +55,7 @@ class ChargeYield(object):
             self.cs1_max = 2.7  # this cut is in terms of log10(cs1)
             self.cs2_min = 4   # this cut is in terms of log10(cs2)
             self.cs2_max = 5   # this cut is in terms of log10(cs2)
-                    
-        self.list_variables_cut = ['ds_s1_b_n_distinct_channels','ds_s1_dt','s2_a', 's2_b', \
-                                   'cs1_a', 'cs1_b', 'cs2_a','int_a_r_3d_nn', 'int_a_z_3d_nn']
-        
+
     def clean_data(self):
         """
         Apply the cuts to the data through this function
