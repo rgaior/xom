@@ -62,15 +62,12 @@ def main():
     # Get the object of the arguments, args
     args = parser.parse_args()
     if args.dataType == 'calibration' and args.source == ' ':
-        warnings.warn('If you are dealing with calibration, the source is mandotry as an argument')
+        warnings.warn('If you are dealing with calibration, the source is mandatory as an argument')
         sys.exit(1)
     if not (args.runId):
         warnings.warn('The run ID is missed, it is mandatory')
         sys.exit(1)
-    # if not (args.outFolder):
-    #     print ("Please specify the output folder")
-    #     exit()
-        
+
     base_dir = os.path.dirname(__file__) or '.'
     algo_dir = os.path.join(base_dir, "algorithms")
     sys.path.insert(0, algo_dir)
@@ -82,12 +79,12 @@ def main():
         print("We are going to writ the basic infos of this run")
         #run write_jason_file
         warnings.warn("The run:%s you have provided has no entries" % args.runName, exc_info=1)
-        sys.exit(1)
+
         #write the json file and that is it
         #manager.write_json_file()
     else:
-        print("well here are the args:")
-        print(args.config)
+        # run all the processes
+
         print(args.outFolder)
         print(args.inFolder)
         print(args.runName)
@@ -98,7 +95,7 @@ def main():
     #manager.produce_data_frame()
     #manager.process()
     #manager.write_json_file()
-
+    # run the function that copy(move) the png files and json files into the proper directory
 
                         
 if __name__ == "__main__":
