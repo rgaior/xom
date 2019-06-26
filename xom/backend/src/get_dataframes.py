@@ -44,7 +44,8 @@ class GetDataFrame(object):
             try:
                 # load all contexts from straxen, this is also temporary
                 st = straxen.contexts.strax_workshop_dali()
-
+                print("the source is: ", self.source)
+                print("the run name is: ", self.run_name)
                 # get the data sets, here we are interested in Kr data and only one run
                 dsets = st.select_runs(run_mode=self.source + "*")
                 mask_name = dsets["name"].values == self.run_name
