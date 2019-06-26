@@ -23,7 +23,7 @@ do
     IFS=" " read -r  data_type data_source run_name run_number straxen_version <<<"$run_info"
     echo "the run number is: $run_number"
     # here we compare the old and new run number
-    if [ $(($run_number-$last_run_number)) -eq 1 ]
+    if [ $(($run_number-$last_run_number)) -ge 1 ]
     then
 	echo "here is the difference between the run numbers: "
 	echo $(($run_number-$last_run_number))
