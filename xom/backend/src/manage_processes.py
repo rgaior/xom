@@ -39,14 +39,14 @@ class ProcessManager( object ):
         self.jsonFileName = str( self.run_id ) + ".json"
         self.df = dataframe
         # The krypton source has two lines and the summ, the energies are in keV
-        if self.source == 'Kr':
+        if self.source == 'kr':
             self.energy_lines = [9, 32, 41]
 
     def get_file_time_info(self):
         """
         get the initial time and end time of a file
         """
-        return {"start_time": int( self.df["event_time"].min() ), "end_time": int( self.df["event_time"].max() )}
+        return {"start_time": int( self.df["time"].min() ), "end_time": int( self.df["time"].max() )}
 
     def fill_info(self):
 

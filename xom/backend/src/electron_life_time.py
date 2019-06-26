@@ -38,7 +38,7 @@ class ElectronLifetime(object):
         self.file_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(self.df["time"][0]/1e9))
         #self.run_number = self.df["run_number"][0]
         self.run_number = run_number
-        if self.source == "Kr":   
+        if self.source == "kr":
             self.tpc_length = 96.9
             self.tpc_radius = 47.9
             self.zmin_cut = -92.9
@@ -68,7 +68,7 @@ class ElectronLifetime(object):
 	    - There is a list variables we want to cut on,  they vary from source to source
         - The list of variables for a given source can be extended 
         """
-        if self.source == "Kr":
+        if self.source == "kr":
             
             list_varibales_cut = ['cs1', 'cs2', 'z','r']
             
