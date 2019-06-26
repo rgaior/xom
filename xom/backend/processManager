@@ -75,6 +75,7 @@ def main():
 
     # Get the object of arguments, args
     args = parser.parse_args()
+    print("The procesManager: ", args.runId, args.runName, args.source, args.dataType)
     if args.dataType == 'calibration' and args.source == ' ':
         warnings.warn('If you are dealing with calibration, the source is mandatory as an argument to processManager')
         sys.exit(1)
