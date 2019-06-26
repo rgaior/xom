@@ -113,7 +113,7 @@ class ProcessManager( object ):
 
             # Get the light yield
             # run for Light Yield and Charge yield for given energy lines from a given source
-            if self.source == 'Kr':
+            if self.source == 'kr':
                 for i, eline in enumerate( self.energy_lines ):
                     # calculate the light yield for only 9keV and 32keV and the charge yield for the sum i.e. 41keV
                     if i < 2:
