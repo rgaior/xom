@@ -13,8 +13,6 @@ try:
 except Exception as err:
     print( "the error {}".format( err ) )
 
-### This is temporary: it needs to go to pm.init to be able to get it directly from there
-warnings.warn( "THIS SHOULD BE CHANGED IN THE NEAR FUTURE: USE list_minitrees INSIDE the ini FILE" )
 log = logging.getLogger( 'pm' )
 
 
