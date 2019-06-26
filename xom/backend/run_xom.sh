@@ -28,7 +28,7 @@ do
 	echo "here is the difference between the run numbers: "
 	echo $(($run_number-$last_run_number))
 	# here we run the process manager
-	./processManager --datatype $data_type --source $data_source --runName $run_name --runId $run_number
+	./processManager --dataType $data_type --source $data_source --runName $run_name --runId $run_number
 	
 	# now lets update the file with this last run_number
 	echo "$run_number" > $file_name
