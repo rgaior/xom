@@ -6,6 +6,7 @@ import time
 from numpy import trapz # For integration
 from pprint import pprint
 import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import patches
 import matplotlib.dates as mdates          # for plotting dates

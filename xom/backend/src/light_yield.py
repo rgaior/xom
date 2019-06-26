@@ -5,6 +5,7 @@ import scipy as sp # use it for integration
 from scipy.stats import iqr as IQR
 from iminuit import Minuit, describe, Struct
 import matplotlib
+matplotlib.use('Agg')
 import warnings
 import matplotlib.pyplot as plt
 from fitter_minuit import Chi2Functor, gaussian
