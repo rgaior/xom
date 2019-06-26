@@ -24,8 +24,8 @@ class GetDataFrame(object):
     def __init__(self, run_number=None, run_name=None, plugins=None, source=" "):
 
         # we need the minimum in the dataframe (in this case event_info)
-        if plugins is None:
-            plugins = ['event_info']
+        if plugins is not None:
+            plugins = ('event_info')
 
         self.run_number = run_number
         self.run_name = run_name
