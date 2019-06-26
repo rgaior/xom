@@ -29,7 +29,7 @@ def getKrCalibration(time_of_day='2019-01-01 00:00:00') :
     #for debug 
     #dt_begin  = datetime.datetime(2017, 6, 7, 11, 20, 4)
     dt_begin = datetime.datetime.strptime( time_of_day, '%Y-%m-%d %H:%M:%S' )
-    dt_end = dt_begin + datetime.timedelta(days=0, hours=1, minutes=2, seconds=0)
+    dt_end = dt_begin + datetime.timedelta(days=0, hours=1, minutes=3, seconds=0)
     #dt_end    = datetime.datetime(2017, 9, 1, 0, 0)
     
     query =  {"source.type": "Kr83m", "start": {'$gt': dt_begin}, "end":{"$lt":dt_end}}#, "tags.name": "_sciencerun1"}#, "tags.name": "_sciencerun0"}
