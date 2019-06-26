@@ -1,18 +1,13 @@
 import os
-#os.environ['QT_QPA_PLATFORM']='offscreen'
 import time
 import numpy as np
 import scipy as sp # use it for integration
 from scipy.stats import iqr as IQR
-import pandas as pd
-from matplotlib.colors import LogNorm
 from iminuit import Minuit, describe, Struct
 import matplotlib
 import warnings
 import matplotlib.pyplot as plt
 from fitter_minuit import Chi2Functor, gaussian
-from scipy.optimize import curve_fit
-
 
 
 class ChargeYield(object):
@@ -21,7 +16,7 @@ class ChargeYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  data=None ,line="cs2_bottom", energy=41, figname=" ", run_number=1234567, source=" "):
+    def __init__(self,  data=None ,line="cs2_bottom", energy=41, figname=" ", run_number=None, source=" "):
         """
         - Here comes the cut variables needed for this analysis
         """

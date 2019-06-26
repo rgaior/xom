@@ -3,7 +3,6 @@ import time
 import numpy as np
 import scipy as sp # use it for integration
 from scipy.stats import iqr as IQR
-import pandas as pd
 from iminuit import Minuit, describe, Struct
 import matplotlib
 import warnings
@@ -15,11 +14,11 @@ from fitter_minuit import Chi2Functor, gaussian
 
 class LightYield(object):
     """
-    - ds_s1_b_n_distinct_channels: number of PMTs contributing to s1_b distinct from the PMTs
-    ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
-    ds_second_s2:  1 if selected interactions have distinct s2s 
+        - ds_s1_b_n_distinct_channels: number of PMTs contributing to s1_b distinct from the PMTs
+        ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
+        ds_second_s2:  1 if selected interactions have distinct s2s
     """
-    def __init__(self,  data=None, line="cs1", energy=41, run_number=1234567, figname=" ", source=" "):
+    def __init__(self,  data=None, line="cs1", energy=41, run_number=None, figname=" ", source=" "):
         """
         - Here comes the cut variables needed for this analysis
         """

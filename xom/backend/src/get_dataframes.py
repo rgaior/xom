@@ -7,7 +7,7 @@ try:
     import straxen
 except Exception as err:
     print("Straxen is not loaded")
-    print(" the errro {}".format(err) )
+    print( "the error {}".format( err ) )
 
 
 
