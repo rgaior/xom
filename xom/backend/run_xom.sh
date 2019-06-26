@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 #time_now=$1
 file_name=last_run_number.txt
 #for time in "2017-06-07 11:19:00" "2017-06-07 12:19:00" "2017-06-07 13:19:00"
