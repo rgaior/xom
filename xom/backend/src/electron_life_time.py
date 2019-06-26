@@ -39,6 +39,9 @@ class ElectronLifetime(object):
         self.file_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(self.df["time"][0]/1e9))
         #self.run_number = self.df["run_number"][0]
         self.run_number = run_number
+        print(20*"/")
+        print("the type of run number is: ", type(self.run_number))
+        print(20*"/")
         if self.source == "kr":
             self.tpc_length = 96.9
             self.tpc_radius = 47.9
