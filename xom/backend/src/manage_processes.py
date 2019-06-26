@@ -99,7 +99,7 @@ class ProcessManager( object ):
 
             outputFileName = str( self.run_id ) + "_el_lifetime.png"
             # Initialize the electron life time class
-            el_lifetime = ElectronLifetime( self.df, outputFileName, source=self.source )
+            el_lifetime = ElectronLifetime( data=self.df, run_number=self.run_id, figname=outputFileName, source=self.source )
             # Get the electron life time
             result = el_lifetime.get_electron_lifetime()
             pp.pprint( result )
