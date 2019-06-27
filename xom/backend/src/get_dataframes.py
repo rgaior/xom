@@ -24,7 +24,7 @@ class GetDataFrame(object):
     def __init__(self, run_number=None, run_name=None, plugins=None, source=" "):
 
         # we need the minimum in the dataframe (in this case event_info)
-        if plugins is None:
+        if plugins is not None:
             plugins = ('event_info')
         else:
             print("these are the plugins you are going to use: ", plugins)
@@ -39,7 +39,6 @@ class GetDataFrame(object):
         """ 
         Get the data frame corresponding to the run_number/run_name and processed it with straxen        
         """
-        global df
         if (self.run_name != None) :
             
             # This solution is temporary: once we start taking data with XENONnT this needs to be changed
