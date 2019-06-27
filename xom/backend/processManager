@@ -21,6 +21,7 @@ def move_files(currentdir, copydir):
     """
     # loop over files currentdir
     for fname in os.listdir(currentdir):
+        print("the file name is: ", fname, "with the type", type(fname))
         if fname.endswith(".json"):
             #lets mv the json file to copydir
             shutil.move(currentdir + '/' + fname, copydir + '/' + fname)
