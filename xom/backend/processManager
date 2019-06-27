@@ -68,7 +68,7 @@ def main():
                         type=int,
                         help="Input run_number")
     parser.add_argument('--outFolder',
-                        default=config["pm"]["json_fig_path"],
+                        default="%s"%config["pm"]["json_fig_path"],
                         type=str,
                         required=True,
                         help="Output folder name")
