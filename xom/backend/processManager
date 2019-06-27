@@ -83,7 +83,7 @@ def main():
 
     # get the data frame
     dataFrame = GetDataFrame(run_number=args.runId, run_name=args.runName, source=args.source, plugins=args.plugins)
-    df = dataFrame.get_df()
+    df = dataFrame.get_data()
 
     # initialize the manger that handles processes
     manager = ProcessManager(dataframe=df, run_id=args.runId, run_name=args.runName, straxen_version=straxen_version,
