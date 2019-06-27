@@ -34,7 +34,7 @@ class GetDataFrame(object):
         self.plugins = plugins
         self.source = source
         
-    def get_df(self):
+    def get_data(self):
         
         """ 
         Get the data frame corresponding to the run_number/run_name and processed it with straxen        
