@@ -51,7 +51,7 @@ class ProcessManager( object ):
         self.info.setdefault( 'info', {} ).update( {'filename': self.run_name} )
         self.info.setdefault( 'info', {} ).update( {'run': int( self.run_id )} )
         # if the length of the file is 0,  we won't be able to calculate the time of events
-        if self.df:
+        if len(self.df):
             fileTimeInfo = self.get_file_time_info()
         else:
             fileTimeInfo = 0
