@@ -96,15 +96,17 @@ def main():
         #write the json file and that is it
         manager.write_json_file()
     else:
-        # run all the processes
-        manager.process()
+        try:
+            # run all the processes
+            manager.process()
 
-        # write all information in a json file
-        manager.write_json_file()
-
+            # write all information in a json file
+            manager.write_json_file()
+        except Exception as err:
+            print("the error {}".format(err))
 
     # create a new directory in /scratch, where the data(json file and png figure) will be stored
-    copydir = os.makedirs(config['pm']['json_fig_path'] + '/' + args.runId)
+    copydir = os.makedirs(config['pm']['json_fig_path'] + '/' + str(args.runId))
     currentdir = os.getcwd()
     # run the function that copy(move) the png files and json files into the proper directory
     move_files( currentdir, copydir )
