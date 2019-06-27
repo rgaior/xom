@@ -39,6 +39,7 @@ class GetDataFrame(object):
         """ 
         Get the data frame corresponding to the run_number/run_name and processed it with straxen        
         """
+        global df
         if (self.run_name != None) :
             
             # This solution is temporary: once we start taking data with XENONnT this needs to be changed
