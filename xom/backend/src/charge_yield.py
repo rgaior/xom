@@ -17,7 +17,7 @@ class ChargeYield(object):
     ds1_s1_dt: delay time between s1_a_center_time and s1_b_center_time
     ds_second_s2:  1 if selected interactions have distinct s2s 
     """
-    def __init__(self,  data=None ,line="cs2_bottom", energy=41, figname=" ", run_number=None, source=" "):
+    def __init__(self, data=None, line="cs2_bottom", energy=41, figname=" ", run_number=None, source=" "):
         """
         - Here comes the cut variables needed for this analysis
         """
@@ -30,7 +30,7 @@ class ChargeYield(object):
         self.df = data
         self.file_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(self.df["time"][0]/1e9))
 
-        if self.source == "Kr":   
+        if self.source == "kr":
             self.tpc_length = 96.9
             self.tpc_radius = 47.9
             self.zmin_cut = -92.9
@@ -59,7 +59,7 @@ class ChargeYield(object):
         2 - Energy cut for s10& s11 and s20
         """
         
-        if self.source == "Kr":
+        if self.source == "kr":
             
             list_varibales_cut = ['cs1', 'cs2', 'z','r', 'drift_time', "s2_area"]
             
@@ -191,10 +191,8 @@ class ChargeYield(object):
         
     def get_charge_yield(self):
         """
-        this is the function that calculates charge yield  
+        Here we calculates charge yield
         """
-        
-
         print("The number of events in the file before the cuts: ", len(self.df))
         #apply the cuts
         self.df = self.clean_data() # apply the cuts
@@ -291,14 +289,12 @@ class ChargeYield(object):
 
 
         plt.figtext(0.47,0.85,r"Charge Yield =(%.4f $\pm$ %.4f)[p.e/keV] "%\
-                    (fitparameters["mu"]/self.energy,\
-                    errfitparameters["mu"]/self.energy), color="r", fontsize=15)
+                    (fitparameters["mu"]/self.energy, errfitparameters["mu"]/self.energy), color="r", fontsize=15)
 
         plt.figtext(0.47,0.8,r"$\sigma_{CY}$ = (%.4f $\pm$ %.4f)[p.e/keV]" %\
-                    (fitparameters["sigma"]/self.energy,\
-                     errfitparameters["sigma"]/self.energy),color="r",fontsize=15)
-        plt.figtext(0.47,0.75,r"$\chi_{CY}$/ndof = (%.4f/%i)" %(chi2,ndof)\
-                    , color="g", fontsize=15)                                                    
+                    (fitparameters["sigma"]/self.energy, errfitparameters["sigma"]/self.energy),color="r",fontsize=15)
+
+        plt.figtext(0.47,0.75,r"$\chi_{CY}$/ndof = (%.4f/%i)" %(chi2,ndof), color="g", fontsize=15)
 
         plt.xlabel("S2_bottom [p.e]")
         plt.ylabel("Number of Entries")
