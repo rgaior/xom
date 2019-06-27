@@ -26,6 +26,8 @@ class GetDataFrame(object):
         # we need the minimum in the dataframe (in this case event_info)
         if plugins is None:
             plugins = ('event_info')
+        else:
+            print("these are the plugins you are going to use: ", plugins)
 
         self.run_number = run_number
         self.run_name = run_name
