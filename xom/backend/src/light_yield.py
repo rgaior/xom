@@ -25,6 +25,7 @@ class LightYield( object ):
         self.fig_name = figname
         self.df = data
         self.energy = energy
+        print( "the energy peak:", self.energy, "with a type: ", type(self.energy) )
         self.file_time = time.strftime( "%Y-%m-%d %H:%M:%S", time.localtime( self.df["time"][0] / 1e9 ) )
 
         # this line var. can take a or b, a would be the 9keV line, b would be 32keV line
