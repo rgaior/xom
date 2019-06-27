@@ -38,7 +38,7 @@ class ProcessManager( object ):
         self.df = dataframe
         # The krypton source has two lines and the summ, the energies are in keV
         if self.source == 'kr':
-            self.energy_lines = [9, 32, 41]
+            self.energy_lines = [9., 32., 41.]
 
     def get_file_time_info(self):
         """
@@ -118,7 +118,7 @@ class ProcessManager( object ):
                         print( "The light yield for Kr: %s keV line is ongoing" % eline )
                         outputFileName = str( self.run_id ) + '_%skev_light_yield.png' % eline
 
-                        light_yield = LightYield( data=self.df, line="cs1", energy='%3.2f' % eline,
+                        light_yield = LightYield( data=self.df, line="cs1", energy=eline,
                                                   run_number=self.run_id, figname=outputFileName, source=self.source )
                         result = light_yield.get_light_yield()
                         pp.pprint( result )
@@ -134,7 +134,7 @@ class ProcessManager( object ):
                             "the charge yield for Kr source is calculated for the sum of both gammas: %skeV" % eline )
 
                         outputFileName = str( self.run_id ) + "_%skeV_charge_yield.png" % eline
-                        charge_yield = ChargeYield( data=self.df, line='s2_bottom', energy='%3.2f' % eline,
+                        charge_yield = ChargeYield( data=self.df, line='s2_bottom', energy= eline,
                                                     run_number=self.run_id, figname=outputFileName, source=self.source )
 
                         result = charge_yield.get_charge_yield()
