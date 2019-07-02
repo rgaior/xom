@@ -110,10 +110,12 @@ def main():
             print("the error {}".format(err))
 
     # create a new directory in /scratch, where the data(json file and png figure) will be stored
-    copydir = os.makedirs(args.outFolder + '/' + str(args.runId))
-    currentdir = os.getcwd()
+
+    #currentdir = os.getcwd()
     # run the function that copy(move) the png files and json files into the proper directory
-    move_files( currentdir, copydir )
+    move_files( os.getcwd(),
+                os.makedirs( args.outFolder + '/' + str( args.runId ), exist_ok=True )
+                )
                         
 if __name__ == "__main__":
     main()
