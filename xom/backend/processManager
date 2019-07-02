@@ -23,16 +23,17 @@ def move_files(currentdir, copydir):
     print("the copy dir:", copydir, type(currentdir))
 
     for fname in os.listdir(currentdir):
-        print("the file name is: ", fname, "with the type", type(fname))
-        if fname.endswith(".json"):
-            #lets mv the json file to copydir
-            shutil.move(currentdir + '/' + fname, copydir + '/' + fname)
-        elif fname.endswith('.png'):
-            # lets move the figures to copydir
-            shutil.move( currentdir + '/' + fname, copydir + '/' + fname )
-        else:
-            warnings.warn("None of the two files are produced")
-            continue
+        if os.path.isfile(fname):
+
+            if fname.endswith(".json"):
+                #lets mv the json file to copydir
+                shutil.move(currentdir + '/' + fname, copydir + '/' + fname)
+            elif fname.endswith('.png'):
+                # lets move the figures to copydir
+                shutil.move( currentdir + '/' + fname, copydir + '/' + fname )
+            else:
+                warnings.warn("None of the two files are produced")
+                continue
 
 
 
@@ -67,7 +68,7 @@ def main():
                         type=int,
                         help="Input run_number")
     parser.add_argument('--outFolder',
-                        default="%s"%config["pm"]["json_fig_path"],
+                        default=config["pm"]["json_fig_path"],
                         type=str,
                         help="Output folder name" )
     parser.add_argument('--plugins',
@@ -78,7 +79,11 @@ def main():
 
     # Get the object of arguments, args
     args = parser.parse_args()
-    print("The procesManager: ", args.runId, args.runName, args.source, args.dataType)
+    print("The procesManager has the following parameters:")
+    print(args.runId)
+    print( args.runName)
+    print(args.source)
+    print(args.dataType)
     print(args.outFolder)
     if args.dataType == 'calibration' and args.source == ' ':
         warnings.warn('If you are dealing with calibration, the source is mandatory as an argument to processManager')
@@ -95,7 +100,7 @@ def main():
     # check for the size of the data frame
     if len(df) == 0:
 
-        print("We are going to writ the basic infos of this run")
+        print("We are going to write the basic infos of this run")
         warnings.warn("The run:%s you have provided has no entries" % args.runName, exc_info=1)
         #write the json file and that is it
         manager.write_json_file()
@@ -110,12 +115,15 @@ def main():
             print("the error {}".format(err))
 
     # create a new directory in /scratch, where the data(json file and png figure) will be stored
+    try:
+        copydir = args.outFolder + '/' + str( args.runId )
+        os.makedirs( copydir, exist_ok=True )
+        currentdir = os.getcwd()
+        # run the function that copy(move) the png files and json files into the proper directory
+        move_files( currentdir, copydir)
+    except Exception as err:
+        print("there is a problem creating the directory:%s" % copydir, err)
 
-    #currentdir = os.getcwd()
-    # run the function that copy(move) the png files and json files into the proper directory
-    move_files( os.getcwd(),
-                os.makedirs( args.outFolder + '/' + str( args.runId ), exist_ok=True )
-                )
                         
 if __name__ == "__main__":
     main()
