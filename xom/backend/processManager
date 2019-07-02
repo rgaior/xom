@@ -17,7 +17,6 @@ def move_files(currentdir, copydir):
     This function create the directory and copy the json files and also the png figures into it
     :param currentdir: this is the current directory where the files are
     :param copydir: this directory where the data will be stored
-    :return: 0
     """
     # loop over files currentdir
     print("the current directory: ", currentdir, type(currentdir))
@@ -70,17 +69,17 @@ def main():
     parser.add_argument('--outFolder',
                         default="%s"%config["pm"]["json_fig_path"],
                         type=str,
-                        required=True,
-                        help="Output folder name")
+                        help="Output folder name" )
     parser.add_argument('--plugins',
                         default=config["pm"]["plugins"],
                         type=str,
                         nargs="*",
-                        help="plugins needed for straxen to produce DF")
+                        help="plugins needed for straxen to produce DF" )
 
     # Get the object of arguments, args
     args = parser.parse_args()
     print("The procesManager: ", args.runId, args.runName, args.source, args.dataType)
+    print(args.outFolder)
     if args.dataType == 'calibration' and args.source == ' ':
         warnings.warn('If you are dealing with calibration, the source is mandatory as an argument to processManager')
         sys.exit(1)
@@ -111,7 +110,7 @@ def main():
             print("the error {}".format(err))
 
     # create a new directory in /scratch, where the data(json file and png figure) will be stored
-    copydir = os.makedirs(config['pm']['json_fig_path'] + '/' + str(args.runId))
+    copydir = os.makedirs(args.outFolder + '/' + str(args.runId))
     currentdir = os.getcwd()
     # run the function that copy(move) the png files and json files into the proper directory
     move_files( currentdir, copydir )
