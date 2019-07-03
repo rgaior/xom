@@ -28,7 +28,7 @@ do
 	echo "here is the difference between the run numbers: "
 	echo $(($run_number-$last_run_number))
 	#assign the outputfolder
-	outputfolder=/scratch/midway2/mlotfi/$run_number
+	outputfolder=/scratch/midway2/mlotfi/
 	# here we run the process manager
 	./processManager --dataType $data_type --source $data_source --runName $run_name --runId $run_number --outFolder $outputfolder
 	
