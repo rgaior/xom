@@ -5,11 +5,28 @@ import os
 import shutil
 import configparser
 import warnings
+
 try:
     from manage_processes import ProcessManager
     from get_dataframes import GetDataFrame
 except Exception as err:
-    print("the error {}".format(err))
+    print( "the error {}".format( err ) )
+
+
+def get_plugins(list_plugings):
+    """
+
+    :param list_plugings: list of strings of plugins
+    :return: tuple of plugins
+    """
+    plugins_tuple = ()
+    try:
+        for pl in list_plugings.split( ", " ):
+            plugins_tuple += pl
+    except Exception as err:
+        print( "the list of plugins is empty", err )
+
+    return plugins_tuple
 
 
 def move_files(currentdir, copydir):
@@ -19,90 +36,92 @@ def move_files(currentdir, copydir):
     :param copydir: this directory where the data will be stored
     """
     # loop over files currentdir
-    print("the current directory: ", currentdir, type(currentdir))
-    print("the copy dir:", copydir, type(currentdir))
+    print( "the current directory: ", currentdir, type( currentdir ) )
+    print( "the copy dir:", copydir, type( currentdir ) )
 
-    for fname in os.listdir(currentdir):
-        if os.path.isfile(fname):
+    for fname in os.listdir( currentdir ):
+        if os.path.isfile( fname ):
 
-            if fname.endswith(".json"):
-                #lets mv the json file to copydir
-                shutil.move(currentdir + '/' + fname, copydir + '/' + fname)
-            elif fname.endswith('.png'):
+            if fname.endswith( ".json" ):
+                # lets mv the json file to copydir
+                shutil.move( currentdir + '/' + fname, copydir + '/' + fname )
+            elif fname.endswith( '.png' ):
                 # lets move the figures to copydir
                 shutil.move( currentdir + '/' + fname, copydir + '/' + fname )
             else:
-                warnings.warn("None of the two files are produced")
+                warnings.warn( "None of the two files are produced" )
                 continue
 
 
-
-#agument to be provided to the process manager
-parser = argparse.ArgumentParser(description="process manager")
+# agument to be provided to the process manager
+parser = argparse.ArgumentParser( description="process manager" )
 # need this to read the ini file
 config = configparser.ConfigParser()
 
+
 def main():
     # read pm.init to set the paths where the files can be saved
-    config.read("pm.ini")
-    #get the configs for straxen
+    config.read( "pm.ini" )
+    # get the configs for straxen
     straxen_version = config["pm"]["straxen_version"]
 
-    parser.add_argument('--dataType',
-                        default='calibration',
-                        required=True,
-                        type=str,
-                        help="Name of the type of analysis, either calibration or DM")
-    parser.add_argument('--source',
-                        default='',
-                        type=str,
-                        help="Name of source of calibration")
-    parser.add_argument('--runName',
-                        default='191001_',
-                        required=True,
-                        type=str,
-                        help="Input file name")
-    parser.add_argument('--runId',
-                        default=1234,
-                        required=True,
-                        type=int,
-                        help="Input run_number")
-    parser.add_argument('--outFolder',
-                        default=config["pm"]["json_fig_path"],
-                        type=str,
-                        help="Output folder name" )
-    parser.add_argument('--plugins',
-                        default=config["pm"]["plugins"],
-                        type=str,
-                        nargs="*",
-                        help="plugins needed for straxen to produce DF" )
+    parser.add_argument( '--dataType',
+                         default='calibration',
+                         required=True,
+                         type=str,
+                         help="Name of the type of analysis, either calibration or DM" )
+    parser.add_argument( '--source',
+                         default='',
+                         type=str,
+                         help="Name of source of calibration" )
+    parser.add_argument( '--runName',
+                         default='191001_',
+                         required=True,
+                         type=str,
+                         help="Input file name" )
+    parser.add_argument( '--runId',
+                         default=1234,
+                         required=True,
+                         type=int,
+                         help="Input run_number" )
+    parser.add_argument( '--outFolder',
+                         default=config["pm"]["json_fig_path"],
+                         type=str,
+                         help="Output folder name" )
+    parser.add_argument( '--plugins',
+                         default=config["pm"]["plugins"],
+                         type=str,
+                         help="plugins needed for straxen to produce DF" )
 
     # Get the object of arguments, args
     args = parser.parse_args()
-    print("The procesManager has the following parameters:")
-    print(args.runId)
-    print( args.runName)
-    print(args.source)
-    print(args.dataType)
-    print(args.outFolder)
+    print( "The procesManager has the following parameters:" )
+    print( "run_id: %s" % args.runId )
+    print( "run_name:%s" % args.runName )
+    print( "source:%s" % args.source )
+    print( "datatype=%s" % args.dataType )
+    print( "output folder:%s" % args.outFolder )
+    print( "plugins: %s" % args.plugins )
     if args.dataType == 'calibration' and args.source == ' ':
-        warnings.warn('If you are dealing with calibration, the source is mandatory as an argument to processManager')
-        sys.exit(1)
+        warnings.warn( 'If you are dealing with calibration, the source is mandatory as an argument to processManager' )
+        sys.exit( 1 )
+    # get the list of plugins in a tuple
 
     # get the data frame
-    dataFrame = GetDataFrame(run_number=args.runId, run_name=args.runName, source=args.source, plugins=args.plugins)
+    dataFrame = GetDataFrame( run_number=args.runId, run_name=args.runName, source=args.source,
+                              plugins=get_plugins( args.plugins ) )
     df = dataFrame.get_data()
 
     # initialize the manger that handles processes
-    manager = ProcessManager(dataframe=df, run_id=args.runId, run_name=args.runName, straxen_version=straxen_version,
-                             data_stream=args.dataType, source=args.source )
+    manager = ProcessManager( dataframe=df, run_id=args.runId, run_name=args.runName, straxen_version=straxen_version,
+                              data_stream=args.dataType, source=args.source )
 
     # check for the size of the data frame
-    if len(df) == 0:
+    if len( df ) == 0:
 
-        print("We are going to write the basic infos of this run")
-        warnings.warn("The run:%s you have provided has no entries" % args.runName, exc_info=1)
-        #write the json file and that is it
+        print( "We are going to write the basic infos of this run" )
+        warnings.warn( "The run:%s you have provided has no entries" % args.runName, exc_info=1 )
+        # write the json file and that is it
         manager.write_json_file()
     else:
         try:
@@ -112,7 +131,7 @@ def main():
             # write all information in a json file
             manager.write_json_file()
         except Exception as err:
-            print("the error {}".format(err))
+            print( "the error {}".format( err ) )
 
     # create a new directory in /scratch, where the data(json file and png figure) will be stored
     try:
@@ -120,10 +139,10 @@ def main():
         os.makedirs( copydir, exist_ok=True )
         currentdir = os.getcwd()
         # run the function that copy(move) the png files and json files into the proper directory
-        move_files( currentdir, copydir)
+        move_files( currentdir, copydir )
     except Exception as err:
-        print("there is a problem creating the directory:%s" % copydir, err)
+        print( "there is a problem creating the directory:%s" % copydir, err )
 
-                        
+
 if __name__ == "__main__":
     main()
