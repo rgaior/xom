@@ -24,7 +24,7 @@ def get_plugins(list_plugings):
         for plug in list_plugings.split( ", " ):
             print(plug)
             assert isinstance( plug,str )
-            plugins_tuple += plug
+            plugins_tuple += plug, # one needs the comma here to be able to add it to tuple
     except Exception as err:
         print( "the list of plugins is empty", err )
 
