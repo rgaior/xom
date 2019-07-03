@@ -22,11 +22,12 @@ def get_plugins(list_plugings):
     plugins_tuple = ()
     try:
         for plug in list_plugings.split( ", " ):
-            print(plug)
             assert isinstance( plug,str )
-            plugins_tuple += plug, # one needs the comma here to be able to add it to tuple
+            # one needs the comma here to be able to add it to tuple
+            plugins_tuple += plug,
     except Exception as err:
-        print( "the list of plugins is empty", err )
+        print( "the list of plugins is empty")
+        print("the error:", err)
 
     return plugins_tuple
 
@@ -38,8 +39,6 @@ def move_files(currentdir, copydir):
     :param copydir: this directory where the data will be stored
     """
     # loop over files currentdir
-    print( "the current directory: ", currentdir, type( currentdir ) )
-    print( "the copy dir:", copydir, type( currentdir ) )
 
     for fname in os.listdir( currentdir ):
         if os.path.isfile( fname ):
@@ -51,21 +50,25 @@ def move_files(currentdir, copydir):
                 # lets move the figures to copydir
                 shutil.move( currentdir + '/' + fname, copydir + '/' + fname )
             else:
-                warnings.warn( "None of the two files are produced" )
                 continue
 
 
-# agument to be provided to the process manager
+# argument to be provided to the process manager
 parser = argparse.ArgumentParser( description="process manager" )
 # need this to read the ini file
 config = configparser.ConfigParser()
 
 
 def main():
+    """
+    mainly run the process manager
+    there are two configurations: one goes through pm.ini, the other through the user
+    It produces png files for each process and one json file for all processes
+    """
     # read pm.init to set the paths where the files can be saved
     config.read( "pm.ini" )
     # get the configs for straxen
-    straxen_version = config["pm"]["straxen_version"]
+    context_version = config["pm"]["context_version"]
 
     parser.add_argument( '--dataType',
                          default='calibration',
@@ -115,7 +118,7 @@ def main():
     df = dataFrame.get_data()
 
     # initialize the manger that handles processes
-    manager = ProcessManager( dataframe=df, run_id=args.runId, run_name=args.runName, straxen_version=straxen_version,
+    manager = ProcessManager( dataframe=df, run_id=args.runId, run_name=args.runName, context_version=context_version,
                               data_stream=args.dataType, source=args.source )
 
     # check for the size of the data frame
@@ -143,7 +146,7 @@ def main():
         # run the function that copy(move) the png files and json files into the proper directory
         move_files( currentdir, copydir )
     except Exception as err:
-        print( "there is a problem creating the directory:%s" % copydir, err )
+        print( "there is a problem creating the directory:", err )
 
 
 if __name__ == "__main__":

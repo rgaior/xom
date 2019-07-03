@@ -18,7 +18,7 @@ log = logging.getLogger( 'pm' )
 
 class ProcessManager( object ):
 
-    def __init__(self, dataframe=None, run_id=None, run_name=None, straxen_version=" ", data_stream=" ", source=" "):
+    def __init__(self, dataframe=None, run_id=None, run_name=None, context_version=" ", data_stream=" ", source=" "):
 
         # here data stream: takes either calibration or background
         self.data_stream = data_stream
@@ -26,8 +26,8 @@ class ProcessManager( object ):
         self.run_id = run_id
         # run_name: file name
         self.run_name = run_name
-        # straxen version, needed for the info dictionary that should contain all infos
-        self.straxen_version = straxen_version
+        # context version, needed for the info dictionary
+        self.context_version = context_version
         # data source: if the data stream is calibration then
         self.source = source
         self.processes = {}
@@ -63,8 +63,8 @@ class ProcessManager( object ):
         self.info.setdefault( 'info', {} ).update( {'user': os.getlogin()} )
         self.info.setdefault( 'info', {} ).update( {'original entries': \
                                                         len( self.df )} )
-        self.info.setdefault( 'info', {} ).update( {'straxen version': \
-                                                        self.straxen_version} )
+        self.info.setdefault( 'info', {} ).update( {'context version': \
+                                                        self.context_version} )
 
         self.info.setdefault( 'info', {} ).update( {'type': \
                                                         self.data_stream} )
