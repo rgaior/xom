@@ -21,8 +21,10 @@ def get_plugins(list_plugings):
     """
     plugins_tuple = ()
     try:
-        for pl in list_plugings.split( ", " ):
-            plugins_tuple += pl
+        for plug in list_plugings.split( ", " ):
+            print(plug)
+            assert isinstance( plug,str )
+            plugins_tuple += plug
     except Exception as err:
         print( "the list of plugins is empty", err )
 
@@ -101,7 +103,7 @@ def main():
     print( "source:%s" % args.source )
     print( "datatype=%s" % args.dataType )
     print( "output folder:%s" % args.outFolder )
-    print( "plugins: %s" % args.plugins )
+    print( "plugins: ", args.plugins, "type:", type(args.plugins))
     if args.dataType == 'calibration' and args.source == ' ':
         warnings.warn( 'If you are dealing with calibration, the source is mandatory as an argument to processManager' )
         sys.exit( 1 )
