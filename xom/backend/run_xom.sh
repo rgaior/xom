@@ -21,6 +21,10 @@ do
 
     # now split the tuple: use the delimiter "," with IFS
     IFS=" " read -r  data_type data_source run_name run_number context_version <<<"$run_info"
+    if [ -z "$context_version" ]
+    then
+	context_version=v1.0
+	fi
     echo "the run number is: $run_number"
     # here we compare the old and new run number
     if [ $(($run_number-$last_run_number)) -ge 1 ]
