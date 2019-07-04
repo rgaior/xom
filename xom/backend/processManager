@@ -140,7 +140,7 @@ def main():
 
     # create a new directory in /scratch, where the data(json file and png figure) will be stored
     try:
-        copydir = args.outFolder + '/' + str( args.runId )
+        copydir = args.outFolder
         os.makedirs( copydir, exist_ok=True )
         currentdir = os.getcwd()
         # run the function that copy(move) the png files and json files into the proper directory
