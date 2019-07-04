@@ -20,7 +20,7 @@ do
     run_info_array=`echo $run_info | tr -d '()'`
 
     # now split the tuple: use the delimiter "," with IFS
-    IFS=" " read -r  data_type data_source run_name run_number straxen_version <<<"$run_info"
+    IFS=" " read -r  data_type data_source run_name run_number context_version <<<"$run_info"
     echo "the run number is: $run_number"
     # here we compare the old and new run number
     if [ $(($run_number-$last_run_number)) -ge 1 ]
@@ -28,7 +28,7 @@ do
 	echo "here is the difference between the run numbers: "
 	echo $(($run_number-$last_run_number))
 	#assign the outputfolder
-	outputfolder=/scratch/midway2/mlotfi/
+	outputfolder=/scratch/midway2/mlotfi/$context_version
 	# here we run the process manager
 	./processManager --dataType $data_type --source $data_source --runName $run_name --runId $run_number --outFolder $outputfolder
 	
