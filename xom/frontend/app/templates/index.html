@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="wrapper">
+      <div id="banner">
+
+    		<div class="container">
+          {% if user.username == ''%}
+          <div class="title">
+            <h2>Xenon Offline Monitoring System</h2>
+            <span><h4>Please login to view data</h4></span> </div>
+    			  <ul class="actions">
+              <li><a href="/login" class="button">Login</a></li></ul>
+          {% else %}
+          <div class="title">
+            <h2>Xenon Offline Monitoring System</h2>
+            <span><h4>Welcome {{user.username}}!</h4></span></div>
+          {% endif %}
+    		</div>
+    	</div>
+      <div id="extra" class="container">
+          <div class="title">
+            <h2> Welcome {{user.username}}</h2> <br><br>
+            <span class="byline">
+              The XENON dark matter research project, operated at the Italian Gran Sasso laboratory,
+              is a deep underground research facility aiming to detect particles in the form of weakly
+              interacting massive particles by looking for rare interactions via nuclear recoils in a liquid xenon target chamber.
+            </span>
+          </div>
+      </div>
+{% if user.username != ''%}
+  <div id="featured">
+    <div class="container">
+      <div class="title"><h2>
+      Observation date and time selection:
+      </h2></div>
+      <br><br><br>
+      <form>
+      
+      From:<br>
+      <input type="datetime-local" name="obs_start"><br>
+      To:<br>
+      <input type="datetime-local" name="obs-end"><br><br>
+      <input type="submit" name="obs_date_submit"><br>
+    </form>
+  </div>
+  </div>
+
+    {% for entry in entry %}
+    <div><p> {{entry}} </p></div>
+    {% endfor %}
+    <br><br>
+{% endif %}
+  </div>
+{% endblock %}
