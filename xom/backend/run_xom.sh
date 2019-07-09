@@ -39,7 +39,7 @@ do
 	# now lets update the file with this last run_number
 	echo "$run_number" > $file_name
 	# rsync the directory
-	rsync -avz   /scratch/midway2/mlotfi/$context_version/  xom@xe1t-offlinemon.lngs.infn.it:$HOME/data/xom
+	rsync -avz   /scratch/midway2/mlotfi/$context_version/  xom@xe1t-offlinemon.lngs.infn.it:/home/xom/data/xom
 	#now we can delete the whole directory, but only if the rsync is succefull
 	if [[ $? -gt 0 ]]
 	then
