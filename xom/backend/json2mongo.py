@@ -1,10 +1,7 @@
 import sys
-import os
 import json
 import pymongo
 from pymongo import MongoClient
-import gridfs
-from glob import glob
 
 class WriteToDataBase():
     """
@@ -22,22 +19,22 @@ class WriteToDataBase():
         self.database_name   = database
         self.collection_name = collection
         self.run_number = runnumber
-        self.client = MongoClient( "localhost", 27017, serverSelectionTimeoutMS=30 )  # 30 sec is the default time
-        self.client.server_info()  # force connection on a request
+        client = MongoClient( "localhost", 27017, serverSelectionTimeoutMS=30 )  # 30 sec is the default time
+        client.server_info()  # force connection on a request
 
         # get data from json file
         try:
             with open( self.jsonfile, "r" ) as jfile:
                 self.data = json.load( jfile )
         except Exception as err:
-            print( "the json file is empty or has problems" )
+            print( 'the json file is empty or has problems' )
             print( err )
         # get the data base and create the collection if it does not exist already
         try:
             assert isinstance( self.database_name, str )
-            self.db = self.client[self.database_name]
+            self.db = client[self.database_name]
         except pymongo.errors.ServerSelectionTimeoutError as err:
-            print( "the data base server is down" )
+            print( 'the data base server is down' )
             print( err )
 
         assert isinstance( self.collection_name, str )
@@ -58,6 +55,7 @@ class WriteToDataBase():
         """
         # The json file has two keys: info and processes
         #we loop over all processes and we change the value of the key figure
+
         for proc in self.data["processes"].keys():
             for keys in self.data["processes"][proc].keys():
                 if keys == "figure":
@@ -67,10 +65,11 @@ class WriteToDataBase():
         #now we can re-write the modified dict to the json file
         try:
             with open( self.jsonfile, "w" ) as jfile:
+                print('Modifying the json file with the new data')
                 json.dump( self.data, jfile )
         except Exception as err:
-            print("we could not write out the modified json file", err)
-         return 0
+            print("Can not write out the modified json file", err)
+        return 0
         
     def write_to_db( self ) :
         
@@ -81,18 +80,19 @@ class WriteToDataBase():
         # Check the existence of the current json file inside the data base
         # the name of the json file starts with run_number as: run_number.json
         try:
-            for document in self.collection.find():
+            if self.collection.find_one({"info.run": {"$eq": self.run_number}}):
                 # if the document with the given run number exists, delete it and re-write
-                    if document["info"]["run"] == int( self.jsonfile.rstrip( ".json" ) ):
-                        print( "File %s already in database" % document["info"]["filename"] )
-                        self.collection.delete_one( {"info": self.data["info"]} )
-                        self.collection.insert_one( self.data )
-                    else:
-                        self.collection.insert_one( self.data )
+                print( "File %s already in database" % self.data["info"]["filename"] )
+                self.collection.delete_one( {"info.run": {"$eq": self.run_number}} )
+                self.collection.insert_one( self.data )
+
+            else:
+                print('File %s is going to be dumbed' % self.data["info"]["filename"])
+                self.collection.insert_one( self.data )
 
         except pymongo.errors.ServerSelectionTimeoutError as err:
-            print("the data base server is down")
+            print('the data base server is down')
             print(err)
-            sys.exit("check the database server if it is up and running ?")
+            sys.exit('check the database server if it is up and running ?')
 
         return 0
