@@ -32,7 +32,7 @@ def loop_over_main_dir(main_dir=None, database=None):
 
     list_contexts = []
     for name in os.listdir( main_dir ):
-        if os.path.isdir( main_dir + name ):
+        if os.path.isdir( main_dir + name ) and not name.startswith("_"):
             list_contexts.append( name )
     print('number of contexts we have: ', list_contexts)
     if len(list_contexts) > 1:
