@@ -38,6 +38,19 @@ do
 	
 	# now lets update the file with this last run_number
 	echo "$run_number" > $file_name
+	# rsync the directory
+	rsync -avz   /scratch/midway2/mlotfi/$context_version/  xom@xe1t-offlinemon.lngs.infn.it:$HOME/data/xom
+	#now we can delete the whole directory, but only if the rsync is succefull
+	if [[ $? -gt 0 ]]
+	then
+	    #send an email for failure of the rsync
+	    echo "The run number: $run_number failed to sync with context version $context_version" |  mail -s "fail syncing the run $run_number" mlb20@nyu.edu
+	    echo "There is problem syncing the run $run_number"
+	else
+	    #rm -rf /scratch/midway2/mlotfi/$context_version/
+	fi
+	
+	
     else
 	echo "there are no files yet in the data base"
 	echo "sleep 10 seconds and try again"
@@ -45,4 +58,4 @@ do
     fi
 done
 # for testing purposes: we write again the run_number of the runs we are testing
-echo "10266" > $file_name
+echo "8423" > $file_name
