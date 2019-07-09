@@ -47,7 +47,7 @@ do
 	    echo "The run number: $run_number failed to sync with context version $context_version" |  mail -s "fail syncing the run $run_number" mlb20@nyu.edu
 	    echo "There is problem syncing the run $run_number"
 	else
-	    #rm -rf /scratch/midway2/mlotfi/$context_version/
+	    rm -rf /scratch/midway2/mlotfi/$context_version/
 	fi
 	
 	
