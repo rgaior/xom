@@ -44,39 +44,27 @@ class WriteToDataBase():
             self.collection = self.db[self.collection_name]
 
 
-
-    def modify_jsonfile(self):
-        """
-        Add the absolute path of the figures into the dictionaries
-        it will be something like: /home/xom/data/xom/context_number/run_number/
-        :name json file: to be dumped into the data base
-
-        :return: new json file
-        """
-        # The json file has two keys: info and processes
-        #we loop over all processes and we change the value of the key figure
-
-        for proc in self.data["processes"].keys():
-            for keys in self.data["processes"][proc].keys():
-                if keys == "figure":
-                    old_value = self.data["processes"][proc]["figure"]
-                    new_value = self.datapath + "/" + old_value
-                    self.data["processes"][proc]["figure"] = new_value
-        #now we can re-write the modified dict to the json file
-        try:
-            with open( self.jsonfile, "w" ) as jfile:
-                print('Modifying the json file with the new data')
-                json.dump( self.data, jfile )
-        except Exception as err:
-            print("Can not write out the modified json file", err)
-        return 0
-        
     def write_to_db( self ) :
-        
+
         """
         read the json files and write them as Documents into the database
 
         """
+        # first lets update the json file internally through: modify the path to figures
+        # The json file has two keys: info and processes
+        # we loop over all processes and we change the value of the key figure
+        for proc in self.data["processes"].keys():
+            # for keys in self.data["processes"][proc].keys():
+            # each process has one figure
+            try:
+                # if keys == "figure":
+                old_value = self.data["processes"][proc]["figure"]
+                new_value = self.datapath + "/" + old_value
+                self.data["processes"][proc]["figure"] = new_value
+            except Exception as err:
+                print( 'The key %s does not exist in the json file' % 'figure' )
+                print( err )
+
         # Check the existence of the current json file inside the data base
         # the name of the json file starts with run_number as: run_number.json
         try:
