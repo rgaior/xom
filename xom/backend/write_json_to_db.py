@@ -2,7 +2,6 @@ import os
 import sys
 from glob import glob
 from json2mongo import WriteToDataBase
-from termcolor import colored
 import argparse
 import configparser
 
@@ -41,14 +40,13 @@ def loop_over_main_dir(main_dir=None, database=None):
             # this comparison ensures that the old context was already written in DB
 
             if newcontext > last_context :
-                print( colored( 'the new context:%s' % newcontext, "blue" ) )
                 # we go to the new directory that is made from the new context
                 # we get the list of directories(runs) inside this new context
                 current_dir = main_dir + newcontext
                 os.chdir( current_dir )
                 # we get all the runs in the new context as a list from glob
                 list_runs = glob('[0-9]*')
-                print('list of runs:',colored( list_runs, "blue"))
+                print('list of runs:', list_runs)
                 if len(list_runs):
                     for runs in list_runs:
                         current_dir = main_dir + newcontext + "/" + runs
@@ -62,9 +60,7 @@ def loop_over_main_dir(main_dir=None, database=None):
                                                     collection=newcontext, runnumber=run_number,
                                                     jsonfile=jsonfilename)
                         try:
-                            # first we modify the path of the figures inside the json file
-                            dbwriter.modify_jsonfile()
-
+                            print( 'Writing the modified json file to the DB' )
                             # now lets write the json file inside the data base
                             dbwriter.write_to_db()
                         except Exception as err:
@@ -102,9 +98,8 @@ def loop_over_main_dir(main_dir=None, database=None):
                                                 collection=last_context, runnumber=run_number,
                                                 jsonfile=jsonfilename )
                     try:
-                        # first we modify the path of the figures inside the json file
-                        dbwriter.modify_jsonfile()
-                        print( colored( 'Writing the modified json file to the DB', "blue" ) )
+
+                        print( 'Writing the modified json file to the DB' )
                         # now lets write the json file inside the data base
                         dbwriter.write_to_db()
                     except Exception as err:
