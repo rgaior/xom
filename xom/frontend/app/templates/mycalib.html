@@ -12,21 +12,11 @@
 </div>
 <div id="extra">
 <div class="container">
-  <h2>Select data to view:</h2><p>
-  <left><h3><a href='/calib?view=all' class='button'>All Data</a></h3><h3><a href='/calib?view=good' class='button'>Good Data</a></h3><h3><a href='/calib?view=bad' class='button'>Bad Data</a></h3>
-  </left>
-  </p>
-  <center>
-  {% if view_data != 'None' %}
-  <h4>Currently viewing: {{view_data}}</h4>
-  {% else %}
-  <h4>Please select type of data!</h4>
-  {% endif %}
   <h2>Select a source: </h2>
   <ul>
-    <li><a href='/calib?source=Rn' class='button'>Radon</a></li>
-    <li><a href='/calib?source=Kr' class='button'>Krypton</a></li>
-    <li><a href='/calib?source=NG' class='button'>Neutron Gun</a></li>
+    <li><a href='/mycalib?source=Rn' class='button'>Radon</a></li>
+    <li><a href='/mycalib?source=Kr' class='button'>Krypton</a></li>
+    <li><a href='/mycalib?source=NG' class='button'>Neutron Gun</a></li>
   </ul>
 {% if source_type == 'None' %}
   <h2>Please select a source!</h2>
@@ -34,27 +24,27 @@
   {% if source_type == 'Kr' %}
   <h3> Select an observable from the following: </h3>
     <ul>
-      {# '/calib?source=Kr&data=light_yield' #}
+      {# '/mycalib?source=Kr&data=light_yield' #}
 
-      <li><a href="{{ url_for('calib', source=source_type, data='el_lifetime')}}" class='button'>Electron Lifetime</a></li>
-      <li><a href="{{ url_for('calib', source=source_type, data='light_yield')}}" class='button'>Light Yield</a></li>
-      <li><a href="{{ url_for('calib', source=source_type, data='charge_yield')}}" class='button'>Charge Yield</a></li>
+      <li><a href="{{ url_for('mycalib', source=source_type, data='el_lifetime')}}" class='button'>Electron Lifetime</a></li>
+      <li><a href="{{ url_for('mycalib', source=source_type, data='light_yield')}}" class='button'>Light Yield</a></li>
+      <li><a href="{{ url_for('mycalib', source=source_type, data='charge_yield')}}" class='button'>Charge Yield</a></li>
     </ul>
   {% endif %}
 
   <h2>Source selected: {{source_type}}</h2>
 
-</center>
-<center><h1>Data: {{data_type}}</h1></center>
+<!-- </center> -->
+<!-- <center><h1>Data: {{data_type}}</h1></center> -->
 
-  <div>
-    This Bokeh app below served by a Bokeh server that has been embedded
-    in another web app framework. For more information see the section
-    <a  target="_blank" href="https://bokeh.pydata.org/en/latest/docs/user_guide/server.html#embedding-bokeh-server-as-a-library">Embedding Bokeh Server as a Library</a>
-    in the User's Guide.
-  </div>
-  {{ script|safe }}
-</body>
+<!--   <div> -->
+<!--     This Bokeh app below served by a Bokeh server that has been embedded -->
+<!--     in another web app framework. For more information see the section -->
+<!--     <a  target="_blank" href="https://bokeh.pydata.org/en/latest/docs/user_guide/server.html#embedding-bokeh-server-as-a-library">Embedding Bokeh Server as a Library</a> -->
+<!--     in the User's Guide. -->
+<!--   </div> -->
+<!--   {{ script|safe }} -->
+<!-- </body> -->
  
 <!-- {% if data_flag == True %} -->
 <!--   <center> -->
@@ -186,7 +176,7 @@
 <!-- <center> -->
 <!--   <p id="badRuns">Bad run numbers: </p> -->
 
-<!-- <a href="{{ url_for('calib', source=source_type, data=data_type, bad=new_bad_runs)}}" class='button'>Mark as bad</a> -->
+<!-- <a href="{{ url_for('mycalib', source=source_type, data=data_type, bad=new_bad_runs)}}" class='button'>Mark as bad</a> -->
 <!-- <div id="downlButton"> -->
 <!--   <a href="/download" class="downlButton">Download Data as CSV</a> -->
 <!-- </div> -->
