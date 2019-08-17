@@ -11,8 +11,8 @@ client.drop_database('test1')
 db = client.test1  #change to client.(NameOfDatabase)
 collection = db.inventory #change to db.(NameOfCollection)
 
-# #ok = false
-folder = '/Users/gaior/XENON/code/site/gitxom/xom/xom/frontend/app/static/images/'
+appfolder = '/Users/gaior/XENON/code/site/gitxom/xom/xom/frontend/app/'
+folder = appfolder + '/static/images/'
 def func(x, mean, std, k):
     return k*norm.pdf(x,mean,std)
 def produceimage(run,proc,value,error):
