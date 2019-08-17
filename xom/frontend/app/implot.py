@@ -28,8 +28,8 @@ def nix(val, lst):
 # setup widget:
 ticker1 = Select(value='Krypton', options=SOURCE_TICKERS)
 ticker2 = Select(value='Charge Yield', options=PROCESS_TICKERS)
-startslider = datetime.datetime(2017, 1, 1)
-endslider = datetime.datetime(2018, 1, 1)
+startslider = datetime.datetime(2017, 3, 1)
+endslider = datetime.datetime(2017, 7, 1)
 date_range_slider = DateRangeSlider(title="Date Range: ", start=startslider, end=endslider, value=(startslider, endslider), step=1)
 
 TOOLTIPS = """
