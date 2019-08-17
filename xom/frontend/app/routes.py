@@ -7,6 +7,9 @@ from bson.json_util import dumps, loads
 from io import StringIO, BytesIO
 from datetime import date, timedelta, datetime
 from dateutil.parser import parse
+import numpy as np
+from flask import Flask, render_template, request
+import pandas as pd
 
 client = MongoClient()
 login_manager = LoginManager()
@@ -34,8 +37,23 @@ login_manager.login_view = "login"
 obs_start = parse("2012-01-19 17:21:00")
 obs_end = parse("2019-01-19 17:21:00")
 view_data = 'all'
+data_type = 'light_yield'
+source = 'Kr'
+################################
+## my test #####################
+from bokeh.embed import server_document
+from bokeh.server.server import Server
+from bokeh.themes import Theme
+from tornado.ioloop import IOLoop
 
+from bokeh.sampledata.sea_surface_temperature import sea_surface_temperature
+import sys
+import os
+cwd = os.getcwd()
+sys.path.append(cwd)
+from app.implot import plot
 
+# Index page
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -57,57 +75,41 @@ def index():
     return render_template('index.html', title='Home', entry = entry, user = person)
 
 
-@app.route('/calib', methods=['GET', 'POST'])
+
+from bokeh.embed import server_document
+from bokeh.server.server import Server
+#from bokeh.themes import Theme
+
+
+# bokeh test page with fake data
+from threading import Thread, Lock
+
+# @app.route('/bokeh', methods=['GET'])
+# def bkapp_page():
+#     script = server_document('http://localhost:5006/bkapp')
+#     return render_template("embed.html", script=script, template="Flask")
+
+# @app.route('/bokeh2', methods=['GET'])
+# def bkapp_page2():
+#     script = server_document('http://localhost:5006/bkapp2')
+#     return render_template("embed.html", script=script, template="Flask")
+
+@app.route('/implot', methods=['GET'])
 @login_required
-def calib():
-    global view_data
-    global obs_start
-    global obs_end
-    bad_runs = []
-    bad_index_list = request.args.get('bad')
-    print(bad_index_list)
-    data_type = str(request.args.get('data'))
-    source = str(request.args.get('source'))
-
-    new_view_data = str(request.args.get('view'))
-    if (new_view_data != 'None'):
-         view_data = new_view_data
-    elif ((new_view_data == 'None') and (view_data != 'all')):
-        view_data = view_data
-    else:
-        view_data = 'all'
+def bkapp_implot():
+    script = server_document('http://localhost:5006/implot')
+    return render_template("embed.html", script=script, template="Flask")
 
 
-    data_is_present = False
-    if data_type != '':
-        data_is_present = True
+def bk_worker():
+    # Can't pass num_procs > 1 in this configuration. If you need to run multiple
+    # processes, see e.g. flask_gunicorn_embed.py
+#    server = Server({'/bkapp': modify_doc,'/bkapp2': modify_doc2,'/implot': plot}, io_loop=IOLoop(), allow_websocket_origin=["localhost:5000","127.0.0.1:5000"])
+    server = Server({'/implot': plot}, io_loop=IOLoop(), allow_websocket_origin=["localhost:5000","127.0.0.1:5000"])
+    server.start()
+    server.io_loop.start()
 
-    # print(obs_end)
-    # print(obs_start)
-    if data_type != 'light_yield':
-        light_yield = dumps(collection.find({"%s.names" %(data_type): [ "%s" %(data_type) ]}, {"_id" : False}))
-
-    else:
-        light_yield = dumps(collection.find({"names" : [data_type]}, {"_id" : False}))
-    light_yield = loads(light_yield)
-    ly_data = []
-    # print(light_yield)
-    count = 0
-    for entry in light_yield:
-        if data_type == "charge_yield":
-            if entry['charge_yield']['values'] > 0:
-                if (parse(entry['charge_yield']['time']) >= (obs_start)) and (parse(entry['charge_yield']['time']) <= (obs_end)):
-                    ly_data.append(entry)
-                    count = count + 1
-
-        else:
-            if entry['values'][0] > 0:
-                if (parse(entry['time']) >= (obs_start)) and (parse(entry['time']) <= (obs_end)):
-                    ly_data.append(entry)
-                    count = count + 1
-
-    # print("what is happening", ly_data)
-    return render_template('calib.html', title='Calibration Data', user=person, max=8, ly_data=ly_data, data_type=data_type, data_flag=data_is_present, source_type=source, obs_start=obs_start, obs_end=obs_end, view_data=view_data, new_bad_runs=bad_runs)
+Thread(target=bk_worker).start()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -166,4 +168,5 @@ def download():
 
     return send_file(output, mimetype='text/csv', attachment_filename='testEL', as_attachment=True)
 
+#app.run(port=5000, debug=True)
 #app.run(host="0.0.0.0", port=5000, threaded=True)
