@@ -1,4 +1,4 @@
-from iminuit import Minuit, describe, Struct
+from iminuit import Minuit, describe
 from iminuit.util import make_func_code
 import math
 import numpy as np

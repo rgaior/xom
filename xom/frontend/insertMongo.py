@@ -3,7 +3,7 @@ import pymongo
 
 
 client = pymongo.MongoClient()
-db = client.test1  #change to client.(NameOfDatabase)
+db = client.testshanta  #change to client.(NameOfDatabase)
 collection = db.inventory #change to db.(NameOfCollection)
 
 entriesJson = [

@@ -14,9 +14,10 @@ collection = db.inventory
 
 
 #SOURCE_TICKERS = ['kr', 'ng', 'rn']
-SOURCE_TICKERS = ['Krypton', 'Neutron Gun', 'Radon']
+SOURCE_TICKERS = ['Krypton', 'Neutron Generator', 'Radon']
 #PROCESS_TICKERS = ['el_lifetime', 'charge_yield', 'light_yield']
 PROCESS_TICKERS = ['Electron Lifetime', 'Charge Yield', 'Light Yield']
+CONTEXT_TICKERS = ["v_1.0", "v_1.1", "v_1.2"]
 source_dict = {'Krypton':'kr','Neutron Gun':'ng','Radon':'rn'}
 process_dict = {'Electron Lifetime':'el_lifetime','Charge Yield':'charge_yield','Light Yield':'light_yield'}
 
@@ -28,6 +29,7 @@ def nix(val, lst):
 # setup widget:
 ticker1 = Select(value='Krypton', options=SOURCE_TICKERS)
 ticker2 = Select(value='Charge Yield', options=PROCESS_TICKERS)
+ticker3 = Select(value="v_1.0", options=CONTEXT_TICKERS)
 startslider = datetime.datetime(2017, 3, 1)
 endslider = datetime.datetime(2017, 7, 1)
 date_range_slider = DateRangeSlider(title="Date Range: ", start=startslider, end=endslider, value=(startslider, endslider), step=1)
@@ -46,15 +48,16 @@ TOOLTIPS = """
 
 
 def get_data():
-    t1 = source_dict[ticker1.value]
-    t2 = process_dict[ticker2.value]
+    t1 = source_dict[ticker1.value] # source
+    t2 = process_dict[ticker2.value] # process
+    t3 = ticker3.value # context
     dates = date_range_slider.value_as_datetime
     date0 = datetime.datetime.timestamp(dates[0])
     date1 = datetime.datetime.timestamp(dates[1])
     data_type = 'calibration'
     #selects only calibration data
     # selects calibration file & the source of calibration & the dates
-    mydata = collection.find({"info.source" : t1.lower(), "info.type":data_type, "info.start_time": {"$gte" : date0*1e9, "$lte" : date1*1e9},})
+    mydata = collection.find({"info.source" : t1.lower(), "info.type":data_type, "info.start_time": {"$gte" : date0*1e9, "$lte" : date1*1e9},"info.straxen_version" : t3.lower()})
     data = []
     if data_type!=None:
         for d in mydata:
@@ -73,9 +76,11 @@ source_static = ColumnDataSource(df0)
 ### allow for the choice of the tool in the bokeh toolbox
 tools = 'pan,wheel_zoom,xbox_select,reset'
 ### defines the figure
-plot_width = 550
+plot_width = 650
 calib = figure(plot_width=plot_width, plot_height=350, tooltips=TOOLTIPS,
               tools=tools,x_axis_label='RUN', y_axis_label='value')
+calib.yaxis.axis_label_text_font_size = "20pt"
+calib.xaxis.axis_label_text_font_size = "20pt"
 calib.circle('run_number', 'value', size=20, source=source,
              selection_color="orange", alpha=0.6, nonselection_alpha=0.1, selection_alpha=0.4)
 
@@ -85,6 +90,8 @@ def ticker1_change(attrname, old,new):
     update()
 def ticker2_change(attrname, old,new):
     update()
+def ticker3_change(attrname, old,new):
+    update()
 def date_range_slider_change(attrname, old,new):
     update()
 
@@ -92,10 +99,11 @@ def update(selected=None):
     data = get_data()
     source.data = source.from_df(data)
     source_static.data = source.data
-    
+    calib.yaxis.axis_label = ticker2.value
 
 ticker1.on_change('value', ticker1_change)
 ticker2.on_change('value', ticker2_change)
+ticker3.on_change('value', ticker3_change)
 date_range_slider.on_change('value', date_range_slider_change)
 
 #def selection_change(attrname, old, new):
@@ -112,13 +120,14 @@ date_range_slider.on_change('value', date_range_slider_change)
 
 
 # set up layout                                                                                                                     
+widget_context = column(ticker3)
 widgets = column(ticker1, ticker2)
 widgetfake = column(date_range_slider,width=1)
 widget2 = column(date_range_slider,width=plot_width)
 main_row = row(widgets,calib)
 #series = column(ts1, ts2)
 #layout = column(main_row,widget2)
-layout = gridplot([[widgets,calib], [None, widget2]])
+layout = gridplot([[widget_context,None], [widgets,calib], [None, widget2]])
 
 # initialize                                                                                                                        
 update()

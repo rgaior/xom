@@ -57,13 +57,13 @@ def checkifexist(tocheck, array, down,up,step):
 sources = ['kr','rn','ng']
 processes = ['el_lifetime','light_yield','charge_yield']
 namedict = {'el_lifetime':'electron lifetime [us]','light_yield':'light_yield','charge_yield':'charge_yield'}
-
+versions = ['v_1.0','v_1.1','v_1.2']
 def produceoneentry(runs):
     run_down, run_up, run_step = 8000, 10000, 1
     run = np.random.randint(8000,10000)
     checkifexist(run, runs,run_down, run_up, run_step)
 
-    straxen_version = '"v_1.0"'
+    straxen_version = np.random.choice(versions)
     start_time = np.random.randint(1491229119999552900,1497229119999552900)
     end_time = start_time + np.random.randint(10e9,1e12)
     # to do if needed

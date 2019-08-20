@@ -6,3 +6,4 @@ pip3 install flask-pymongo
 pip3 install flask-wtf
 pip3 install flask-login
 pip3 install python-dateutil
+pip3 install bokeh

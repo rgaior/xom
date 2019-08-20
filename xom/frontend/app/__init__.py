@@ -12,3 +12,4 @@ bootstrap = Bootstrap(app)
 app.jinja_env.globals.update(date_time=datetime)
 
 from app import routes
+from app import myserver
