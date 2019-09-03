@@ -18,7 +18,7 @@ SOURCE_TICKERS = ['Krypton', 'Neutron Generator', 'Radon']
 #PROCESS_TICKERS = ['el_lifetime', 'charge_yield', 'light_yield']
 PROCESS_TICKERS = ['Electron Lifetime', 'Charge Yield', 'Light Yield']
 CONTEXT_TICKERS = ["v_1.0", "v_1.1", "v_1.2"]
-source_dict = {'Krypton':'kr','Neutron Gun':'ng','Radon':'rn'}
+source_dict = {'Krypton':'kr','Neutron Generator':'ng','Radon':'rn'}
 process_dict = {'Electron Lifetime':'el_lifetime','Charge Yield':'charge_yield','Light Yield':'light_yield'}
 
 def nix(val, lst):
