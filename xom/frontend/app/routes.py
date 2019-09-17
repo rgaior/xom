@@ -10,7 +10,7 @@ from dateutil.parser import parse
 import numpy as np
 from flask import Flask, render_template, request
 import pandas as pd
-
+ 
 client = MongoClient()
 login_manager = LoginManager()
 
