@@ -36,7 +36,7 @@ date_range_slider = DateRangeSlider(title="Date Range: ", start=startslider, end
 
 TOOLTIPS = """
     <div>
-        <div>
+        <div> 
             <img
                 src="@figure" height="300" alt="@figure" width="300"
                 style="float: left; margin: 0px 15px 15px 0px;"
@@ -45,6 +45,7 @@ TOOLTIPS = """
         </div>
     </div>
 """
+
 
 
 def get_data():
