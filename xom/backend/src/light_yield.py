@@ -3,7 +3,7 @@ import time
 import numpy as np
 import scipy as sp  # use it for integration
 from scipy.stats import iqr as IQR
-from iminuit import Minuit, describe, Struct
+from iminuit import Minuit, describe
 import matplotlib
 
 matplotlib.use( 'Agg' )

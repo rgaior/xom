@@ -1,0 +1,64 @@
+<head>
+  <link href="../static/css/main.css" rel="stylesheet" type="text/css" media="all">
+  <meta charset="utf-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  {# <script src="../static/Chart.js-ErrorBars-master/dist/Chart.js"></script> #}
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+      <style>
+          canvas {
+              -moz-user-select: none;
+              -webkit-user-select: none;
+              -ms-user-select: none;
+          }
+      </style>
+<title>
+    {% if title %}{{title}} - XOM {% else %}Welcome to XOM{% endif %}
+  </title>
+</head>
+{% block navbar %}
+<div id="wrapper">
+<div id="header-wrapper">
+<div id="header" class="container">
+  <div id="logo">
+    <h1><a href="/index">XOM</a></h1>
+  </div>
+  <div id="menu">
+    <ul>
+      <li><a href="/index" accesskey="1" title="">Home</a></li>
+      <li><a href="/implot" accesskey="2" title="">Calibration</a></li>
+      <li><a href="#" accesskey="3" title="">Dark Matter Data</a></li>
+      <li><a href="#" accesskey="4" title="">Sensors</a></li>
+      <li class="dropdown"><a href="/login" accesskey="5" title="" class="dropbtn">Login</a></li>
+      <li><a href="/logout" accesskey="6" title="">Logout</a></li>
+      <div class="dropdown-items">
+        <a href="/login">Login</a>
+        <a href="#">Register</a>
+        <a href="#">User Profile</a>
+      </div>
+    </ul>
+  </div>
+</div>
+</div>
+</div>
+  <!--  <nav class="navbar navbar-default">
+        <h3>  <a href="/index">Home</a> | <a href="/calib">Calibration</a> | Dark Matter Data | Sensors | <a href="/login">Login/Register</a> </h3>
+    </nav> -->
+{% endblock %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endwith %}
+
+{% block content %}
+
+
+{% endblock %}
