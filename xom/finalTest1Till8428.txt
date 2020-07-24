@@ -1,0 +1,60 @@
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8424
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8424
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587555431.7005575
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8425
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8425
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587555488.204419
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8426
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8426
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587555544.8449671
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8427
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8427
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587555601.678981
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date

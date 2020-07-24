@@ -1,0 +1,914 @@
+the run number is: 8424
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8424
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8424
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471373.6206841
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8424
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8424
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471373.6206841
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+End time of processing:  1587471398.6549647
+Time take for processing:  25.03428053855896
+I don't remove it yet waiting
+the run number is: 8424
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8424
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/8424
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471401.3581421
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8424
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/8424
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471401.3581421
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+End time of processing:  1587471423.6578164
+Time take for processing:  22.29967427253723
+I don't remove it yet waiting
+the run number is: 9200
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 9200
+run_name:170501_2030
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/9200
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471426.461261
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170501_2030
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 9200
+run_name:170501_2030
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/9200
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471426.461261
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170501_2030
+ the errro tuple index out of range
+End time of processing:  1587471448.4618351
+Time take for processing:  22.000574111938477
+I don't remove it yet waiting
+the run number is: 9200
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 9200
+run_name:170501_2030
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/9200
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471451.1364186
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170501_2030
+ the errro tuple index out of range
+End time of processing:  1587471472.9866004
+Time take for processing:  21.850181818008423
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 9200
+run_name:170501_2030
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/9200
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471451.1364186
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170501_2030
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+I don't remove it yet waiting
+the run number is: 16290
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 16290
+run_name:180124_1110
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/16290
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471475.828736
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  180124_1110
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 16290
+run_name:180124_1110
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/16290
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471475.828736
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  180124_1110
+ the errro tuple index out of range
+End time of processing:  1587471498.1815946
+Time take for processing:  22.352858543395996
+I don't remove it yet waiting
+the run number is: 16290
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 16290
+run_name:180124_1110
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/16290
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471500.9861405
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  180124_1110
+ the errro tuple index out of range
+End time of processing:  1587471523.6144288
+Time take for processing:  22.62828826904297
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 16290
+run_name:180124_1110
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/16290
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471500.9861405
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  180124_1110
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+I don't remove it yet waiting
+the run number is: 14639
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 14639
+run_name:171120_2120
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/14639
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471526.4452477
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171120_2120
+ the errro tuple index out of range
+End time of processing:  1587471549.1797109
+Time take for processing:  22.734463214874268
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 14639
+run_name:171120_2120
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/14639
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471526.4452477
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171120_2120
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+I don't remove it yet waiting
+the run number is: 14639
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 14639
+run_name:171120_2120
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/14639
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471552.0134704
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171120_2120
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 14639
+run_name:171120_2120
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/14639
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471552.0134704
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171120_2120
+ the errro tuple index out of range
+End time of processing:  1587471574.2193542
+Time take for processing:  22.205883741378784
+I don't remove it yet waiting
+the run number is: 13556
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 13556
+run_name:171009_0851
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/13556
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471576.9647572
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171009_0851
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 13556
+run_name:171009_0851
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/13556
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471576.9647572
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171009_0851
+ the errro tuple index out of range
+End time of processing:  1587471599.5678701
+Time take for processing:  22.603112936019897
+I don't remove it yet waiting
+the run number is: 13556
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 13556
+run_name:171009_0851
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/13556
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471602.3692384
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171009_0851
+ the errro tuple index out of range
+End time of processing:  1587471624.894148
+Time take for processing:  22.524909734725952
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 13556
+run_name:171009_0851
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/13556
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471602.3692384
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  171009_0851
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+I don't remove it yet waiting
+the run number is: 12104
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 12104
+run_name:170814_1340
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/12104
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471627.7796464
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170814_1340
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 12104
+run_name:170814_1340
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/12104
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471627.7796464
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170814_1340
+ the errro tuple index out of range
+End time of processing:  1587471649.9921234
+Time take for processing:  22.21247696876526
+I don't remove it yet waiting
+the run number is: 12104
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 12104
+run_name:170814_1340
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/12104
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471652.6963785
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170814_1340
+ the errro tuple index out of range
+End time of processing:  1587471675.4600506
+Time take for processing:  22.76367211341858
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 12104
+run_name:170814_1340
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/12104
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471652.6963785
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170814_1340
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+I don't remove it yet waiting
+the run number is: 10959
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10959
+run_name:170703_1153
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/10959
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471678.1492786
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170703_1153
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10959
+run_name:170703_1153
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/10959
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471678.1492786
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170703_1153
+ the errro tuple index out of range
+End time of processing:  1587471700.3981404
+Time take for processing:  22.24886178970337
+I don't remove it yet waiting
+the run number is: 10959
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10959
+run_name:170703_1153
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/10959
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471703.191426
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170703_1153
+ the errro tuple index out of range
+End time of processing:  1587471725.777898
+Time take for processing:  22.586472034454346
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10959
+run_name:170703_1153
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/10959
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471703.191426
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170703_1153
+ the errro tuple index out of range
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+the error 'time'
+I don't remove it yet waiting
+the run number is: 10265
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10265
+run_name:170607_0919
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/10265
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471728.6057994
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170607_0919
+End time of processing:  1587471751.40074
+Time take for processing:  22.79494047164917
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10265
+run_name:170607_0919
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/10265
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471728.6057994
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170607_0919
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+////////////////////
+the type of run number is:  <class 'int'>
+////////////////////
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  3787
+the value of the binwidth: 40.466431821743086
+the number of bins: 15
+If you don't give both of the steps, the fit will use 10% of the max. of the est. values
+The correlation between the variables is: 
+array([[725.46789796,  77.03508223],
+       [ 77.03508223,   9.92291514]])
+None
+The fit values:  <ValueView of Minuit at 55c1478a8768>
+  alpha: 7056.27396766819
+  tau: -583.3027624381818
+The chisqr: 
+17.75917516057755
+The fit parameters:  <ValueView of Minuit at 55c1478a8768>
+  alpha: 7056.27396766819
+  tau: -583.3027624381818 <ErrorView of Minuit at 55c1478a8768>
+  alpha: 26.93486362372673
+  tau: 3.150115341739625 1.6144704691434135
+save now the figure 10265_el_lifetime.png
+the figure name is:  10265_el_lifetime.png
+{   'el_lifetime': {   'chi2': 17.75917516057755,
+                       'error': 3.150115341739625,
+                       'figure': '10265_el_lifetime.png',
+                       'name': 'electron lifetime [us]',
+                       'ndof': 11,
+                       'pvalue': '8.7',
+                       'run_number': 10265,
+                       'time': '2017-06-07 04:19:48',
+                       'value': 583.3027624381818}}
+The light yield for Kr: 9.0 keV line is ongoing
+the energy peak: 9.0 with a type:  <class 'float'>
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  3787
+3787
+the value of the binwidth: 4.446112909642974
+number of bins:  28
+the length of the data after the cuts:28
+The fit values:  <ValueView of Minuit at 55c147d694f8>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695
+The chisqr: 
+24.69364111206215
+The fit parameters:  <ValueView of Minuit at 55c147d694f8>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695 <ErrorView of Minuit at 55c147d694f8>
+  a: 5.696587596170958
+  mu: 0.5169027979840634
+  sigma: 0.39566044441719356 0.9877456444824859
+save now the figure 10265_9.0kev_light_yield.png
+{   'light_yield': {   'chi2': 24.69364111206215,
+                       'error': 0.05743364422045148,
+                       'figure': '10265_9.0kev_light_yield.png',
+                       'name': 'light_yield',
+                       'ndof': 25,
+                       'pvalue': '48.0',
+                       'run_number': 10265,
+                       'time': '2017-06-07 04:19:48',
+                       'value': 40.33224553664778}}
+The light yield for Kr: 32.0 keV line is ongoing
+the energy peak: 32.0 with a type:  <class 'float'>
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  3787
+3787
+the value of the binwidth: 4.446112909642974
+number of bins:  28
+the length of the data after the cuts:28
+The fit values:  <ValueView of Minuit at 55c147a4e248>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695
+The chisqr: 
+24.69364111206215
+The fit parameters:  <ValueView of Minuit at 55c147a4e248>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695 <ErrorView of Minuit at 55c147a4e248>
+  a: 5.696587596170958
+  mu: 0.5169027979840634
+  sigma: 0.39566044441719356 0.9877456444824859
+save now the figure 10265_32.0kev_light_yield.png
+{   'light_yield': {   'chi2': 24.69364111206215,
+                       'error': 0.01615321243700198,
+                       'figure': '10265_32.0kev_light_yield.png',
+                       'name': 'light_yield',
+                       'ndof': 25,
+                       'pvalue': '48.0',
+                       'run_number': 10265,
+                       'time': '2017-06-07 04:19:48',
+                       'value': 11.34344405718219}}
+the charge yield for Kr source is calculated for the sum of both gammas: 41.0keV
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  2489
+2489
+the value of the binwidth: 107.1022302492829
+number of bins:  34
+the length of the data after the bining:27
+The fit values:  <ValueView of Minuit at 55c147d0ab58>
+  a: 222.92325315534973
+  mu: 2801.3140454075124
+  sigma: 483.48638618337225
+The chisqr: 
+67.62618699996796
+The fit parameters:  <ValueView of Minuit at 55c147d0ab58>
+  a: 222.92325315534973
+  mu: 2801.3140454075124
+  sigma: 483.48638618337225 <ErrorView of Minuit at 55c147d0ab58>
+  a: 5.369601832784541
+  mu: 9.995248390954687
+  sigma: 6.469836471291927 2.8177577916653314
+save now the figure 10265_41.0keV_charge_yield.png
+{   'charge_yield': {   'chi2': 67.62618699996796,
+                        'error': 0.24378654612084605,
+                        'figure': '10265_41.0keV_charge_yield.png',
+                        'name': 'charge_yield',
+                        'ndof': 24,
+                        'pvalue': '0.0',
+                        'run_number': 10265,
+                        'time': '2017-06-07 04:19:48',
+                        'value': 68.32473281481738}}
+the json file: 10265.json  is being writen 
+{ 'info': { 'context version': 'v1.0',
+            'end_time': 1496828783270546170,
+            'filename': '170607_0919',
+            'offline production time': 1587453752969059072,
+            'original entries': 49674,
+            'run': 10265,
+            'source': 'kr',
+            'start_time': 1496827188162416080,
+            'type': 'calibration',
+            'user': 'sj2538'},
+  'processes': { 'charge_yield': { 'chi2': 67.62618699996796,
+                                   'error': 0.24378654612084605,
+                                   'figure': '10265_41.0keV_charge_yield.png',
+                                   'name': 'charge_yield',
+                                   'ndof': 24,
+                                   'pvalue': '0.0',
+                                   'run_number': 10265,
+                                   'time': '2017-06-07 04:19:48',
+                                   'value': 68.32473281481738},
+                 'el_lifetime': { 'chi2': 17.75917516057755,
+                                  'error': 3.150115341739625,
+                                  'figure': '10265_el_lifetime.png',
+                                  'name': 'electron lifetime [us]',
+                                  'ndof': 11,
+                                  'pvalue': '8.7',
+                                  'run_number': 10265,
+                                  'time': '2017-06-07 04:19:48',
+                                  'value': 583.3027624381818},
+                 'light_yield': { 'chi2': 24.69364111206215,
+                                  'error': 0.01615321243700198,
+                                  'figure': '10265_32.0kev_light_yield.png',
+                                  'name': 'light_yield',
+                                  'ndof': 25,
+                                  'pvalue': '48.0',
+                                  'run_number': 10265,
+                                  'time': '2017-06-07 04:19:48',
+                                  'value': 11.34344405718219}}}
+I don't remove it yet waiting
+the run number is: 10265
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10265
+run_name:170607_0919
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/10265
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471755.7220874
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170607_0919
+End time of processing:  1587471778.603953
+Time take for processing:  22.88186550140381
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 10265
+run_name:170607_0919
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v2.0/10265
+only new process: False
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471755.7220874
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170607_0919
+NEW PROCESS PASSED TO PROCESS MANAGER!!!!
+The electron life time:
+////////////////////
+the type of run number is:  <class 'int'>
+////////////////////
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  3787
+the value of the binwidth: 40.466431821743086
+the number of bins: 15
+If you don't give both of the steps, the fit will use 10% of the max. of the est. values
+The correlation between the variables is: 
+array([[725.46789796,  77.03508223],
+       [ 77.03508223,   9.92291514]])
+None
+The fit values:  <ValueView of Minuit at 55edbc279158>
+  alpha: 7056.27396766819
+  tau: -583.3027624381818
+The chisqr: 
+17.75917516057755
+The fit parameters:  <ValueView of Minuit at 55edbc279158>
+  alpha: 7056.27396766819
+  tau: -583.3027624381818 <ErrorView of Minuit at 55edbc279158>
+  alpha: 26.93486362372673
+  tau: 3.150115341739625 1.6144704691434135
+save now the figure 10265_el_lifetime.png
+the figure name is:  10265_el_lifetime.png
+{   'el_lifetime': {   'chi2': 17.75917516057755,
+                       'error': 3.150115341739625,
+                       'figure': '10265_el_lifetime.png',
+                       'name': 'electron lifetime [us]',
+                       'ndof': 11,
+                       'pvalue': '8.7',
+                       'run_number': 10265,
+                       'time': '2017-06-07 04:19:48',
+                       'value': 583.3027624381818}}
+The light yield for Kr: 9.0 keV line is ongoing
+the energy peak: 9.0 with a type:  <class 'float'>
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  3787
+3787
+the value of the binwidth: 4.446112909642974
+number of bins:  28
+the length of the data after the cuts:28
+The fit values:  <ValueView of Minuit at 55edbc280858>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695
+The chisqr: 
+24.69364111206215
+The fit parameters:  <ValueView of Minuit at 55edbc280858>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695 <ErrorView of Minuit at 55edbc280858>
+  a: 5.696587596170958
+  mu: 0.5169027979840634
+  sigma: 0.39566044441719356 0.9877456444824859
+save now the figure 10265_9.0kev_light_yield.png
+{   'light_yield': {   'chi2': 24.69364111206215,
+                       'error': 0.05743364422045148,
+                       'figure': '10265_9.0kev_light_yield.png',
+                       'name': 'light_yield',
+                       'ndof': 25,
+                       'pvalue': '48.0',
+                       'run_number': 10265,
+                       'time': '2017-06-07 04:19:48',
+                       'value': 40.33224553664778}}
+The light yield for Kr: 32.0 keV line is ongoing
+the energy peak: 32.0 with a type:  <class 'float'>
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  3787
+3787
+the value of the binwidth: 4.446112909642974
+number of bins:  28
+the length of the data after the cuts:28
+The fit values:  <ValueView of Minuit at 55edbd1c1ce8>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695
+The chisqr: 
+24.69364111206215
+The fit parameters:  <ValueView of Minuit at 55edbd1c1ce8>
+  a: 280.9664385491519
+  mu: 362.99020982983006
+  sigma: 26.294748260055695 <ErrorView of Minuit at 55edbd1c1ce8>
+  a: 5.696587596170958
+  mu: 0.5169027979840634
+  sigma: 0.39566044441719356 0.9877456444824859
+save now the figure 10265_32.0kev_light_yield.png
+{   'light_yield': {   'chi2': 24.69364111206215,
+                       'error': 0.01615321243700198,
+                       'figure': '10265_32.0kev_light_yield.png',
+                       'name': 'light_yield',
+                       'ndof': 25,
+                       'pvalue': '48.0',
+                       'run_number': 10265,
+                       'time': '2017-06-07 04:19:48',
+                       'value': 11.34344405718219}}
+the charge yield for Kr source is calculated for the sum of both gammas: 41.0keV
+The number of events in the file before the cuts:  49674
+the number of events in the file is:  2489
+2489
+the value of the binwidth: 107.1022302492829
+number of bins:  34
+the length of the data after the bining:27
+The fit values:  <ValueView of Minuit at 55edbd184678>
+  a: 222.92325315534973
+  mu: 2801.3140454075124
+  sigma: 483.48638618337225
+The chisqr: 
+67.62618699996796
+The fit parameters:  <ValueView of Minuit at 55edbd184678>
+  a: 222.92325315534973
+  mu: 2801.3140454075124
+  sigma: 483.48638618337225 <ErrorView of Minuit at 55edbd184678>
+  a: 5.369601832784541
+  mu: 9.995248390954687
+  sigma: 6.469836471291927 2.8177577916653314
+save now the figure 10265_41.0keV_charge_yield.png
+{   'charge_yield': {   'chi2': 67.62618699996796,
+                        'error': 0.24378654612084605,
+                        'figure': '10265_41.0keV_charge_yield.png',
+                        'name': 'charge_yield',
+                        'ndof': 24,
+                        'pvalue': '0.0',
+                        'run_number': 10265,
+                        'time': '2017-06-07 04:19:48',
+                        'value': 68.32473281481738}}
+the json file: 10265.json  is being writen 
+{ 'info': { 'context version': 'v1.0',
+            'end_time': 1496828783270546170,
+            'filename': '170607_0919',
+            'offline production time': 1587453780218010880,
+            'original entries': 49674,
+            'run': 10265,
+            'source': 'kr',
+            'start_time': 1496827188162416080,
+            'type': 'calibration',
+            'user': 'sj2538'},
+  'processes': { 'charge_yield': { 'chi2': 67.62618699996796,
+                                   'error': 0.24378654612084605,
+                                   'figure': '10265_41.0keV_charge_yield.png',
+                                   'name': 'charge_yield',
+                                   'ndof': 24,
+                                   'pvalue': '0.0',
+                                   'run_number': 10265,
+                                   'time': '2017-06-07 04:19:48',
+                                   'value': 68.32473281481738},
+                 'el_lifetime': { 'chi2': 17.75917516057755,
+                                  'error': 3.150115341739625,
+                                  'figure': '10265_el_lifetime.png',
+                                  'name': 'electron lifetime [us]',
+                                  'ndof': 11,
+                                  'pvalue': '8.7',
+                                  'run_number': 10265,
+                                  'time': '2017-06-07 04:19:48',
+                                  'value': 583.3027624381818},
+                 'light_yield': { 'chi2': 24.69364111206215,
+                                  'error': 0.01615321243700198,
+                                  'figure': '10265_32.0kev_light_yield.png',
+                                  'name': 'light_yield',
+                                  'ndof': 25,
+                                  'pvalue': '48.0',
+                                  'run_number': 10265,
+                                  'time': '2017-06-07 04:19:48',
+                                  'value': 11.34344405718219}}}
+I don't remove it yet waiting
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8424
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8424
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587471783.0001323
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date
+New process is being brought up to date

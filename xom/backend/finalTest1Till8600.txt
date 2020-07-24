@@ -1,0 +1,165 @@
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8424
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8424
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587555863.9774215
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8425
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8425
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587555921.7772212
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8426
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8426
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587555980.4610307
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8427
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8427
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556037.3742747
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8428
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8428
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556095.302721
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8429
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8429
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556154.2711673
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8430
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8430
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556212.2564957
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8431
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8431
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556273.0969443
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8432
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8432
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556329.227178
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8433
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8433
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556386.9037778
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
+New process variable value:  True
+The procesManager has the following parameters:
+run_id: 8434
+run_name:170403_1418
+source:kr
+datatype=calibration
+output folder:/home/sj2538/scratch-midway2/v1.0/8434
+only new process: True
+plugins:  event_info, corrected_areas type: <class 'str'>
+Start Time:  1587556443.5437953
+these are the plugins you are going to use:  ('event_info', 'corrected_areas')
+the source is:  kr
+the run name is:  170403_1418
+ the errro tuple index out of range
+Bringing new process up to date
