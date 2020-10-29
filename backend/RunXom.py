@@ -13,9 +13,13 @@ from datetime import timezone, datetime, timedelta
 
 def RunXom(number,to,debug):
 
+    norecords_types  = ["pulse_counts", "pulse_counts_he", "veto_regions", "lone_hits", "peaklets","peaklets_he","merged_s2s","peak_basics","peaklet_classification","led_calibration"]                
+
+    xom_types  = ["pulse_counts", "veto_regions", "lone_hits", "peaklets","merged_s2s","peak_basics","peaklet_classification"]                
+
     db = pymongo_collection('runs')
 
-#    number = 9269
+    #number = 9707
 
     if to>number:
         cursor = db.find({
@@ -37,6 +41,19 @@ def RunXom(number,to,debug):
         print('Run: {0}'.format(number))
         status = run['status']
         print('Run: {0}'.format(status))
+
+        available_types = set()
+
+        for data in run['data']:
+            if data['location']=='UC_DALI_USERDISK' and data['status']=='transferred' and data['type'] in xom_types:
+                available_types.add(data['type'])
+        if len(available_types)!=len(xom_types):
+            continue 
+        print('All types needed available. Ready to process.')
+            
+        
+    
+        
 
 
 
