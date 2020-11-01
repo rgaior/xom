@@ -8,8 +8,11 @@ from utilix.config import Config
 import utilix
 from bson.json_util import dumps
 from datetime import timezone, datetime, timedelta
-
-
+import strax
+import straxen
+import sys
+sys.path.append('/home/lmanenti/XENONnT/xom/backend/plugins/')
+from dummy import MyPlugin
 
 def RunXom(number,to,debug):
 
@@ -33,6 +36,8 @@ def RunXom(number,to,debug):
         print('Run that will be processed is {0}'.format(number))
     cursor = list(cursor)
 
+    electron_lifetimes = {}
+
     # Runs over all listed runs
     for run in cursor:
 
@@ -50,10 +55,14 @@ def RunXom(number,to,debug):
         if len(available_types)!=len(xom_types):
             continue 
         print('All types needed available. Ready to process.')
-            
         
+        #electron_lifetimes.append(plugin[run])        
+        st = straxen.contexts.xenonnt_online()
+        st.register(MyPlugin)
+        st.make('009679', 'fancy_peaks')
+        st.get_array('009679', 'fancy_peaks')
     
-        
+    #json.append(cursor, electron_lifetimes)
 
 
 
