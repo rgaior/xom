@@ -65,8 +65,6 @@ def RunXom(number,to,debug):
     #json.append(cursor, electron_lifetimes)
 
 
-
-
 def main():
     parser = ArgumentParser("RunXom")
 
