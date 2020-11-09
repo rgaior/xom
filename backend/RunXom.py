@@ -11,8 +11,7 @@ from datetime import timezone, datetime, timedelta
 import strax
 import straxen
 import sys
-sys.path.append('/home/lmanenti/XENONnT/xom/backend/plugins/')
-from dummy import MyPlugin
+from plugins.dummy import MyPlugin
 
 def RunXom(number,to,debug):
 
