@@ -11,8 +11,7 @@ from datetime import timezone, datetime, timedelta
 import strax
 import straxen
 import sys
-sys.path.append('/home/lmanenti/XENONnT/xom/backend/plugins/')
-from dummy import MyPlugin
+from plugins.dummy import MyPlugin
 
 def RunXom(number,to,debug):
 
@@ -59,9 +58,10 @@ def RunXom(number,to,debug):
         #electron_lifetimes.append(plugin[run])        
         st = straxen.contexts.xenonnt_online()
         st.register(MyPlugin)
-        st.make('009679', 'fancy_peaks')
-        st.get_array('009679', 'fancy_peaks')
-    
+        snumber = "{:06d}".format(number)
+        st.make(snumber, 'peak_basics')
+        st.get_array(snumber, 'fancy_peaks')
+
     #json.append(cursor, electron_lifetimes)
 
 
