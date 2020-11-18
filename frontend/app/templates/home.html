@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+/* This stylesheet sets the width of all images to 100%: */
+img {
+  width: 100%;
+}
+
+.welcom {
+text-align: center;
+font-family : Avenir Black
+}
+
+</style>
+<title>home</title>
+<img src="{{url_for('static', filename='pictures/bandeau_head.png')}}" align="middle" />
+</head>
+
+<body>
+
+  {% include 'nav.html' %}
+  {{body}}
+  <!--  <div class="container">
+      
+    </div>
+  -->
+    
+</body>
+
+</html>
