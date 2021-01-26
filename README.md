@@ -1,6 +1,5 @@
-=====
 XOM - Xenon Offline Monitoring
-=====
+=
 
 * Free software: BSD license
 * Documentation: Available on internal XENON wiki
