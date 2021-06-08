@@ -10,7 +10,7 @@ from bson.json_util import dumps
 def FillCollection():
 
     # Connecting to the XOM DB
-    client = MongoClient( "localhost", 27017)
+    client = MongoClient( "90.147.119.208", 27017)
 
     # Accessing to XOM database
     xom = client['xom']
@@ -19,7 +19,7 @@ def FillCollection():
 def ShowXomDB():
 
     # Connecting to the XOM DB
-    client = MongoClient( "localhost", 27017)
+    client = MongoClient( "90.147.119.208", 27017)
     #client.server_info()
 
     # Getting the list of databases
