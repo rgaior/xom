@@ -1,0 +1,93 @@
+:root {
+  --primary-color:#0C1178;
+  --bkg-color:#F2F2F2;
+}
+
+body {
+  background: #F2F2F2;
+  margin: 0;
+  font-family: Calibri;
+}
+
+body .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  place-content: space-between;
+}
+
+.logodiv {
+  margin-left: 3em;
+  width: 40%;
+  float: left;
+}
+
+.linksdiv {
+  width: 55%;
+  float: right;
+}
+
+.logoim {
+  width: 40px;
+}
+
+.logodiv a {
+  font-weight: 50;
+}
+
+.navbar .container {
+  background: var(--primary-color);
+  height: 40px;
+  padding: 1em;
+}
+
+.navbar .container .logo{
+  text-decoration: none;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  font-size: 1.4em;
+  color: white;
+}
+
+.navbar .container .linksdiv .navlink{
+  text-decoration: none;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  font-size: 1.4em;
+  color: white;
+}
+
+.navbar .container .logo span {
+  font-weight: bold;
+}
+
+.navbar nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: unset;
+  height: auto;
+  width: 100%;
+}
+
+.navbar nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style-type: none;
+  text-align: right;
+  margin: 0;
+  color: white
+}
+
+.navbar nav li:last-child {
+  margin-left: 2em;
+}
+
+.navbar nav img {
+  width: 65%;
+}
+/*# sourceMappingURL=main.css.map */
