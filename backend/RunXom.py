@@ -37,9 +37,6 @@ def RunXom(number,to,debug):
 
     electron_lifetimes = {}
 
-    # {"algorithm_name","version","run_number"}
-
-
     # Runs over all listed runs
     for run in cursor:
 
@@ -57,12 +54,6 @@ def RunXom(number,to,debug):
         if len(available_types)!=len(xom_types):
             continue 
         print('All types needed available. Ready to process.')
-
-#        for algorithm in algorithms:
-#            command = "python "+algorithm+".py "+str(number)
-#            status = os.system(command)
-#            if status!=0:
-#                print("Warning the ....")
         
         #electron_lifetimes.append(plugin[run])        
         st = straxen.contexts.xenonnt_online()
