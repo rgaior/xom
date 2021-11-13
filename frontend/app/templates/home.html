@@ -1,30 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-/* This stylesheet sets the width of all images to 100%: */
-img {
-  width: 100%;
-}
-
-.welcom {
-text-align: center;
-font-family : Avenir Black
-}
-
-</style>
-<title>home</title>
-<img src="{{url_for('static', filename='pictures/bandeau_head.png')}}" align="middle" />
-</head>
-
-<body>
-
-  {% include 'nav.html' %}
-  {{body}}
-  <!--  <div class="container">
+  <head>
+    <style>
+      <!-- --primary-color:#0C1178; -->
+      <!-- --bkg-color:#F2F2F2; -->
+      <!-- * { -->
+      box-sizing: border-radius;
+      font-family: "Rubik", sans-serif;
+      }
       
-    </div>
-  -->
-    
-</body>
+      .navcontainer {
+      border: 0px solid black;
+      position: flex;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      display: grid;
+      place-items: center;
+      }
+      
+      .items {
+      border-radius:10px;
+      margin: 10px;
+      width: 400px;
+      background: #F2F2F2; 
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      border-top: 10px solid #0C1178;
+      }
 
+      .items-head p {
+      padding: 5px 20px;
+      margin: 10px;
+      color: #0C1178;
+      font-size: 30px;
+      }
+
+      .items-head hr {
+      width: 20%;
+      margin: 0px 30px;
+      border: 1px solid #0C1178;
+      }
+ 
+      .items-body {
+      padding: 10px;
+      margin: 10px;
+      display: grid;
+      grid-gap: 10px;
+      }
+
+      .items-body-content {
+      padding: 10px;
+      padding-right: 0px;
+      display: grid;
+      grid-template-columns: 10fr 1fr;
+      font-size: 20px;
+      grid-gap: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      }
+
+      .items-body-content:hover {
+      border-radius: 15px;
+      border: 1px solid #0C1178;
+      }
+
+      .items-body-content:hover.tooltiptext {
+      visibility: visible;
+      font-size: 15px;
+      }
+      
+      .items-body-content i {
+      align-self: center;
+      font-size: 15px;
+      color: #0B5AA2;
+      font-weight: bold;
+      animation: icon 1.5s infinite forwards;
+      }
+
+      .items-body-content a {
+      text-decoration: none;
+      }
+
+      .tooltip {
+      position: relative;
+      display: inline-block;
+      }
+
+      .items-body-content .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+  
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 150%;
+      }
+
+      .items-body-content .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent black transparent transparent;
+      }
+      
+      .items-body-content:hover .tooltiptext {
+      visibility: visible;
+      font-size: 15px;
+      }
+      
+      @keyframes icon {
+      0%, 100% {
+      transform: translate(1px);
+      }
+      50% {
+      transform: translate(3px);
+      }
+      }
+
+
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xenon Offline Monitoring</title>
+    <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"> -->
+   </head>
+
+
+  {% extends "base.html" %}
+
+
+  {% block content %}
+  <div class="navcontainer">
+    <div class="items">
+      <div class="items-head">
+      	<p>Applications</p>
+      	<hr>
+      </div>
+      
+      <div class="items-body">
+
+	<div class="items-body-content">
+      	  <a  href="/dash/app1/" >
+	    <div class="tooltip"> electron life time and fit
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
+          <i class="fa fa-angle-right"></i>
+      	</div>
+	
+      	<div class="items-body-content">
+      	  <a  href="/dash/app2/" >
+	    <div class="tooltip">selection boxes example
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
+      	  <i class="fa fa-angle-right"></i>
+      	</div>
+
+      	<div class="items-body-content">
+      	  <a  href="/dash/app3/" >
+	    <div class="tooltip">electron life time and charge yield
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
+          <i class="fa fa-angle-right"></i>
+      	</div>
+
+	<div class="items-body-content">
+          <a  href="/dash/app4/">
+	    <div class="tooltip">correlation plots
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
+          <i class="fa fa-angle-right"></i>
+	</div>
+
+	<div class="items-body-content">
+          <a  href="/dash/app5/">
+	    <div class="tooltip">test
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
+          <i class="fa fa-angle-right"></i>
+	</div>
+
+      </div>
+    </div>
+  </div>
+
+
+  
+  {{body}}
+  {% endblock %}
 </html>

@@ -1,15 +1,46 @@
 :root {
-  --primary-color:#0C1178;
-  --bkg-color:#F2F2F2;
+    --primary-color:#0C1178;
+    --bkg-color:#F2F2F2;
+  }
+
+  .navbar .container {
+    background: var(--primary-color);
+    height: 72px;
+    padding: 1em;
+    max-width: 3000px;
+    margin: 0;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  body {
+    background: #F2F2F2;
+    margin: 0;
+    font-family: Calibri;
+  }
+ 
+
+
+/* For devices larger than 400px */
+@media (min-width: 400px) {
+  .container {
+    width: 100%;
+    padding: 0; }
 }
 
-body {
-  background: #F2F2F2;
-  margin: 0;
-  font-family: Calibri;
-}
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  .container {
+    width: 100%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
 
-body .container {
+  
+
+  body .container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,7 +48,7 @@ body .container {
 }
 
 .logodiv {
-  margin-left: 3em;
+  margin-left: 0em;
   width: 40%;
   float: left;
 }
@@ -35,11 +66,7 @@ body .container {
   font-weight: 50;
 }
 
-.navbar .container {
-  background: var(--primary-color);
-  height: 40px;
-  padding: 1em;
-}
+
 .navbar .container .logo {
   text-decoration: none;
   font-style: normal;

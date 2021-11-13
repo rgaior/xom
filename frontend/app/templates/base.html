@@ -1,32 +1,64 @@
-<style>
-/* This stylesheet sets the width of all images to 100%: */
-img {
-  width: 100%;
-}
-
-.welcom {
-text-align: center;
-font-family : Avenir Black
-}
-
-</style>
-<title>Page Title</title>
-<img src="{{url_for('static', filename='pictures/bandeau_head.png')}}" align="middle" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xenon Offline Monitoring</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
 </head>
+
+
 <body>
 
-  <div class="welcom">
-    <h3>Test version of the XOM </h3>
-<!--  <a href="{{ url_for('main.index') }}"> <h2>Home </h2></a> -->
-  {% if current_user.is_anonymous %}
-  <a href="{{ url_for('main.login') }}"> <h2>Login </h2></a>
-  {% else %}
-  <a href="{{ url_for('main.logout') }}"><h2>Logout </h2></a>
-  <a href="{{ url_for('main_bp.home') }}"><h2>Monitoring page </h2></a>
-  {% endif %}
+  <div class="navbar">
+    <div class="container">
 
- {% block content %} 
-  {% endblock %}
+      <div class="logodiv">
+        <img class="logoim" src="{{url_for('static', filename='pictures/xenonlogo.svg')}}" align="middle" />
+	<a class="logo" href="{{ url_for('main.index') }}"> <span>X</span>enon <span>O</span>ffline <span>M</span>onitoring </a>
+      </div><!--logo div-->
+
+      <div class="linksdiv">
+	{% if current_user.is_anonymous %}
+	<ul>
+            <li><a href="{{ url_for('main_bp.home') }}">
+              <img src="{{url_for('static', filename='pictures/appbutton.svg')}}" align="middle" />
+	      <a href="{{ url_for('main.login') }}"> <h2>Login </h2></a>
+	    </a></li> 
+	</ul>
+	{% else %}
+	<nav class="navlink">
+          <ul>
+            <li><a href="{{ url_for('main_bp.home') }}">
+              <img src="{{url_for('static', filename='pictures/appbutton.svg')}}" align="middle" />
+            </a></li>
+            <li><a href="{{ url_for('main_bp.home') }}">
+              <img src="{{url_for('static', filename='pictures/quickviewbutton.svg')}}" align="middle" />
+            </a></li>
+            <li><a href="{{ url_for('main.logout') }}">
+             <img src="{{url_for('static', filename='pictures/logoutbutton.svg')}}" align="middle" />
+            </a></li>
+          </ul>
+        </nav> <!--nav bar-->
+	{% endif %}
+      </div>  <!--links-->
+
+    </div>
+  </div>
+
+  
+<!--   <div class="welcom"> -->
+<!--     <h3>Test version of the XOM </h3> -->
+<!-- <\!--  <a href="{{ url_for('main.index') }}"> <h2>Home </h2></a> -\-> -->
+<!--   {% if current_user.is_anonymous %} -->
+<!--   <a href="{{ url_for('main.login') }}"> <h2>Login </h2></a> -->
+<!--   {% else %} -->
+<!--   <a href="{{ url_for('main.logout') }}"><h2>Logout </h2></a> -->
+<!--   <a href="{{ url_for('main_bp.home') }}"><h2>Monitoring page </h2></a> -->
+<!--   {% endif %} -->
+
+{% block content %} 
+{% endblock %}
 
 </div>
 </body>

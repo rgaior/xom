@@ -1,15 +1,23 @@
 :root {
-  --primary-color:#0C1178;
-  --bkg-color:#F2F2F2;
-}
+    --primary-color:#0C1178;
+    --bkg-color:#F2F2F2;
+  }
 
-body {
-  background: #F2F2F2;
-  margin: 0;
-  font-family: Calibri;
-}
+  .navbar .container {
+    background: var(--primary-color);
+    height: 60px;
+    padding: 1em;
+  }
+  body {
+    background: #F2F2F2;
+    margin: 0;
+    font-family: Calibri;
+  }
+ 
 
-body .container {
+
+
+  body .container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,7 +25,7 @@ body .container {
 }
 
 .logodiv {
-  margin-left: 3em;
+  margin-left: 0em;
   width: 40%;
   float: left;
 }
@@ -35,11 +43,7 @@ body .container {
   font-weight: 50;
 }
 
-.navbar .container {
-  background: var(--primary-color);
-  height: 40px;
-  padding: 1em;
-}
+
 .navbar .container .logo {
   text-decoration: none;
   font-style: normal;
