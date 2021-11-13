@@ -7,6 +7,16 @@ import pymongo
 from pymongo import MongoClient
 from bson.json_util import dumps
 
+serveraddress = {'dali':"90.147.119.208",'lngs':"127.0.0.1"}
+
+def ConnectToDB(server):
+    try:
+        client = MongoClient(serveraddress[server], 27017)
+    except:
+        print('could not connect to the DB from  {} with address {} '.format(server, serveraddress[server]))
+
+    return client
+
 def LoadData(filename):
     dataset = {}
     with open(filename,'r') as f:
@@ -16,10 +26,10 @@ def LoadData(filename):
 
 
 
-def UploadVariable():
+def UploadVariable(server='dali'):
 
     # Connecting to the XOM DB
-    client = MongoClient( "90.147.119.208", 27017)
+    client = ConnectToDB(server)    
 
     # Accessing to XOM database
     database = client['xom']
@@ -27,21 +37,29 @@ def UploadVariable():
     # Accessing to Data collection
     variables = database['variables']
 
-    variable = {}
-    variable['name'] = 'lightyield'
-    variable['legend_name'] = 'Light Yield'
-    variable['unit'] = '[PE/KeV]'
-    variable['logy'] = False
+
+
+    variabledef = {}
+    with open('variables.json','r') as f:
+        variabledef = json.load(f)
+        f.close()
+
+    print (variabledef)
+    # variable = {}
+    # variable['name'] = 'lightyield'
+    # variable['legend_name'] = 'Light Yield'
+    # variable['unit'] = '[PE/KeV]'
+    # variable['logy'] = False
 
 
     # Uploads data
-    variables.insert_many([variable])
+    variables.insert_many(variabledef)
 
 
 def UploadData():
 
     # Connecting to the XOM DB
-    client = MongoClient( "90.147.119.208", 27017)
+    client = ConnectToDB(server)
 
     # Accessing to XOM database
     database = client['xom']
@@ -57,10 +75,10 @@ def UploadData():
 
     
 
-def ShowXomDB():
+def ShowXomDB(server='dali'):
 
     # Connecting to the XOM DB
-    client = MongoClient( "90.147.119.208", 27017)
+    client = ConnectToDB(server)
     #client.server_info()
 
     # Getting the list of databases
@@ -100,19 +118,20 @@ def main():
 
     parser = ArgumentParser("XomDB")
 
+    parser.add_argument("server", nargs='?', type=str, default='dali', help="what server the script is run on, will change the address to connect for mongodb")
     parser.add_argument("--show", help="Shows informations and statistics about the database", action='store_true')
     parser.add_argument("--upload", help="Uploads data from a json file to XOM database", action='store_true')
     parser.add_argument("--upload_variable", help="Uploads the definition of a new variable in the XOM database", action='store_true')
 
     args = parser.parse_args()
-
+    server = args.server
     if (args.show):
-        ShowXomDB()
+        ShowXomDB(server)
     if (args.upload):
-        UploadData()
+        UploadData(server)
     if (args.upload_variable):
-        UploadVariable()
-
+        UploadVariable(server)
+    
 
 if __name__ == "__main__":
     main()

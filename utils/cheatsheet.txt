@@ -1,0 +1,16 @@
+#################################
+#########   mongodb  ############
+#################################
+
+show mongodb: mongo
+show databases: show dbs
+switch to <db>: use db
+show collections: show collections
+
+print one document of the collection: db.<collectionname>.findOne()
+print all document of the collection: db.<collectionname>.find()
+
+erase one document of the collection: db.<collectionname>.deleteOne({status:"test"})
+erase several documents of the collection: db.<collectionname>.deleteMany({status:"test"})
+
+
