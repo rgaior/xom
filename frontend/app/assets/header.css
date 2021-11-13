@@ -1,0 +1,109 @@
+:root {
+    --primary-color:#0C1178;
+    --bkg-color:#F2F2F2;
+  }
+
+  .navbar .container {
+    background: var(--primary-color);
+    height: 72px;
+    padding: 1em;
+    max-width: 3000px;
+    margin: 0;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  body {
+    background: #F2F2F2;
+    margin: 0;
+    font-family: Calibri;
+  }
+ 
+
+
+/* For devices larger than 400px */
+@media (min-width: 400px) {
+  .container {
+    width: 100%;
+    padding: 0; }
+}
+
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  .container {
+    width: 100%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+
+  
+
+  body .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  place-content: space-between;
+}
+
+.logodiv {
+  margin-left: 0em;
+  width: 40%;
+  float: left;
+}
+
+.linksdiv {
+  width: 55%;
+  float: right;
+}
+
+.logoim {
+  width: 40px;
+}
+
+.logodiv a {
+  font-weight: 50;
+}
+
+
+.navbar .container .logo {
+  text-decoration: none;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  font-size: 1.4em;
+  color: white;
+}
+
+.navbar .container .logo span {
+  font-weight: bold;
+}
+
+.navbar nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: unset;
+  height: auto;
+  width: 100%;
+}
+
+.navbar nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style-type: none;
+  text-align: right;
+  margin: 0;
+}
+
+.navbar nav li:last-child {
+  margin-left: 2em;
+}
+
+.navbar nav img {
+  width: 65%;
+}

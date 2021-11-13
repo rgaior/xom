@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xenon Offline Monitoring</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+</head>
+{% extends "base.html" %}
+<body>
+
+{% block content %}
+
+<!-- <div class="navcontainer"> -->
+<!--   <div class="items"> -->
+<!--     <div class="items-head"> -->
+<!--       <p>UX DESIGN</p> -->
+<!--       <hr> -->
+<!--     </div> -->
+    
+<!--     <div class="items-body"> -->
+<!--       <div class="items-body-content"> -->
+<!--         <span>Web Usabilty Testing</span> -->
+<!--         <i class="fa fa-angle-right"></i> -->
+<!--       </div> -->
+<!--       <div class="items-body-content"> -->
+<!--         <span>Design of Everyday Things</span> -->
+<!--         <i class="fa fa-angle-right"></i> -->
+<!--       </div> -->
+<!--       <div class="items-body-content"> -->
+<!--         <span>Practical Empathy: For Collaboration & Creativity in Your Work</span> -->
+<!--         <i class="fa fa-angle-right"></i> -->
+<!--       </div> -->
+<!--       <div class="items-body-content"> -->
+<!--         <span>About Face: The Essentials of Interaction Design</span> -->
+<!--         <i class="fa fa-angle-right"></i> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+{% include 'nav.html'%}
+
+{{body}}
+{% endblock %}
+  <!--  <div class="container">
+      
+    </div>
+  -->
+    
+</body>
+
+</html>

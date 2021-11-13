@@ -22,6 +22,7 @@
       }
       
       .items {
+      border-radius:10px;
       margin: 10px;
       width: 400px;
       background: #F2F2F2; 
@@ -65,6 +66,11 @@
       border: 1px solid #0C1178;
       }
 
+      .items-body-content:hover.tooltiptext {
+      visibility: visible;
+      font-size: 15px;
+      }
+      
       .items-body-content i {
       align-self: center;
       font-size: 15px;
@@ -77,6 +83,43 @@
       text-decoration: none;
       }
 
+      .tooltip {
+      position: relative;
+      display: inline-block;
+      }
+
+      .items-body-content .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+  
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 150%;
+      }
+
+      .items-body-content .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent black transparent transparent;
+      }
+      
+      .items-body-content:hover .tooltiptext {
+      visibility: visible;
+      font-size: 15px;
+      }
+      
       @keyframes icon {
       0%, 100% {
       transform: translate(1px);
@@ -108,25 +151,58 @@
       </div>
       
       <div class="items-body">
-      	<div class="items-body-content">
-      	  <a  href="/dash/app1/" > <span>electron life time and fit</span> </a>
+
+	<div class="items-body-content">
+      	  <a  href="/dash/app1/" >
+	    <div class="tooltip"> electron life time and fit
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
           <i class="fa fa-angle-right"></i>
       	</div>
+	
       	<div class="items-body-content">
-      	  <a  href="/dash/app2/" ><span>selection boxes example</span> </a>
+      	  <a  href="/dash/app2/" >
+	    <div class="tooltip">selection boxes example
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
       	  <i class="fa fa-angle-right"></i>
       	</div>
+
       	<div class="items-body-content">
-      	  <a  href="/dash/app3/" >  <span>electron life time and charge yield</span> </a>
+      	  <a  href="/dash/app3/" >
+	    <div class="tooltip">electron life time and charge yield
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
           <i class="fa fa-angle-right"></i>
       	</div>
+
 	<div class="items-body-content">
-          <a  href="/dash/app4/"> <span>correlation plots</span> </a>
+          <a  href="/dash/app4/">
+	    <div class="tooltip">correlation plots
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
           <i class="fa fa-angle-right"></i>
 	</div>
+
+	<div class="items-body-content">
+          <a  href="/dash/app5/">
+	    <div class="tooltip">test
+	      <span class="tooltiptext">Description of the application</span>
+ 	    </div>
+	  </a>
+          <i class="fa fa-angle-right"></i>
+	</div>
+
       </div>
     </div>
   </div>
+
+
+  
   {{body}}
   {% endblock %}
 </html>

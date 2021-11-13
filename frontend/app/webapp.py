@@ -24,7 +24,7 @@ main_bp = Blueprint('main_bp', __name__,
 
 @server_bp.route('/')
 def index():
-    return render_template("index.html", title='Home Page')
+    return render_template("login.html", title='Home Page')
 
 
  
