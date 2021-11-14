@@ -56,8 +56,8 @@ def UploadVariable(server='dali'):
     variables.insert_many(variabledef)
 
 
-def UploadData():
-
+def UploadData(server='dali'):
+    print('uploading data')
     # Connecting to the XOM DB
     client = ConnectToDB(server)
 
