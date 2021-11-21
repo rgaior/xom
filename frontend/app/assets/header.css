@@ -6,8 +6,8 @@
   .navbar .container {
     background: var(--primary-color);
     height: 72px;
-    padding: 1em;
-    max-width: 3000px;
+    padding: 0em;
+    max-width: 2000px;
     margin: 0;
     margin-left: 0px;
     margin-right: 0px;
@@ -29,16 +29,16 @@
 
 /* For devices larger than 550px */
 @media (min-width: 550px) {
-  .container {
-    width: 100%; }
-  .column,
-  .columns {
-    margin-left: 4%; }
-  .column:first-child,
-  .columns:first-child {
-    margin-left: 0; }
 
   
+  /* .container { */
+  /*   width: 100%; } */
+  /* .column, */
+  /* .columns { */
+  /*   margin-left: 0%; } */
+  /* .column:first-child, */
+  /* .columns:first-child { */
+  /*   margin-left: 0; } */
 
   body .container {
   display: -webkit-box;
@@ -48,26 +48,33 @@
 }
 
 .logodiv {
-  margin-left: 0em;
-  width: 40%;
-  float: left;
+    margin-left: 3em;
+    margin-top: 0.7em;
+    width: 40%;
+    float: left;
 }
 
 .linksdiv {
   width: 55%;
-  float: right;
+  float: left;
 }
 
 .logoim {
   width: 40px;
+  margin-bottom: 4em;
 }
 
 .logodiv a {
   font-weight: 50;
+  color: white;
+  text-decoration: none;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  position: absolute;
 }
 
 
-.navbar .container .logo {
+.navbar .container{
   text-decoration: none;
   font-style: normal;
   font-variant-caps: small-caps;
@@ -75,7 +82,7 @@
   color: white;
 }
 
-.navbar .container .logo span {
+.navbar .container .logodiv span {
   font-weight: bold;
 }
 
@@ -91,7 +98,7 @@
   width: 100%;
 }
 
-.navbar nav ul {
+.navbar ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -100,10 +107,7 @@
   margin: 0;
 }
 
-.navbar nav li:last-child {
+.navbar li:last-child {
   margin-left: 2em;
 }
 
-.navbar nav img {
-  width: 65%;
-}

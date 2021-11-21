@@ -80,3 +80,17 @@ body .container {
 .navbar nav img {
   width: 65%;
 }
+
+.loginrequest {
+    position: absolute;
+    left: 42%;
+    top: 50px;
+    padding: 10px;
+}
+
+.loggedin {
+    position: absolute;
+    left: 32%;
+    top: 100px;
+    padding: 10px;
+}

@@ -37,7 +37,7 @@ def UploadVariable(server='dali'):
     # Accessing to Data collection
     variables = database['variables']
 
-
+    variables.delete_many({})
 
     variabledef = {}
     with open('variables.json','r') as f:

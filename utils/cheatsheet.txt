@@ -14,3 +14,21 @@ erase one document of the collection: db.<collectionname>.deleteOne({status:"tes
 erase several documents of the collection: db.<collectionname>.deleteMany({status:"test"})
 
 
+
+
+#########################################
+##### how to add a new variable #########
+#########################################
+- copy paste a variable block in the variables.json
+- change what needs to be changed
+- upload with XomdB.py
+
+
+########################################################
+##### check the output print of dash and flask #########
+########################################################
+- restart the xom website:sudo systemctl restart xom
+- look at the following file:tail -100 /var/log/gunicorn/error.log
+
+
+
