@@ -24,14 +24,14 @@ main_bp = Blueprint('main_bp', __name__,
 
 @server_bp.route('/')
 def index():
-    return render_template("login.html", title='Home Page')
-
+# #    return render_template("login.html", title='Home Page')
+    return render_template("index.html", title='Home Page')
 
  
 @server_bp.route('/login/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main_bp.home'))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -55,8 +55,8 @@ def login():
         flash('You have successfully logged in.', 'success')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-#            next_page = url_for('main.index')
-            next_page = url_for('main_bp.home')
+            next_page = url_for('main.index')
+#            next_page = url_for('main_bp.home')
         return redirect(next_page)
 
     return render_template('login.html', title='Sign In', form=form)
