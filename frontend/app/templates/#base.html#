@@ -24,7 +24,7 @@
           <li><a href="{{ url_for('main_bp.home') }}">
               <img src="{{url_for('static', filename='pictures/appbutton.svg')}}" align="middle" />
           </a></li>
-          <li><a href="/dash/app5/">
+          <li><a href="{{ url_for('main_bp.home') }}">
               <img src="{{url_for('static', filename='pictures/quickviewbutton.svg')}}" align="middle" />
           </a></li>
           <li><a href="{{ url_for('main.logout') }}">

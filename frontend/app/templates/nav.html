@@ -1,71 +1,160 @@
-<style>
-/* This stylesheet sets the width of all images to 100%: */
-img {
-width: 100%;
-}
-* {
-box-sizing: border-box;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    * {
+  box-sizing: border-radius;
+  font-family: "Rubik", sans-serif;
 }
 
-.column {
-  float: left;
-  width: 22.5%;
-text-align: center;
-font-family : Avenir Black
+.navcontainer {
+  border: 1px solid black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  background-color: #128CFC;
 }
-.sep {
-  float: left;
-  width: 2%;
+
+.items {
+  width: 300px;
+  background: #fffffe;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-top: 10px solid #0B5AA2;
 }
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+
+.items-head p {
+  padding: 5px 20px;
+  margin: 10px;
+  color: #0B5AA2;
+  font-weight: bold;
+  font-size: 20px;
 }
-.text { font-family: Avenir Black, serif; font-size:14pt; font-style:italic; }
+
+.items-head hr {
+  width: 20%;
+  margin: 0px 30px;
+  border: 1px solid #0B5AA2;
+}
+
+.items-body {
+  padding: 10px;
+  margin: 10px;
+  display: grid;
+  grid-gap: 10px;
+}
+
+.items-body-content {
+  padding: 10px;
+  padding-right: 0px;
+  display: grid;
+  grid-template-columns: 10fr 1fr;
+  font-size: 13px;
+  grid-gap: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.items-body-content:hover {
+  border-radius: 15px;
+  border: 1px solid #0B5AA2;
+}
+
+.items-body-content i {
+  align-self: center;
+  font-size: 15px;
+  color: #0B5AA2;
+  font-weight: bold;
+  animation: icon 1.5s infinite forwards;
+}
+
+@keyframes icon {
+  0%, 100% {
+    transform: translate(0px);
+  }
+  50% {
+    transform: translate(3px);
+  }
+}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xenon Offline Monitoring</title>
 </style>
+</head>
 
-<nav>
-<div class="row">
-    <p></p>
+
+<div class="navcontainer">
+  <div class="items">
+    <div class="items-head">
+      <p>UX DESIGN</p>
+      <hr>
+    </div>
+    
+    <div class="items-body">
+      <div class="items-body-content">
+        <span>Web Usabilty Testing</span>
+        <i class="fa fa-angle-right"></i>
+      </div>
+      <div class="items-body-content">
+        <span>Design of Everyday Things</span>
+        <i class="fa fa-angle-right"></i>
+      </div>
+      <div class="items-body-content">
+        <span>Practical Empathy: For Collaboration & Creativity in Your Work</span>
+        <i class="fa fa-angle-right"></i>
+      </div>
+      <div class="items-body-content">
+        <span>About Face: The Essentials of Interaction Design</span>
+        <i class="fa fa-angle-right"></i>
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- <nav> -->
+<!-- <div class="row"> -->
+<!--     <p></p> -->
+<!-- </div> -->
 
-<div class="row">
-  <div class="sep" style="background-color:#FFFFFF;">
-    <p></p>
-  </div>
-  <div class="column" style="background-color:#F0F8FF;">
-  <a href="/dash/app1/"><i class="fas fa-chart-line"></i> <h2>App 1</h2></a>    
-    <p>display the fitted distribution the point is issued from </p>
-  </div>
-  <div class="sep" style="background-color:#FFFFFF;">
-    <p></p>
-  </div>
-  <div class="column" style="background-color:#F0F8FF;">
-  <a href="/dash/app2/"><i class="fas fa-chart-line"></i> <h2>App 2</h2></a>    
-    <p>example of linked selection and table</p>
-  </div>
-  <div class="sep" style="background-color:#FFFFFF;">
-    <p></p>
-  </div>
-  <div class="column" style="background-color:#F0F8FF;">
-  <a href="/dash/app3/"><i class="fas fa-chart-line"></i> <h2>App 3</h2></a>    
-    <p>version comparison</p>
-  </div>
-  <div class="sep" style="background-color:#FFFFFF;">
-    <p></p>
-  </div>
-  <div class="column" style="background-color:#F0F8FF;">
-  <a href="/dash/app4/"><i class="fas fa-chart-line"></i> <h2>App 4</h2></a>    
-    <p>correlation plot</p>
-  </div>
-  <div class="sep" style="background-color:#FFFFFF;">
-    <p></p>
-  </div>
-</div>
-<p style="font-family: Avenir Black; font-size:20pt; font-style:bold">
-  <a href="https://xe1t-offlinemon.lngs.infn.it/logout/"> LOGOUT</a>    
-</p>
-</nav>
+
+<!-- <div class="row"> -->
+<!--   <div class="sep" style="background-color:#FFFFFF;"> -->
+<!--     <p></p> -->
+<!--   </div> -->
+<!--   <div class="column" style="background-color:#F0F8FF;"> -->
+<!--   <a href="/dash/app1/"><i class="fas fa-chart-line"></i> <h2>App 1</h2></a>     -->
+<!--     <p>display the fitted distribution the point is issued from </p> -->
+<!--   </div> -->
+<!--   <div class="sep" style="background-color:#FFFFFF;"> -->
+<!--     <p></p> -->
+<!--   </div> -->
+<!--   <div class="column" style="background-color:#F0F8FF;"> -->
+<!--   <a href="/dash/app2/"><i class="fas fa-chart-line"></i> <h2>App 2</h2></a>     -->
+<!--     <p>example of linked selection and table</p> -->
+<!--   </div> -->
+<!--   <div class="sep" style="background-color:#FFFFFF;"> -->
+<!--     <p></p> -->
+<!--   </div> -->
+<!--   <div class="column" style="background-color:#F0F8FF;"> -->
+<!--   <a href="/dash/app3/"><i class="fas fa-chart-line"></i> <h2>App 3</h2></a>     -->
+<!--     <p>version comparison</p> -->
+<!--   </div> -->
+<!--   <div class="sep" style="background-color:#FFFFFF;"> -->
+<!--     <p></p> -->
+<!--   </div> -->
+<!--   <div class="column" style="background-color:#F0F8FF;"> -->
+<!--   <a href="/dash/app4/"><i class="fas fa-chart-line"></i> <h2>App 4</h2></a>     -->
+<!--     <p>correlation plot</p> -->
+<!--   </div> -->
+<!--   <div class="sep" style="background-color:#FFFFFF;"> -->
+<!--     <p></p> -->
+<!--   </div> -->
+<!-- </div> -->
+<!-- <p style="font-family: Avenir Black; font-size:20pt; font-style:bold"> -->
+<!--   <a href="https://xe1t-offlinemon.lngs.infn.it/logout/"> LOGOUT</a>     -->
+<!-- </p> -->
+<!-- </nav> -->

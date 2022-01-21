@@ -13,23 +13,27 @@ def create_app():
     register_extensions(server)
     register_blueprints(server)
 
-    from app.dashapp1.layout import layout as layout1
-#    from app.dashapp1.callbacks import register_callbacks as register_callbacks1
-    from app.dashapp1.layout import register_callbacks as register_callbacks1
-    register_dashapp(server, 'app1', 'dash/app1', layout1, register_callbacks1)
+#     from app.dashapp1.layout import layout as layout1
+# #    from app.dashapp1.callbacks import register_callbacks as register_callbacks1
+#     from app.dashapp1.layout import register_callbacks as register_callbacks1
+#     register_dashapp(server, 'app1', 'dash/app1', layout1, register_callbacks1)
 
-    from app.dashapp2.layout import layout as layout2
-    from app.dashapp2.layout import register_callbacks as register_callbacks2
-#    from app.dashapp2.callbacks import register_callbacks as register_callbacks2
-    register_dashapp(server, 'app2', 'dash/app2', layout2, register_callbacks2)
+#     from app.dashapp2.layout import layout as layout2
+#     from app.dashapp2.layout import register_callbacks as register_callbacks2
+# #    from app.dashapp2.callbacks import register_callbacks as register_callbacks2
+#     register_dashapp(server, 'app2', 'dash/app2', layout2, register_callbacks2)
 
     from app.dashapp3.layout import layout as layout3
     from app.dashapp3.layout import register_callbacks as register_callbacks3
     register_dashapp(server, 'app3', 'dash/app3', layout3, register_callbacks3)
 
-    from app.dashapp4.layout import layout as layout4
-    from app.dashapp4.layout import register_callbacks as register_callbacks4
-    register_dashapp(server, 'app4', 'dash/app4', layout4, register_callbacks4)
+    # from app.dashapp4.layout import layout as layout4
+    # from app.dashapp4.layout import register_callbacks as register_callbacks4
+    # register_dashapp(server, 'app4', 'dash/app4', layout4, register_callbacks4)
+
+    from app.dashapp5.layout import layout as layout5
+    from app.dashapp5.layout import register_callbacks as register_callbacks5
+    register_dashapp(server, 'app5', 'dash/app5', layout5, register_callbacks5)
 
 
     return server

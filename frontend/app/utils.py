@@ -1,6 +1,19 @@
 import pandas as pd
 from app.extensions import mongo
 import numpy as np
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
+def getdata_from_variable(variablename):
+    mydata = mongo.db['data'].find({"variable_name" :variablename})
+    df = pd.DataFrame(list(mydata))
+    return df
+
+def getvariables():
+    myvar = mongo.db['variables'].find()
+    df = pd.DataFrame(list(myvar))
+    print('varibale = ', df)
+    return df
 
 def getdata(current_variable, current_version):
     mydata = mongo.db[current_version].find({"info.source" : "kr","info.type":"calibration"})
@@ -11,27 +24,17 @@ def getdata(current_variable, current_version):
     return df
 
 def getalldata():
-    data = []
-    version = np.array([])
-    process = np.array([])
-    for v in ["v1.0","v2.0","v3.0","v4.0"]:
-        for p in ['el_lifetime','charge_yield','light_yield']:
-            mydata = mongo.db[v].find({"info.source" : "kr","info.type":"calibration"})
-            #    mydata = mongo.db["v1.0"].find({"info.source" : "kr","info.type":"calibration"})
-            for d in mydata:
-                data.append(d['processes'][p])
-                version = np.append(version,v)
-                process = np.append(process,p)
+    mydata = mongo.db['data'].find()
+    df = pd.DataFrame(list(mydata))
+    straxversion = mydata.distinct('strax_version')
+    return  df
 
-    df = pd.DataFrame.from_dict(data, orient='columns')
-    df['version'] = version
-    df['process'] = process
-    print ('in all data',df.columns)
-    return df
+def getstraxversion():
+    mydata = mongo.db['data'].find()
+    straxversion = mydata.distinct('strax_version')
+    return straxversion
 
-
-
-
+    
 import dash_html_components as html
 
 
@@ -174,6 +177,35 @@ def create_plot(
     ]
     layout = _create_layout("scatter", xlabel, ylabel)
     return {"data": data,   'layout':layout}
+
+def create_legend(title, unit):
+    return(title + ' [' + unit + ']')
+
+def create_plot_with_runid(
+        x,
+        xrunid,
+        xlabel,
+        y,
+        ylabel,
+        yunit,
+        error,
+        figname
+):
+
+    fig = make_subplots(rows=1, cols=1)
+    #                        vertical_spacing=0.02    
+    x = pd.to_datetime(x, unit='s')
+    fig.add_trace(go.Scatter(mode='markers',x=x, y=y, error_y=dict(array=error),xaxis="x1"))
+    fig.add_trace(go.Scatter(mode='markers',x=xrunid, y=y, error_y=dict(array=error),xaxis="x2",line=None))
+    fig.update_layout(height=500, width=1000,
+                      yaxis=dict(title= create_legend(ylabel, yunit)),
+                      xaxis1=dict(position=1, range=[np.min(x), np.max(x)], title=dict(text=xlabel) ) ,
+                      xaxis2=dict(position =1, range=[np.min(xrunid), np.max(xrunid)], overlaying='x',showgrid=False,title='Run ID'),
+                      font={"family": "Raleway", "size":18, "color":"black"},showlegend= False)
+
+    #    layout = _create_layout("scatter", xlabel, ylabel)
+    return fig
+#{"data": data,   'layout':layout}
 
 def create_plot_errorx(
     x,

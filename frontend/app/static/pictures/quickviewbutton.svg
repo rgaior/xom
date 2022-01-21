@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="251" height="55" viewBox="0 0 251 55">
+  <g id="quickviewbutton" transform="translate(-1473 -13)">
+    <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(1473 13)" fill="none" stroke="#fff" stroke-width="3">
+      <rect width="251" height="55" rx="27.5" stroke="none"/>
+      <rect x="1.5" y="1.5" width="248" height="52" rx="26" fill="none"/>
+    </g>
+    <path id="Icon_awesome-home" data-name="Icon awesome-home" d="M19.714,10.425,6.75,21.1V32.625A1.125,1.125,0,0,0,7.875,33.75l7.879-.02A1.125,1.125,0,0,0,16.874,32.6v-6.73A1.125,1.125,0,0,1,18,24.75h4.5a1.125,1.125,0,0,1,1.125,1.125V32.6a1.125,1.125,0,0,0,1.125,1.129l7.876.022a1.125,1.125,0,0,0,1.125-1.125V21.094L20.789,10.425A.857.857,0,0,0,19.714,10.425Zm20.477,7.257-5.878-4.845V3.1a.844.844,0,0,0-.844-.844H29.531a.844.844,0,0,0-.844.844V8.2l-6.3-5.179a3.375,3.375,0,0,0-4.289,0L.305,17.681A.844.844,0,0,0,.193,18.87l1.793,2.18a.844.844,0,0,0,1.189.115L19.714,7.542a.857.857,0,0,1,1.076,0l16.54,13.622a.844.844,0,0,0,1.188-.112l1.793-2.18a.844.844,0,0,0-.12-1.19Z" transform="translate(1503.221 22.746)" fill="#fff"/>
+    <text id="Quick_view" data-name="Quick view" transform="translate(1562 22)" fill="#f2f2f2" font-size="30" font-family="Calibri"><tspan x="0" y="29">Quick view</tspan></text>
+  </g>
+</svg>
