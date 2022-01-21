@@ -35,6 +35,10 @@ def RunXom(number,to,debug):
         print('Run that will be processed is {0}'.format(number))
     cursor = list(cursor)
 
+    scursor = set(cursor)
+
+
+
     electron_lifetimes = {}
 
     # {"algorithm_name","version","run_number"}
