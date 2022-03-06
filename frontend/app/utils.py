@@ -202,7 +202,7 @@ def create_plot_with_runid(
                       xaxis1=dict(position=1, range=[np.min(x), np.max(x)], title=dict(text=xlabel) ) ,
                       xaxis2=dict(position =1, range=[np.min(xrunid), np.max(xrunid)], overlaying='x',showgrid=False,title='Run ID'),
                       font={"family": "Raleway", "size":18, "color":"black"},showlegend= False)
-
+    fig["data"][0]["text"] = figname
     #    layout = _create_layout("scatter", xlabel, ylabel)
     return fig
 #{"data": data,   'layout':layout}

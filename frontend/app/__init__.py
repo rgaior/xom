@@ -35,6 +35,10 @@ def create_app():
     from app.dashapp5.layout import register_callbacks as register_callbacks5
     register_dashapp(server, 'app5', 'dash/app5', layout5, register_callbacks5)
 
+    from app.dashapp6.layout import layout as layout6
+    from app.dashapp6.layout import register_callbacks as register_callbacks6
+    register_dashapp(server, 'app6', 'dash/app6', layout6, register_callbacks6)
+
 
     return server
 

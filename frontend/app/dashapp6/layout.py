@@ -3,7 +3,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input
 from dash.dependencies import Output
-import dash_bootstrap_components as dbc
 from app.utils import getdata, getalldata, getvariables
 from app.utils import make_dash_table, create_plot, create_plot_with_runid, create_plot_errorx
 import os
@@ -77,8 +76,16 @@ layout = html.Div(className="body",children=[
 
 
             ]), #logodiv
-            ]) #container
-        ]), #navbar
+            html.Nav( className='navlink',  children=[
+                html.Ul([
+                    html.Li(html.A(html.Img(className='logoim', src=b64_image(logo), style={'align':'middle'}),  href='https://xe1t-offlinemon.lngs.infn.it/') ),
+                    html.Li(html.A(html.Img(className='logoim', src=b64_image(logo), style={'align':'middle'}),  href='https://xe1t-offlinemon.lngs.infn.it/logout')),
+                    html.Li(html.A(html.Img(className='logoim', src=b64_image(logo), style={'align':'middle'}),  href='https://xe1t-offlinemon.lngs.infn.it/dash/app5/')),]
+                ), # UL ends
+            ]), #navlink Nav
+            
+        ]) #container
+    ]), #navbar
     html.P(html.H2('Quick View'),style={'text-align': 'center'}),
     # dropdown div for process
     html.Div([

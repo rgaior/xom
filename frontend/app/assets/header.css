@@ -98,16 +98,19 @@
   width: 100%;
 }
 
-.navbar ul {
+.navbar nav ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   list-style-type: none;
   text-align: right;
-  margin: 0;
+  margin-right: 2em;
 }
 
-.navbar li:last-child {
-  margin-left: 2em;
+.navbar nav li:last-child {
+  margin-right: 10em;
 }
 
+navbar nav li{
+    display: inline-block;
+}
