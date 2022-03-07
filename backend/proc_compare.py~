@@ -1,0 +1,173 @@
+#!/usr/bin/env python
+
+import os
+from argparse import ArgumentParser
+import pymongo
+import pymongo
+from pymongo import MongoClient
+from utilix.rundb import pymongo_collection
+from utilix.config import Config
+import utilix
+from bson.json_util import dumps
+import json
+from datetime import timezone, datetime, timedelta
+import strax
+import straxen
+import sys
+import pprint 
+import numpy as np
+import time
+import configparser
+import shlex
+import subprocess
+list_of_analysis = {'test_var_1':["xenonnt-2022.02.4.simg", "development"],'test_var_2':["xenonnt-2022.02.4.simg"]}
+
+
+########################
+### connection to DB ###
+########################
+serveraddress = {'dali':"90.147.119.208",'lngs':"127.0.0.1"}
+def connect_to_DB(server):
+    try:
+        client = MongoClient(serveraddress[server], 27017)
+    except:
+        print('could not connect to the DB from  {} with address {} '.format(server, serveraddress[server]))
+    return client
+
+
+rundb = pymongo_collection('runs')
+db_client = connect_to_DB('dali')
+xomdb = db_client['xom']
+
+# Accessing to Data collection
+xomvariablesdb = xomdb['variables']
+xomdatadb = xomdb['data']
+def get_max(col,name_of_variable):
+    max = col.find().sort(name_of_variable,-1).limit(1)[0][name_of_variable]
+    return max
+
+#############################
+### sets up the xomconfig ###
+#############################
+xomconfig = configparser.ConfigParser()
+xomconfig.sections()
+xomconfig.read('../utils/xomconfig.cfg')
+list_of_analysis = xomconfig.sections()
+
+# example to get a list with the config file:
+#json.loads(xomconfig.get('test_var_1','container'))
+ 
+### check the valid run according the analysis
+def produce_list_to_run(xomconfig, analysis, list_of_runs, rundb):
+    list_of_command = []
+    # if the analysis is process for each run:
+    if xomconfig.getboolean(analysis,'runwise') == True:
+        if analysis == 'test_var_1':
+            valid_runs = list(filter(lambda r: r % 1000 == 0, list_of_runs))
+            if valid_runs:
+                for r in valid_runs:
+                    list_of_command.append(xomconfig.get(analysis,'command').replace('[run]',str(r)) )  
+            else:
+                print(f"no valid run for {analysis}")
+    # if the analysis is processed for a set of runs together
+    else:
+        if analysis == 'test_var_2':
+            # specific dummy conditions for test_var_2: 2 consecutive Kr runs
+
+            # find the kr83m runs within the new runs
+            coll = list(rundb.find({"number" : {"$in": list_of_runs}, "mode":"tpc_kr83m"},{'number':1}))
+            valid_runs = []
+            [valid_runs.append(x['number']) for x in coll]
+            valid_runs.sort()
+
+            valid_run_lists = []
+            run_size = len(valid_runs)
+            skip = False
+            for i, r in enumerate(valid_runs):                
+                if skip == True:
+                    skip = False
+                    continue
+                if i+1 < run_size:
+                    if (valid_runs[i+1] == r+1):
+                        valid_run_lists.append([valid_runs[i],valid_runs[i+1]])
+                        skip = True
+            for l in valid_run_lists: 
+                list_of_command.append(xomconfig.get(analysis,'command').replace('[runs]', " ".join(map(str,l))) )
+    print("list of command = ", list_of_command)
+    return list_of_command
+            
+        
+#for analysis in list_of_analysis.keys():
+a = 0
+while(a<1):
+    # check for new runs
+    last_run_xom = get_max(xomdatadb,"run_id")
+    last_run_daq = get_max(rundb,"number")
+    try:
+        if last_run_daq < last_run_xom:
+            raise ValueError
+        elif last_run_daq == last_run_xom:
+            print("nothing to do, xom db up to date")
+        else:
+            list_of_new_runs = list(range(last_run_xom, last_run_daq +1 ,1))
+
+    except(ValueError):
+        print(f"last run of XOM ( = {last_run_xom}) is larger than last run of DAQ ( = {last_run_daq})...")
+        print("Check xom data base, something is really wrong, will exit now")
+
+    # #check if the new runs are useful according the analysis
+    # list_to_run = []
+    for analysis in list_of_analysis[:1]:
+        list_of_command = produce_list_to_run(xomconfig, analysis, list_of_new_runs,rundb)
+        
+        for command in list_of_command:
+            last_container = json.loads(xomconfig.get(analysis,'container'))[0]
+            singularity_base = "singularity exec --bind /cvmfs/ --bind /project/ --bind /project2/ --bind /scratch/midway2/gaior --bind /dali /project2/lgrandi/xenonnt/singularity-images/"
+            total_command = singularity_base + last_container + " " + command
+            #print("total_command = " , total_command)
+            execcommand = shlex.split(total_command)
+            print(execcommand)
+            process = subprocess.run(execcommand,
+                        stdout=subprocess.PIPE,
+                        universal_newlines=True)
+            print(process)
+
+ #           exec(command)
+
+        #     to_run = analysis.produce_list_to_run(xomconfig, analysis, list_of_new_runs)
+        #     print(f"list of commands to run for {analysis} is {to_run}")
+        #     list_to_run.append(to_run)
+        
+        
+        # for command in list_to_run:
+        #     exec(command)
+        
+        
+        
+        # find a list of value:
+        # coll = list(rundb.find({"number" : {"$in": [39433,39434,39435]}} , {"number":1}) )
+        # coll2 = []
+        # [coll2.append(x['number']) for x in coll ]
+        # print(coll2)
+        #    for x in coll:
+        #        print(x)
+        
+        
+        #    pprint.pprint(rundb.find_one({'number':38657})['data'][0]['meta']['mode'])
+        #     pprint.pprint(rundb.find_one({'number':39433})['mode'])
+#    pprint.pprint(rundb.find_one({'mode':'tpc_kr83m'}))
+    coll = list(rundb.find({"number" : {"$in": [39321, 39323]}, "mode":"tpc_kr83m"},{'number':1}))
+    for x in coll:
+        print(x)
+        
+
+    time.sleep(1)
+    a = 1
+# pprint.pprint(f'last run {last_run_daq}')
+# pprint.pprint(f'last run xom {last_run_xom}')
+# #print("xom data = ", xomdata.find_one())
+
+#def last_run_check():
+
+
+
