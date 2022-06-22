@@ -15,7 +15,9 @@ class Analysis:
         self.command = ""
     
     def fill_from_config(self, xomconfig):
-        self.container_list =  json.loads(xomconfig.get(self.variable_name,'container'))
+
+        containerlist = xomconfig.get(self.variable_name,'container')
+        self.container_list = containerlist.split(',')
         self.runwise = xomconfig.getboolean(self.variable_name,'runwise')
         self.command = xomconfig.get(self.variable_name,'command')
     def printname(self):
@@ -29,14 +31,17 @@ class test_var_1(Analysis):
     def produce_list_of_runs(self,list_of_runs):
         list_of_command = []
         run_min = 40000
-        valid_runs = list(filter(lambda r: r > run_min == 0, list_of_runs) )
-        valid_runs = list(rundb.find({"number" : {"$in": valid_runs}, "mode":"tpc_bkg"},{'number':1}))
-        valid_runs = list(filter(lambda r: r % 10 == 0, valid_runs))
+ #       valid_runs = list(filter(lambda r: r > run_min == 0, list_of_runs) )
+        valid_runs = list(filter(lambda r: r > run_min, list_of_runs) )
+        valid_runs_dict = list(rundb.find({"number" : {"$in": valid_runs}, "mode":"tpc_bkg"},{'number':1,'_id':0}))
+        valid_runs = [list(valid_dict.values())[0] for valid_dict in valid_runs_dict]
+        valid_runs = list(filter(lambda r: r % 25 == 0, valid_runs))
         if valid_runs:
-            for r in valid_runs:
-                list_of_command.append(self.command.replace('[run]',str(r)) )  
+            for cont in self.container_list:
+                for r in valid_runs:
+                    list_of_command.append(self.command.replace('[run]',str(r)) + " --container " + cont)
         else:
-            logging.info("no valid run this analysis")
+            print("no valid run analysis ", self.variable_name)
         return list_of_command
         
 
@@ -44,12 +49,13 @@ class test_var_2(Analysis):
     def produce_list_of_runs(self, list_of_runs):
         list_of_command = []
         # specific dummy conditions for test_var_2: 2 consecutive Kr runs
-
+        run_min = 40000
         # find the kr83m runs within the new runs
-        coll = list(rundb.find({"number" : {"$in": list_of_runs}, "mode":"tpc_kr83m"},{'number':1}))
+        coll = list(rundb.find({"number" : {"$in": list_of_runs}, "mode":"background_linked"},{'number':1}))
         valid_runs = []
         [valid_runs.append(x['number']) for x in coll]
         valid_runs.sort()
+        valid_runs = list(filter(lambda r: r > run_min, valid_runs) )
         valid_run_lists = []
         run_size = len(valid_runs)
         skip = False
@@ -61,13 +67,37 @@ class test_var_2(Analysis):
                 if (valid_runs[i+1] == r+1):
                     valid_run_lists.append([valid_runs[i],valid_runs[i+1]])
                     skip = True
-        for l in valid_run_lists: 
-            list_of_command.append(self.command.replace('[runs]', " ".join(map(str,l))) )
+        for l in valid_run_lists[::10]: 
+            for cont in self.container_list:
+                list_of_command.append(self.command.replace('[runs]', " ".join(map(str,l)))  + " --container " + cont)
         if len(l) == 0:
             logging.info("no valid run this analysis")
         return list_of_command
 
-    
+
+class ly_qp(Analysis):
+    def produce_list_of_runs(self, list_of_runs):
+        list_of_command = []
+        exclude_tags = ["messy","bad", "nonsr0_configuration", "ramp down",  "ramp up",  "ramp_down", "ramp_up", "hot_spot","abandon"]
+        exclude_tags_query =  [{"tags.name":{"$ne": e}} for e in exclude_tags]
+
+        include_tags = [{"$regex":"_sr0"},"lt_24h_after_kr"]
+        include_tags_query =  [{"tags.name": i} for i in include_tags]
+
+        run_mode ='tpc_kr83m'
+        coll = list(rundb.find({"$and" : exclude_tags_query,"$or": include_tags_query, "mode":run_mode}))
+        valid_runs = []
+        [valid_runs.append(x['number']) for x in coll]
+        print ("QP analysis: ", valid_runs)
+        valid_runs.sort()
+        valid_runs = list(filter(lambda r: r % 10 == 0, valid_runs))
+        if valid_runs:
+            for cont in self.container_list:
+                for r in valid_runs:
+                    list_of_command.append(self.command.replace('[run]',str(r)) + " --container " + cont)
+        else:
+            print("no valid run analysis ", self.variable_name)
+        return list_of_command
         
         
         

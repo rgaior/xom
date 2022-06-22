@@ -69,9 +69,12 @@ def main():
     a = 0
     prev_last_run_xom = 0
     prev_last_run_daq = 0 
-    last_run_xom = dbl.get_max(xomdatadb,"run_id")
+    try:
+        last_run_xom = int(dbl.get_max(xomdatadb,"run_id"))
+    except(IndexError):
+        last_run_xom = 0    
     last_run_daq = dbl.get_max(rundb,"number")
-    
+    print("last_run_xom = ",last_run_xom) 
     ##############################################
     ### filling a list with analysis instances ###
     ##############################################
@@ -115,8 +118,8 @@ def main():
                     logging.info("nothing to do, analysis ?? up to date")
                     continue
                 else:
-                    list_of_new_runs = list(range(last_run_xom, last_run_daq +1 ,1))
-
+                    print ("we should be here")
+                    list_of_new_runs = list(range(last_run_xom +1, last_run_daq +1 ,1))
             except(ValueError):
                 logging.error('xom run larger than last rundb run, exiting')
                 print(f"last run of XOM ( = {last_run_xom}) is larger than last run of DAQ ( = {last_run_daq})...")

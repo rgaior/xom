@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from doctest import run_docstring_examples
 import sys
 from argparse import ArgumentParser
 import json
@@ -7,12 +8,19 @@ import pymongo
 from pymongo import MongoClient
 from bson.json_util import dumps
 import configparser
+import subprocess
 
 serveraddress = {'dali':"90.147.119.208",'lngs':"127.0.0.1"}
 
 xomconfig = configparser.ConfigParser()
 xomconfig.sections()
 xomconfig.read('../utils/xomconfig.cfg')
+
+
+xom_var_config = configparser.ConfigParser()
+xom_var_config.sections()
+xom_var_config.read('../utils/xom_var_config.cfg')
+
 def ConnectToDB(server):
     try:
         client = MongoClient(serveraddress[server], 27017)
@@ -45,7 +53,7 @@ def UploadVariable(variable_name, server='dali'):
     variables = database['variables']
 
     variables.delete_many({"variable_name":variable_name})
-    variable = xomconfig._sections[variable_name]
+    variable = xom_var_config._sections[variable_name]
 
     # Uploads data
     variables.insert_one(variable)
@@ -84,7 +92,10 @@ def UploadDataDict(dataset, server='dali'):
     # Uploads data
     data.insert_one(dataset)
 
-    
+def UploadFile(source, target):
+    process = subprocess.Popen(['scp', source, target], 
+                           stdout=subprocess.PIPE,
+                           universal_newlines=True)
 
 def ShowXomDB(server='dali'):
 
