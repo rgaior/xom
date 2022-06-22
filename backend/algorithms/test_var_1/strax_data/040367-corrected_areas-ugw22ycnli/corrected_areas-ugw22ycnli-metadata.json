@@ -1,0 +1,279 @@
+{
+    "chunk_target_size_mb": 200,
+    "chunks": [
+        {
+            "chunk_i": 0,
+            "end": 1646523722311427840,
+            "filename": "corrected_areas-ugw22ycnli-000000",
+            "filesize": 689879,
+            "first_endtime": 1646521919366394120,
+            "first_time": 1646521919363415242,
+            "last_endtime": 1646523721045792740,
+            "last_time": 1646523721042960742,
+            "n": 11622,
+            "nbytes": 836784,
+            "run_id": "040367",
+            "start": 1646521919000000000,
+            "subruns": null
+        }
+    ],
+    "compressor": "blosc",
+    "data_kind": "events",
+    "data_type": "corrected_areas",
+    "dtype": "[(('Start time since unix epoch [ns]', 'time'), '<i8'), (('Exclusive end time since unix epoch [ns]', 'endtime'), '<i8'), (('Corrected area of main S1 [PE]', 'cs1'), '<f4'), (('Corrected area of main S1 [PE] before time-dep LY correction', 'cs1_wo_timecorr'), '<f4'), (('Corrected area of main S2 before elife correction (s2 xy correction + SEG/EE correction applied) [PE]', 'cs2_wo_elifecorr'), '<f4'), (('Corrected area of main S2 before SEG/EE and elife corrections(s2 xy correction applied) [PE]', 'cs2_wo_timecorr'), '<f4'), (('Fraction of area seen by the top PMT array for corrected main S2', 'cs2_area_fraction_top'), '<f4'), (('Corrected area of main S2 in the bottom PMT array [PE]', 'cs2_bottom'), '<f4'), (('Corrected area of main S2 [PE]', 'cs2'), '<f4'), (('Corrected area of alternate S1 [PE]', 'alt_cs1'), '<f4'), (('Corrected area of alternate S1 [PE] before time-dep LY correction', 'alt_cs1_wo_timecorr'), '<f4'), (('Corrected area of alternate S2 before elife correction (s2 xy correction + SEG/EE correction applied) [PE]', 'alt_cs2_wo_elifecorr'), '<f4'), (('Corrected area of alternate S2 before SEG/EE and elife corrections(s2 xy correction applied) [PE]', 'alt_cs2_wo_timecorr'), '<f4'), (('Fraction of area seen by the top PMT array for corrected alternate S2', 'alt_cs2_area_fraction_top'), '<f4'), (('Corrected area of alternate S2 in the bottom PMT array [PE]', 'alt_cs2_bottom'), '<f4'), (('Corrected area of alternate S2 [PE]', 'alt_cs2'), '<f4')]",
+    "end": 1646523722311427840,
+    "lineage": {
+        "corrected_areas": [
+            "CorrectedAreas",
+            "0.2.1",
+            {
+                "avg_se_gain": "cmt://se_gain?version=ONLINE&run_id=plugin.run_id",
+                "default_reconstruction_algorithm": "mlp",
+                "elife": "cmt://elife?version=ONLINE&run_id=plugin.run_id",
+                "rel_extraction_eff": "cmt://rel_extraction_eff?version=ONLINE&run_id=plugin.run_id",
+                "rel_light_yield": "cmt://relative_light_yield?version=ONLINE&run_id=plugin.run_id",
+                "s1_xyz_map": "itp_map://resource://cmt://format://s1_xyz_map_{algo}?version=ONLINE&run_id=plugin.run_id&fmt=json&algo=plugin.default_reconstruction_algorithm",
+                "s2_xy_map": "itp_map://resource://cmt://format://s2_xy_map_{algo}?version=ONLINE&run_id=plugin.run_id&fmt=json&algo=plugin.default_reconstruction_algorithm",
+                "se_gain": "cmt://se_gain?version=ONLINE&run_id=plugin.run_id"
+            }
+        ],
+        "event_basics": [
+            "EventBasics",
+            "1.3.0",
+            {
+                "allow_posts2_s1s": false,
+                "electron_drift_velocity": "cmt://electron_drift_velocity?version=ONLINE&run_id=plugin.run_id",
+                "event_s1_min_coincidence": 2,
+                "force_alt_s2_in_max_drift_time": true,
+                "force_main_before_alt": false,
+                "max_drift_length": 148.6515
+            }
+        ],
+        "event_positions": [
+            "EventPositions",
+            "0.1.4",
+            {
+                "default_reconstruction_algorithm": "mlp",
+                "electron_drift_time_gate": "cmt://electron_drift_time_gate?version=ONLINE&run_id=plugin.run_id",
+                "electron_drift_velocity": "cmt://electron_drift_velocity?version=ONLINE&run_id=plugin.run_id",
+                "fdc_map": [
+                    "fdc_map",
+                    "ONLINE",
+                    true
+                ]
+            }
+        ],
+        "events": [
+            "Events",
+            "0.1.0",
+            {
+                "electron_drift_velocity": "cmt://electron_drift_velocity?version=ONLINE&run_id=plugin.run_id",
+                "exclude_s1_as_triggering_peaks": true,
+                "left_event_extension": 250000,
+                "max_drift_length": 148.6515,
+                "right_event_extension": 250000,
+                "trigger_max_competing": 7,
+                "trigger_min_area": 100
+            }
+        ],
+        "lone_hits": [
+            "Peaklets",
+            "0.6.0",
+            {
+                "gain_model": [
+                    "to_pe_model",
+                    "ONLINE",
+                    true
+                ],
+                "hit_min_amplitude": [
+                    "hit_thresholds_tpc",
+                    "ONLINE",
+                    true
+                ],
+                "n_tpc_pmts": 494,
+                "peak_left_extension": 30,
+                "peak_min_pmts": 2,
+                "peak_right_extension": 200,
+                "peak_split_filter_wing_width": 70,
+                "peak_split_gof_threshold": [
+                    null,
+                    [
+                        [
+                            0.5,
+                            1.0
+                        ],
+                        [
+                            6.0,
+                            0.4
+                        ]
+                    ],
+                    [
+                        [
+                            2.5,
+                            1.0
+                        ],
+                        [
+                            5.625,
+                            0.4
+                        ]
+                    ]
+                ],
+                "peak_split_iterations": 20,
+                "peak_split_min_area": 40.0,
+                "peaklet_gap_threshold": 700,
+                "peaklet_max_duration": 10000000,
+                "saturation_correction_on": true,
+                "saturation_min_reference_length": 20,
+                "saturation_reference_length": 100,
+                "tight_coincidence_window_left": 50,
+                "tight_coincidence_window_right": 50
+            }
+        ],
+        "merged_s2s": [
+            "MergedS2s",
+            "0.4.1",
+            {
+                "gain_model": [
+                    "to_pe_model",
+                    "ONLINE",
+                    true
+                ],
+                "merge_without_s1": true,
+                "s2_merge_gap_thresholds": [
+                    [
+                        1.7,
+                        26500.0
+                    ],
+                    [
+                        4.0,
+                        2600.0
+                    ],
+                    [
+                        5.0,
+                        0.0
+                    ]
+                ],
+                "s2_merge_max_duration": 50000
+            }
+        ],
+        "peak_basics": [
+            "PeakBasics",
+            "0.1.0",
+            {
+                "n_top_pmts": 253
+            }
+        ],
+        "peak_positions": [
+            "PeakPositionsNT",
+            "0.0.0",
+            {
+                "default_reconstruction_algorithm": "mlp"
+            }
+        ],
+        "peak_positions_cnn": [
+            "PeakPositionsCNN",
+            "0.0.1",
+            {
+                "min_reconstruction_area": 10,
+                "n_top_pmts": 253,
+                "tf_model_cnn": "tf://resource://cmt://cnn_model?version=ONLINE&run_id=plugin.run_id&fmt=abs_path"
+            }
+        ],
+        "peak_positions_gcn": [
+            "PeakPositionsGCN",
+            "0.0.1",
+            {
+                "min_reconstruction_area": 10,
+                "n_top_pmts": 253,
+                "tf_model_gcn": "tf://resource://cmt://gcn_model?version=ONLINE&run_id=plugin.run_id&fmt=abs_path"
+            }
+        ],
+        "peak_positions_mlp": [
+            "PeakPositionsMLP",
+            "0.0.0",
+            {
+                "min_reconstruction_area": 10,
+                "n_top_pmts": 253,
+                "tf_model_mlp": "tf://resource://cmt://mlp_model?version=ONLINE&run_id=plugin.run_id&fmt=abs_path"
+            }
+        ],
+        "peak_proximity": [
+            "PeakProximity",
+            "0.4.0",
+            {
+                "min_area_fraction": 0.5,
+                "nearby_window": 10000000,
+                "peak_max_proximity_time": 100000000
+            }
+        ],
+        "peaklet_classification": [
+            "PeakletClassification",
+            "3.0.3",
+            {
+                "n_top_pmts": 253,
+                "s1_flatten_threshold_aft": [
+                    0.6,
+                    100
+                ],
+                "s1_max_rise_time_post100": 200,
+                "s1_min_coincidence": 2,
+                "s1_risetime_aft_parameters": [
+                    -1,
+                    2.6
+                ],
+                "s1_risetime_area_parameters": [
+                    50,
+                    80,
+                    12
+                ],
+                "s2_min_pmts": 4
+            }
+        ],
+        "peaks": [
+            "Peaks",
+            "0.1.2",
+            {
+                "merge_without_s1": true
+            }
+        ],
+        "pulse_counts": [
+            "PulseProcessing",
+            "0.2.3",
+            {
+                "baseline_samples": 40,
+                "hev_gain_model": [
+                    "disabled",
+                    null
+                ],
+                "hit_min_amplitude": [
+                    "hit_thresholds_tpc",
+                    "ONLINE",
+                    true
+                ],
+                "max_veto_value": null,
+                "n_tpc_pmts": 494,
+                "pmt_pulse_filter": null,
+                "save_outside_hits": [
+                    3,
+                    20
+                ],
+                "tail_veto_duration": 3000000,
+                "tail_veto_pass_extend": 3,
+                "tail_veto_pass_fraction": 0.05,
+                "tail_veto_resolution": 1000,
+                "tail_veto_threshold": 0
+            }
+        ],
+        "raw_records_mv": [
+            "DAQReader",
+            "0.0.0",
+            {}
+        ]
+    },
+    "lineage_hash": "ugw22ycnli",
+    "run_id": "040367",
+    "start": 1646521919000000000,
+    "strax_version": "1.1.7",
+    "writing_ended": 1646931347.8999534,
+    "writing_started": 1646931291.6701963
+}

@@ -25,7 +25,7 @@ def SaveData(result,filename):
 
 def MyAnalysis(run_id):
 
-    print("Begin of My Analysis !!")
+    print("Begin of My Analysis")
 
     #import straxen
     st = straxen.contexts.xenonnt_online()
@@ -193,14 +193,16 @@ def MyAnalysis(run_id):
     
     result = {}
     result['run_id'] = run_id
+    result['run_ids'] = [run_id]
     result['variable_name'] = 'lightyeld_S1a'
     result['straxen_version'] = '1.2.3'
     result['strax_version'] = '1.2.3'
-    result['name'] = "Light Yield S1a"
-    result['unit'] = "[PE/keV]"
+    result['name'] = 'Light Yield S1a'
+    result['unit'] = '[PE/keV]'
     result['timestamp'] = timestamp
     result['value'] = LYS1a
     result['error'] = DLyS1a
+    result['chisquared'] = 0
     fig1.savefig('lightyeld_S1a.png')
     results.append(result)   
     
@@ -209,14 +211,16 @@ def MyAnalysis(run_id):
     result = {}
     
     result['run_id'] = run_id
+    result['run_ids'] = [run_id]
     result['variable_name'] = 'lightyeld_S1b'
     result['straxen_version'] = '1.2.3'
     result['strax_version'] = '1.2.3'
-    result['name'] = "Light Yield S1b"
-    result['unit'] = "[PE/keV]"
+    result['name'] = 'Light Yield S1b'
+    result['unit'] = '[PE/keV]'
     result['timestamp'] = timestamp
     result['value'] = LYS1b
     result['error'] = DLyS1b
+    result['chisquared'] = 0
     fig2.savefig('lightyeld_S1b.png')
     results.append(result)
     

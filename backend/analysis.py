@@ -28,7 +28,10 @@ class Analysis:
 class test_var_1(Analysis):
     def produce_list_of_runs(self,list_of_runs):
         list_of_command = []
-        valid_runs = list(filter(lambda r: r % 10000 == 0, list_of_runs))
+        run_min = 40000
+        valid_runs = list(filter(lambda r: r > run_min == 0, list_of_runs) )
+        valid_runs = list(rundb.find({"number" : {"$in": valid_runs}, "mode":"tpc_bkg"},{'number':1}))
+        valid_runs = list(filter(lambda r: r % 10 == 0, valid_runs))
         if valid_runs:
             for r in valid_runs:
                 list_of_command.append(self.command.replace('[run]',str(r)) )  

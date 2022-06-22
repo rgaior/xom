@@ -124,10 +124,11 @@ def main():
 
             #produce list of runs according the analysis:
             list_of_command = an.produce_list_of_runs(list_of_new_runs)
-            
+
             # write the command list in the text file
             for command in list_of_command:
                 last_container = an.container_list[0]
+                container_part = ' --container ' + last_container 
                 total_command = constant.singularity_base + last_container + " " + command + '\n'
                 
                 #insure the file is not locked by other process:

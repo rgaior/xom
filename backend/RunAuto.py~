@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+import os
+from argparse import ArgumentParser
+import pymongo
+from utilix.rundb import pymongo_collection
+from utilix.config import Config
+import utilix
+from bson.json_util import dumps
+from datetime import timezone, datetime, timedelta
+import strax
+import straxen
+import sys
+
+def LoadData(filename):
+    dataset = {}
+    with open(filename,'r') as f:
+        dataset = json.load(f)
+        f.close()
+    return dataset
+
+
+def RunXom(info_file, debug):
+    while(1):
+        analysis_info = LoadData(info_file)
+        if debug:
+            print("analysis info:", analysis_info)
+
+
+
+def main():
+    parser = ArgumentParser("RunXom")
+
+    config = Config()
+    
+    parser.add_argument("--info_file", help="variable file",default="./../utils/variables.json")
+    parser.add_argument("--debug", help="Prints extra debug information", action='store_true')
+
+    args = parser.parse_args()
+    print(args.info_file)
+    RunXom(args.info_file,args.debug)
+
+if __name__ == "__main__":
+    main()
+

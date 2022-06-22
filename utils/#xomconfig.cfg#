@@ -1,0 +1,13 @@
+[test_var_1]
+variable_name = 'test_var_1'
+container = ["xenonnt-2022.02.4.simg", "development"]
+runwise = True
+command = "python algorithms/test_var_1.py [run] --test"
+
+[test_var_2]
+variable_name = 'test_var_2'
+container = ["xenonnt-2022.02.4.simg"]
+runwise = False
+command = "python algorithmsb
+/test_var_2.py [runs]"
+
