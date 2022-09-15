@@ -12,7 +12,7 @@ import locklib as ll
 command_file = 'list_of_commands.txt'
 
 while(1):
-    time.sleep(1)
+    time.sleep(constant.exec_period)
 #    ll.release(fd)
     fd = ll.acquire(command_file,5)
     with open(command_file, "r") as f:

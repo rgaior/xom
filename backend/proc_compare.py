@@ -91,7 +91,7 @@ def main():
     ### Starting the main loop ###
     ##############################
     while(a<1):
-        time.sleep(1)
+        time.sleep(constant.exec_period)
         # check for new runs in run DB
         last_run_daq = dbl.get_max(rundb,"number")
         
