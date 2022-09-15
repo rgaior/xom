@@ -1,13 +1,25 @@
 #!/usr/bin/env python
 
+from doctest import run_docstring_examples
 import sys
 from argparse import ArgumentParser
 import json
 import pymongo
 from pymongo import MongoClient
 from bson.json_util import dumps
+import configparser
+import subprocess
 
 serveraddress = {'dali':"90.147.119.208",'lngs':"127.0.0.1"}
+
+xomconfig = configparser.ConfigParser()
+xomconfig.sections()
+xomconfig.read('../utils/xomconfig.cfg')
+
+
+xom_var_config = configparser.ConfigParser()
+xom_var_config.sections()
+xom_var_config.read('../utils/xom_var_config.cfg')
 
 def ConnectToDB(server):
     try:
@@ -29,7 +41,7 @@ def SaveData(result,filename,mode='w'):
         json.dump(result,f)
         f.close()
 
-def UploadVariable(server='dali'):
+def UploadVariable(variable_name, server='dali'):
 
     # Connecting to the XOM DB
     client = ConnectToDB(server)    
@@ -40,26 +52,14 @@ def UploadVariable(server='dali'):
     # Accessing to Data collection
     variables = database['variables']
 
-    variables.delete_many({})
-
-    variabledef = {}
-    with open('variables.json','r') as f:
-        variabledef = json.load(f)
-        f.close()
-
-    print (variabledef)
-    # variable = {}
-    # variable['name'] = 'lightyield'
-    # variable['legend_name'] = 'Light Yield'
-    # variable['unit'] = '[PE/KeV]'
-    # variable['logy'] = False
-
+    variables.delete_many({"variable_name":variable_name})
+    variable = xom_var_config._sections[variable_name]
 
     # Uploads data
-    variables.insert_many(variabledef)
+    variables.insert_one(variable)
 
 
-def UploadData(server='dali'):
+def UploadData(jsonfilename, server='dali'):
     print('uploading data')
     # Connecting to the XOM DB
     client = ConnectToDB(server)
@@ -71,12 +71,31 @@ def UploadData(server='dali'):
     data = database['data']
 
     # Load data from json file
-    dataset = LoadData('result.json')
+    dataset = LoadData(jsonfilename)
 
     # Uploads data
     data.insert_many(dataset)
 
-    
+
+def UploadDataDict(dataset, server='dali'):
+    print('uploading data')
+    # Connecting to the XOM DB
+    client = ConnectToDB(server)
+
+    # Accessing to XOM database
+    database = client['xom']
+
+    # Accessing to Data collection
+    data = database['data']
+
+    print('dataset = ', dataset)
+    # Uploads data
+    data.insert_one(dataset)
+
+def UploadFile(source, target):
+    process = subprocess.Popen(['scp', source, target], 
+                           stdout=subprocess.PIPE,
+                           universal_newlines=True)
 
 def ShowXomDB(server='dali'):
 
@@ -119,12 +138,14 @@ def main():
     print("--------------------------------------")
     print()
 
-    parser = ArgumentParser("XomDB")
+    parser = ArgumentParser("xomlib")
 
     parser.add_argument("server", nargs='?', type=str, default='dali', help="what server the script is run on, will change the address to connect for mongodb")
     parser.add_argument("--show", help="Shows informations and statistics about the database", action='store_true')
     parser.add_argument("--upload", help="Uploads data from a json file to XOM database", action='store_true')
+    
     parser.add_argument("--upload_variable", help="Uploads the definition of a new variable in the XOM database", action='store_true')
+    parser.add_argument("--variable_name", type=str, help="Uploads the definition of a new variable in the XOM database")
 
     args = parser.parse_args()
     server = args.server
@@ -133,7 +154,7 @@ def main():
     if (args.upload):
         UploadData(server)
     if (args.upload_variable):
-        UploadVariable(server)
+        UploadVariable(args.variable_name, server)
     
 
 if __name__ == "__main__":

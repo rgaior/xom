@@ -32,3 +32,16 @@ erase several documents of the collection: db.<collectionname>.deleteMany({statu
 
 
 
+#######################################
+#### query in pymongo databases #######
+#######################################
+## for tags:
+{"tags.name":"ramp_down"}
+## if not equal:
+{"tags.name": {"$ne": "ramp_down"}}
+## or condition: 
+rundb.find_one({"$or" : [ {"tags.name": "messy"} ,{"tags.name": "abandon"} ] })
+## and condition: 
+rundb.find_one({"$and" : [ {"tags.name": "messy"} ,{"tags.name": "abandon"} ] })
+## regex:
+{ "tags.name": { "$regex": "_sr0" } }

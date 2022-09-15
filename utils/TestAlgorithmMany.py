@@ -7,7 +7,7 @@ import random
 #import straxen
 
 # dummy range number up to 3000
-runrange = range(0,3000)
+runrange = range(39000,39300)
 # light yield range [mean, sigma]:
 lyrange = {'mean':15,'sigma':5}
 # charge yield range [mean, sigma]:
@@ -15,9 +15,8 @@ cyrange = {'mean':10,'sigma':5}
 # electron lifetime [mean, sigma]:
 eltrange = {'mean':500,'sigma':20}
 
-#straxen version range:
-straxenrange = ['1.2.1','1.2.2','1.2.3']
-straxrange = ['2.2.1','2.2.2','2.2.3']
+#container:
+containers = ['development','2022.02.3','2022.02.2']
 imagefolder = '/xom/images/'
 
 def SaveData(result,filename,mode='w'):
@@ -60,8 +59,7 @@ def MyAnalysis(analysis, numberofrun,mode='a',straxversion='2.2.1'):
             result['run_id'] = run_id
             result['run_ids'] = [run_id]
             result['variable_name'] = 'lightyield'
-            result['straxen_version'] = random.choice(straxenrange)
-            result['strax_version'] = straxversion
+            result['straxen_version'] = random.choice(containers)
             result['timestamp'] = timestamp
             result['value'] = LY
             result['error'] = sLY
@@ -133,7 +131,7 @@ def main():
 #    config = Config()
 
     parser.add_argument("numberofrun", type=int, help="number of runs to process")
-    parser.add_argument("straxversion", type=str, help="fake strax version")
+    parser.add_argument("container", type=str, help="fake container version")
     parser.add_argument("analysis", type=str, choices=['lightyield', 'chargeyield','electronlifetime'], help="name of variable to be process")
     parser.add_argument("--overwrite",  help="name of variable to be process",action='store_true')
  
@@ -143,8 +141,8 @@ def main():
     overwrite = args.overwrite
     straxversion = args.straxversion
     
-    if numberofrun > 3000:
-        raise Exception('x should not exceed 3000. The value of x was: {}'.format(numberofrun))
+#    if numberofrun > 3000:
+#        raise Exception('x should not exceed 3000. The value of x was: {}'.format(numberofrun))
     if overwrite:
         MyAnalysis(analysis, args.numberofrun,'w',straxversion)
     else:

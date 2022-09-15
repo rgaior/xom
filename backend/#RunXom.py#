@@ -19,7 +19,7 @@ def RunXom(number,to,debug):
 
     xom_types  = ["pulse_counts", "veto_regions", "lone_hits", "peaklets","merged_s2s","peak_basics","peaklet_classification"]                
 
-    db   = pymongo_collection('runs')
+    db = pymongo_collection('runs')
 
     #number = 9707
 
