@@ -4,8 +4,11 @@ from utilix.rundb import pymongo_collection
 from utilix.config import Config
 from bson.json_util import dumps
 import json
+import logging
 
 rundb = pymongo_collection('runs')
+# create logger
+module_logger = logging.getLogger('proc_compare.analysis')
 
 class Analysis:
     def __init__(self, name):
@@ -13,6 +16,7 @@ class Analysis:
         self.container_list = []
         self.runwise = False
         self.command = ""
+        self.logger = logging.getLogger('proc_compare.analysis.'+self.variable_name)
     
     def fill_from_config(self, xomconfig):
 
@@ -30,16 +34,21 @@ class Analysis:
 class test_var_1(Analysis):
     def produce_list_of_runs(self,list_of_runs):
         list_of_command = []
-        run_min = 40000
+        run_min = 47500
  #       valid_runs = list(filter(lambda r: r > run_min == 0, list_of_runs) )
         valid_runs = list(filter(lambda r: r > run_min, list_of_runs) )
-        valid_runs_dict = list(rundb.find({"number" : {"$in": valid_runs}, "mode":"tpc_bkg"},{'number':1,'_id':0}))
-        valid_runs = [list(valid_dict.values())[0] for valid_dict in valid_runs_dict]
-        valid_runs = list(filter(lambda r: r % 25 == 0, valid_runs))
+#        valid_runs_dict = list(rundb.find({"number" : {"$in": valid_runs}},{'number':1,'_id':0}))
+
+#        valid_runs_dict = list(rundb.find({"number" : {"$in": valid_runs}, "mode":"tpc_bkg"},{'number':1,'_id':0}))
+#        valid_runs = [list(valid_dict.values())[0] for valid_dict in valid_runs_dict]
+#        valid_runs = list(filter(lambda r: r % 25 == 0, valid_runs))
         if valid_runs:
             for cont in self.container_list:
+                valid_runs_str = str(valid_runs).strip('[]')
+                self.logger.info('in cont %s, appending new command for runs: %s', cont, valid_runs_str)
                 for r in valid_runs:
                     list_of_command.append(self.command.replace('[run]',str(r)) + " --container " + cont)
+                
         else:
             print("no valid run analysis ", self.variable_name)
         return list_of_command

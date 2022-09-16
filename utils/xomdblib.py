@@ -30,14 +30,13 @@ xomdb = db_client['xom']
 # Accessing to Data collection
 xomvariablesdb = xomdb['variables']
 xomdatadb = xomdb['data']
-def get_max(name_of_variable,query=None):
+def get_max(name_of_variable,col=None,query=None):
     if not col:
         col = xomdatadb
     if query:
         max = col.find(query).sort(name_of_variable,-1).limit(1)[0][name_of_variable]        
     else:
-        max = col.find().sort(name_of_variable,-1).limit(1)[0][name_of_variable]
-    
+        max = col.find({}).sort(name_of_variable,-1).limit(1)[0][name_of_variable]
     return max
 
 def reset_xomdb(col =None):
