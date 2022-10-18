@@ -137,9 +137,8 @@ def main():
 
             # write the command list in the text file
             for command in list_of_command:
-                last_container = an.container_list[0]
-                container_part = ' --container ' + last_container 
-                total_command = constant.singularity_base + last_container + " " + command + '\n'
+                container = command.split[-1]
+                total_command = constant.singularity_base + container + " " + command + '\n'
                 
                 #insure the file is not locked by other process:
                 fd = ll.acquire(command_file, timeout=10)
