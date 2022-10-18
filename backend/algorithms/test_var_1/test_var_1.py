@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 import sys
 st = straxen.contexts.xenonnt()
 sys.path +=['../utils/']
-import xomlib as xl 
+import xomdblib as xl 
 import constant as cst 
+import mini_xom 
 
 def main():
     parser = argparse.ArgumentParser("RunXom")
@@ -53,39 +54,7 @@ def main():
     data = {'bins':nbins, 'rates_all':rates_all.tolist(),'rates_10': rates_10.tolist(), 'rates_100':rates_100.tolist(), 'rates_1000':rates_1000.tolist()}
 
     ### xomdb filling ###
-    # first we write a json file in a tmp/ directory
-    
-    result = {}
-    result['run_id'] = int(run_id)
-    
-    result['run_ids'] = [int(run_id)]
-    result['variable_name'] = 'test_var_1'
-    result['container'] = container
-    result['timestamp'] = int(timestamp/1e9)
-    result['value'] = value
-    result['error'] = np.sqrt(value)
-    result['chisquared'] = None
-    result['tag'] = 'test'
-    result['data'] = data
-    outfname = result['variable_name']+'_'+str(result['run_id']) +  '_' + 'cont_' + result['container']
-    outjsonname = outfname+'.json'
-
-    fig = plt.figure(figsize=(9,9), dpi=1200)
-    plt.plot(data['rates_all'])
-    outfigname = outfname + ".png"
-    result['figname'] = outfigname
-    # save the figure
-    figpath = './algorithms/test_var_1/tmp/' + outfigname
-    fig.savefig(figpath)
-    
-    # write the json file:
-    xl.SaveData(result,'./algorithms/test_var_1/tmp/' + outjsonname)
-    
-    # write on the XOM data base at LNGS
-    xl.UploadDataDict(result, 'dali')
-
-    xl.UploadFile(figpath, 'xom@xe1t-offlinemon.lngs.infn.it:'+ cst.figfolder)
-
+    st.xom_saver(var_name='test_var_1',run_id=run_id,var_value=value, figure=None, tag='testo',data=data,save_folder='/home/gaior/codes/test/save_folder/')
     return 0
 
 
