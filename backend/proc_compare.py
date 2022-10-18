@@ -137,9 +137,9 @@ def main():
 
             # write the command list in the text file
             for command in list_of_command:
-                container = command.split[-1]
+                container = command.split()[-1]
                 total_command = constant.singularity_base + container + " " + command + '\n'
-                
+                print (total_command)
                 #insure the file is not locked by other process:
                 fd = ll.acquire(command_file, timeout=10)
                 with open(command_file, 'a+') as f:
