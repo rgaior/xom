@@ -108,6 +108,36 @@ class test_scada(Analysis):
     def produce_list_of_runs(self,list_of_runs):
         list_of_command = []
         run_min = 51782
+        run_period = 10
+        valid_runs = list(filter(lambda r: r > run_min, list_of_runs) )[::run_period]
+        print(valid_runs)
+        if valid_runs:            
+            self.logger.info("looping on valid runs")
+            for cont in self.container_list:
+                valid_runs_str = str(valid_runs).strip('[]')
+                self.logger.info('in cont %s, appending new command for runs: %s', cont, valid_runs_str)
+                for r in valid_runs:
+                    command = self.command.replace('[run]',str(r))
+                    list_of_command.append(self.command.replace('[run]',str(r)) )
+                    job_filename = self.produce_job_filename()
+                    todo_result = xomlib.Xomresult(measurement_name = "xomtodo",
+                                                   analysis_name= self.analysis_name, 
+                                                   analysis_version = self.analysis_version,
+                                                   variable_name = "_".join(self.variable_list),
+                                                   variable_value = job_filename,
+                                                   runid = r,
+                                                   container = cont,
+                                                   tag = "todo")
+                    todo_result.save()
+                    self.write_job_file(job_filename, cont, command)
+        else:
+            print("no valid run analysis ", self.variable_name)
+        return list_of_command
+
+class evt_rate(Analysis):
+    def produce_list_of_runs(self,list_of_runs):
+        list_of_command = []
+        run_min = 51782
         valid_runs = list(filter(lambda r: r > run_min, list_of_runs) )
         print(valid_runs)
         if valid_runs:            
