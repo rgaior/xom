@@ -1,0 +1,17 @@
+/scada/
+script for the monitoring values computed per run
+
+/ly_qp/
+script for the ly computation written by quentin. Testing purpose mainly.
+runs = st.select_runs(run_mode='tpc_kr83m', include_tags = ('_sr1_preliminary'),exclude_tags=('messy','bad','ramp down','ramp_down','ramp_up',
+                                     'ramp up','hot_spot','abandon'), available = ("event_info"))'''
+
+
+/event_rate/
+simple computation of the event_rate in slice of energy
+('_sr1_preliminary'),exclude_tags=('messy','bad','ramp down','ramp_down','ramp_up',
+                                     'ramp up','hot_spot','abandon'), available = ("event_info"))
+
+
+/photo_ionization/
+compute the ???

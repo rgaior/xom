@@ -6,10 +6,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 st = straxen.contexts.xenonnt()
-sys.path +=['../utils/']
-import xomdblib as xl 
-import constant as cst 
-from xomlib import xom_saver
+sys.path +=['../../../utils/']
+
+import xomlib
+
+
+
 
 def main():
     parser = argparse.ArgumentParser("RunXom")
@@ -48,13 +50,29 @@ def main():
     value = rate_total
     timestamp = df['time'].iloc[0]
     rates_all = df['time'].value_counts(bins=nbins,sort=False).values
+    rate_1 = df.query("e_ces < 1")
+df[df['e_ces'] < 1]['time'].value_counts(bins=nbins,sort=False).values
     rates_10 = df[df['e_ces'] > 10]['time'].value_counts(bins=nbins,sort=False).values
     rates_100 = df[df['e_ces'] > 100]['time'].value_counts(bins=nbins,sort=False).values
     rates_1000 = df[df['e_ces'] > 1000]['time'].value_counts(bins=nbins,sort=False).values
-    data = {'bins':nbins, 'rates_all':rates_all.tolist(),'rates_10': rates_10.tolist(), 'rates_100':rates_100.tolist(), 'rates_1000':rates_1000.tolist()}
-
+     array_data = {'bins':nbins, 'rates_all':rates_all.tolist(),'rates_10': rates_10.tolist(), 'rates_100':rates_100.tolist(), 'rates_1000':rates_1000.tolist()}
+    rate_10 = len(rates_1)/deltat_s
+    rate_10 = len(rates_10)/deltat_s
+    rate_100 = len(rates_100)/deltat_s
+    rate_1000 = len(rates_1000)/deltat_s
+    
+    
     ### xomdb filling ###
-    xom_saver(var_name='test_var_1',run_id=run_id,var_value=value, figure=None, tag='testo',data=data,save_folder='/home/gaior/codes/test/save_folder/')
+    xomresult = xomlib.Xomresult(analysis_name="evt_rate",
+                                 analysis_version = "v0.0",
+                                 variable_name='evt_rate',
+                                 variable_value=mean,
+                                 runid=runid,
+                                 data = {"rate_10": rate_10,"rate_100": rate_100,"rate_1000": rate_1000}
+    )
+    xomresult.save()
+
+
     return 0
 
 

@@ -1,0 +1,9 @@
+import subprocess
+import shlex
+
+execcommand = "python output.py"
+execcommand = shlex.split(execcommand)
+process = subprocess.run(execcommand,
+                         stdout=subprocess.PIPE,
+                         universal_newlines=True)
+print(process)

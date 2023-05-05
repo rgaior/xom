@@ -5,6 +5,7 @@ import pandas as pd
 from argparse import ArgumentParser
 import argparse
 import sys
+import time
 
 sys.path +=['../../../utils/']
 
@@ -26,9 +27,11 @@ def press_run(runid):
                                  analysis_version = "v0.0",
                                  variable_name='XE1T.CRY_PT101_PCHAMBER_AI.PI',
                                  variable_value=mean,
-                                 runid=runid,
-                                 runids=["012", "013"])
+                                 runid=runid
+                                 )
     xomresult.save()
+    time.sleep(120)
+    xomresult.xom_message(success=True)
 
     # if(xom_saver("test_scada",'XE1T.CRY_PT101_PCHAMBER_AI.PI',runid,mean, datatype="main")):
     #     xom_message(sucess=True)

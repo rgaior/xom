@@ -3,34 +3,24 @@ import os
 from doctest import run_docstring_examples
 import sys
 import json
-#from bson.json_util import dumps
+from bson.json_util import dumps
 import constant
 import subprocess
 import dblib as dbl
 import influxdb_client
-import numpy as np
+
 ## figure folder on the machine that host the database and display (grafana)
 #display_fig_folder = "/home/xom/data/v1.1/test/." 
-import logging
 
-ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logging.DEBUG)
-# create formatter and add it to the handlers
-formatterch = logging.Formatter('%(name)-20s - %(levelname)-5s - %(message)s')
-ch.setFormatter(formatterch)
+measurement_name = constant.measurement_name
 
-
-measurement_data_name = constant.measurement_name
-success_message = "SUCCESSWITHXOM"
-error_message = "ERRORWITHXOM"
 class Xomresult:
     def __init__(self,
-                 analysis_name,
+                 analysis_name, 
                  analysis_version, 
                  variable_name, 
                  variable_value,        
-                 runid,
-                 measurement_name = measurement_data_name, 
+                 runid, 
                  container=None,
                  runids = [""],
                  timestamp = 0,
@@ -38,7 +28,6 @@ class Xomresult:
                  figure_path="",
                  tag = ""
              ):
-        self.measurement_name = measurement_name
         self.analysis_name = analysis_name
         self.analysis_version = analysis_version
         self.variable_name = variable_name
@@ -54,9 +43,6 @@ class Xomresult:
         self.figure_path = figure_path
         self.tag = tag
         self.result_dict = self.set_result_dict()
-        self.logger = logging.getLogger(self.__class__.__module__ + '.' + self.__class__.__name__)
-        # add the handlers to the logger
-        self.logger.addHandler(ch)
         '''
         analysis_name: str
         variable_name: str
@@ -72,7 +58,7 @@ class Xomresult:
         '''
 
     def set_result_dict(self):
-        self.result_dict = {"measurement_name":self.measurement_name, "analysis_name": self.analysis_name, "analysis_version": self.analysis_version, "variable_name": self.variable_name, "variable_value": self.variable_value, "runid":self.runid, "container": self.container, "runids":self.runids, "timestamp": self.timestamp, "data":self.data, "figure_path":self.figure_path, "tag":self.tag}
+        self.result_dict = {"analysis_name": self.analysis_name, "analysis_version": self.analysis_version, "variable_name": self.variable_name, "variable_value": self.variable_value, "runid":self.runid, "container": self.container, "runids":self.runids, "timestamp": self.timestamp, "data":self.data, "figure_path":self.figure_path, "tag":self.tag}
         
 
 
@@ -83,23 +69,24 @@ class Xomresult:
         result = self.result_dict
         runids = "_".join(self.runids) 
 
-        pmain = influxdb_client.Point(self.measurement_name).field(result['variable_name'], result['variable_value']).tag("datatype", "main").tag("analysis_name", result['analysis_name']).tag("analysis_version", result['analysis_version']).tag("variable_name",result['variable_name']).field("runid", result['runid']).tag("container",result['container']).field("runids",runids).field("timestamp",result['timestamp']).field("figure_path",result['figure_path']).tag("tag",result['tag'])
+        pmain = influxdb_client.Point(measurement_name).field(result['variable_name'], result['variable_value']).tag("datatype", "main").tag("analyse_name", result['analysis_name']).tag("analyse_version", result['analysis_version']).tag("variable_name",result['variable_name']).field("runid", result['runid']).tag("container",result['container']).field("runids",runids).field("timestamp",result['timestamp']).field("figure_path",result['figure_path']).tag("tag",result['tag'])
         record_list.append(pmain)
         if isinstance(self.result_dict['data'], dict):
             for key, val in self.result_dict['data'].items():
                 if isinstance(val, np.ndarray):
                     for v in val:
-                        p = influxdb_client.Point(self.measurement_name).field(result['variable_name'], result['variable_value']).tag("datatype", "extra").tag("analysis_name", result['analysis_name']).tag("analysis_version", result['analysis_version']).tag("variable_name",result['variable_name']).field("runid", result['runid']).tag("container",result['container']).field("runids",runids).field("timestamp",result['timestamp']).field("figure_path",result['figure_path']).tag("tag",result['tag']).field(key,v)
+                        p = influxdb_client.Point(measurement_name).field(result['variable_name'], result['variable_value']).tag("datatype", "extra").tag("analyse_name", result['analysis_name']).tag("analyse_version", result['analysis_version']).tag("variable_name",result['variable_name']).field("runid", result['runid']).tag("container",result['container']).field("runids",runids).field("timestamp",result['timestamp']).field("figure_path",result['figure_path']).tag("tag",result['tag']).field(key,v)
                         record_list.append(p)
                 else:
-                    p = influxdb_client.Point(self.measurement_name).field(result['variable_name'], result['variable_value']).tag("datatype", "extra").tag("analysis_name", result['analysis_name']).tag("analysis_version", result['analysis_version']).tag("variable_name",result['variable_name']).field("runid", result['runid']).tag("container",result['container']).field("runids",runids).field("timestamp",result['timestamp']).field("figure_path",result['figure_path']).tag("tag",result['tag']).field(key,val)
+                    p = influxdb_client.Point(measurement_name).field(result['variable_name'], result['variable_value']).tag("datatype", "extra").tag("analyse_name", result['analysis_name']).tag("analyse_version", result['analysis_version']).tag("variable_name",result['variable_name']).field("runid", result['runid']).tag("container",result['container']).field("runids",runids).field("timestamp",result['timestamp']).field("figure_path",result['figure_path']).tag("tag",result['tag']).field(key,val)
                 
                     record_list.append(p) 
 
         return record_list
 
     def query_from_result(self):
-        query = 'from(bucket:"xom")|> range(start: '+ str(-constant.query_period) + 'd) |> filter(fn: (r) => r._measurement ==  \"' + self.measurement_name + '\") |> filter(fn: (r) => r.analysis_name == \"' + self.analysis_name + '\") |> filter(fn: (r) => r.variable_name == \"' + self.variable_name + '\") |> filter(fn: (r) => r.analysis_version == \"' + self.analysis_version + '\") |> filter(fn: (r) => r.runid == \"' + self.runid + '\") '
+        query = 'from(bucket:"xom")|> range(start: '+ str(-constant.query_period) + 'd) |> filter(fn: (r) => r._measurement ==  \"' + measurement_name + '\") |> filter(fn: (r) => r.analysis_name == \"' + self.analysis_name + '\") |> filter(fn: (r) => r.variable_name == \"' + self.variable_name + '\") |> filter(fn: (r) => r.analysis_version == \"' + self.analysis_version + '\") |> filter(fn: (r) => r.runid == \"' + self.runid + '\") '
+        print("query = ", query)
         if dbl.query(query) is None:
             print("XOM_ERROR")
         else:
@@ -108,7 +95,7 @@ class Xomresult:
 
     def save_in_db(self, record):
         ## connect to the database:
-        client = dbl.Xomdb('influxdb',self.measurement_name)
+        client = dbl.Xomdb('influxdb',measurement_name)
         client.insert_record(record)
 
 #    def test_if_written(self, record):
@@ -117,11 +104,6 @@ class Xomresult:
         record = self.get_result_records()
         self.save_in_db(record)
         
-    def xom_message(self,success):
-        if success == True:
-            print(success_message)
-        if success == False:
-            print(error_message)
 
             
 # def xom_saver(        

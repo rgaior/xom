@@ -10,7 +10,13 @@ import datetime
 from dateutil.tz import tzutc
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
+import logging
 
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+# create formatter and add it to the handlers
+formatterch = logging.Formatter('%(name)-20s - %(levelname)-5s - %(message)s')
+ch.setFormatter(formatterch)
 
 ########################
 ### connection to DB ###
@@ -23,6 +29,10 @@ class Xomdb:
         self.client  = None
         self.measurement_name = measurement_name
         self.connect()
+        self.logger = logging.getLogger(self.__class__.__module__ + '.' + self.__class__.__name__)
+        self.logger.debug(f"creating instance of {self.__class__}")
+        # add the handlers to the logger
+        self.logger.addHandler(ch)
     def connect(self):
         if self.type_of_db == 'influxdb':
             try:
@@ -67,7 +77,6 @@ class Xomdb:
         record or list of record
         '''
         write_api = self.client.write_api(write_options=SYNCHRONOUS)    
-        print("RECORD = ", record)
         if isinstance(record,list):
             for r in record:
                 write_api.write(bucket="xom", org=self.client.org, record=r)
@@ -149,6 +158,14 @@ class Xomdb:
     def delete(self):
         start = "1970-01-01T00:00:00Z"
         stop = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+        delete_api = self.client.delete_api()
+        delete_api.delete(start, stop,'_measurement=\"' + self.measurement_name + '\"', bucket='xom')
+
+    def delete_record(self, p):
+        d1 = datetime.timedelta(microseconds=-1)
+        d2 = datetime.timedelta(microseconds=+1)
+        start = p['_time'] + d1
+        stop = p['_time'] + d2
         delete_api = self.client.delete_api()
         delete_api.delete(start, stop,'_measurement=\"' + self.measurement_name + '\"', bucket='xom')
 

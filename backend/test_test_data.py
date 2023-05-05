@@ -1,0 +1,65 @@
+
+
+#!/usr/bin/env python
+
+import os
+#import numpy as np
+import time
+import subprocess
+import shlex
+import sys
+sys.path +=['../utils/']
+#import locklib as ll
+import constant
+import utils
+import dblib as dbl
+import xomlib
+import influxdb_client
+from influxdb_client.client.write_api import SYNCHRONOUS
+from argparse import ArgumentParser
+import glob
+import time
+
+#import analysis 
+#a = {'ana name':{"container name": [list], "container 2": [list]} }
+
+def main():
+    xomconfig = utils.get_xom_config()
+    
+    analysis_names = xomconfig.sections()
+    analysis_list = []
+    for analysis_name in analysis_names:
+        containers = utils.get_from_config(xomconfig,analysis_name, 'container')
+        exclude_tags = utils.get_from_config(xomconfig,analysis_name, 'exclude_tags')
+        include_tags = utils.get_from_config(xomconfig,analysis_name, 'include_tags')
+        available_type = utils.get_from_config(xomconfig,analysis_name, 'available_type')
+        args = {}
+        if exclude_tags:
+            args[' --excluded '] = exclude_tags
+        if include_tags:
+            args[' --included '] = include_tags
+        if available_type:
+            args[' --available '] = available_type
+        for cont in containers:
+            command = "python test_data.py " + ' --container ' + cont + ' --analysis ' + analysis_name
+            for key, value in zip(args.keys(), args.values()) :
+                command+= key
+                command+= " ".join(value)
+                #+ "--excluded " + " ".join(exclude_tags) + ' --included ' + " ".join(include_tags) +  ' --available ' + " ".join(available_type) + ' --analysis ' + analysis_name 
+            allcommand = constant.singularity_base + cont + " " + command + '\n'
+            print(allcommand)
+            execcommand = shlex.split(allcommand)
+            process = subprocess.run(execcommand,
+                                     stdout=subprocess.PIPE,
+                                     universal_newlines=True)
+
+
+            print(process.stdout)
+            print(process.stderr)
+# xeccommand = shlex.split(execcommand)
+#             process = subprocess.run(execcommand,
+#                                     stdout=subprocess.PIPE,
+#                                     universal_newlines=True)
+
+if __name__ == "__main__":
+    main()

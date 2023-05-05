@@ -18,12 +18,19 @@ exec_period = 10
 
 query_period = 100 # days period over which we should search in database (when xom will be running smoothly can beset to 1d)
 
-output_folder = "/home/gaior/codes/xom/output/"
+xomfolder = "/home/gaior/codes/xom/"
+
+output_folder = xomfolder + "/output/"
 
 job_folder = output_folder + "/job_files/"
 
 analysis_code_folder = "/home/gaior/codes/xom/backend/algorithms/"
 
+availability_files_folder = output_folder + "/availability_files/" 
+
 container_path = "/project2/lgrandi/xenonnt/singularity-images/"
 
 example_sub = "/home/gaior/codes/xom/utils/job_ex.sh"
+
+jobslimit = 2
+

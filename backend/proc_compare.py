@@ -23,7 +23,8 @@ import constant
 import locklib as ll
 import dblib as dbl
 import importlib
-analysismodule = importlib.import_module("analysis")  
+import analysis as analysis
+#analysismodule = importlib.import_module("analysis")  
 
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -38,7 +39,7 @@ handler.setFormatter(formatter)
 handler.suffix = "%Y%m%d"
 # finally add handler to logger    
 logger.addHandler(handler)
-
+import glob
 
 import pymongo
 from pymongo import MongoClient
@@ -75,11 +76,21 @@ def get_xom_config(configname='xomconfig.cfg'):
 
 def process_command(command):
     execcommand = shlex.split(command)
+    print(execcommand)
     process = subprocess.run(execcommand,
                              stdout=subprocess.PIPE,
                              universal_newlines=True)
 
 
+def remove_file(path):
+    if os.path.isdir(path):
+        shutil.rmtree(path)
+    else:
+        os.remove(path)
+
+def empty_directory(path):
+    for i in glob.glob(os.path.join(path, '*')):
+        remove_file(i)
 
 
 
@@ -105,7 +116,6 @@ def main():
     ch.setFormatter(formatterch)
     # add the handlers to the logger
     logger.addHandler(ch)
-    logger.info('test')
 
     
         
@@ -122,16 +132,17 @@ def main():
     xomdb = dbl.Xomdb(type_of_db,"xomdata")
     xomdbtodo = dbl.Xomdb(type_of_db,"xomtodo")
     xomdbdone = dbl.Xomdb(type_of_db,"xomdone")
+    xomdbsubmitted = dbl.Xomdb(type_of_db,"xomsubmitted")
     
 
     if clean:
         xomdb.delete()
         xomdbtodo.delete()
         xomdbdone.delete()
+        xomdbsubmitted.delete()
+
         # here erase the job files
-        process_command("rm "+constant.job_folder + "*.sh")
-        process_command("rm "+constant.job_folder + "*.err")
-        process_command("rm "+constant.job_folder + "*.out")
+        empty_directory(constant.job_folder)
         logger.warning("delete all the measurement related to XOM")
     
     #############################
@@ -146,7 +157,8 @@ def main():
     ##############################################
     analysis_list = []
     for analysis_name in analysis_names:
-        an = getattr(analysismodule, analysis_name)(analysis_name)
+        an = analysis.Analysis(analysis_name)
+#getattr(analysismodule, analysis_name)(analysis_name)
         print (an.analysis_name)
         an.fill_from_config(xomconfig)
         analysis_list.append(an)
@@ -154,7 +166,7 @@ def main():
         xomdb.get_last_runid_from_analysis(analysis_name)
         if verbose:
             for an in analysis_list:
-                an.printname()
+                an.print_config()
 
 
     stop_condition = 0
@@ -177,8 +189,7 @@ def main():
         
         if prev_last_run_daq==last_run_daq:
             logger.info('no DAQ new run')
-            time.sleep(constant.exec_period)
-            print("no new run")
+            time.sleep(10*constant.exec_period)
             continue
         if last_run_daq > prev_last_run_daq:
             prev_last_run_daq  = last_run_daq
@@ -187,73 +198,19 @@ def main():
         for an in analysis_list:
             # need to be already presnent in the data base
             last_todo_xom = xomdbtodo.get_last_runid_from_analysis(an.analysis_name)
-            if last_run_daq == last_todo_xom:
+            last_done_xom = xomdbdone.get_last_runid_from_analysis(an.analysis_name)
+            logger.debug(f"last_todo_xom = {last_todo_xom} last_done_xom = {last_done_xom}")
+            last_xom = max([last_todo_xom,last_done_xom])
+            if last_run_daq == last_xom:
                     logger.info("nothing to write in todo dB, analysis %s up to date", an.analysis_name)
                     continue
             else:
                 #produce list of runs according the analysis:
-                list_of_new_runs = list(range(last_todo_xom +1, last_run_daq +1 ,1))
-                list_of_command = an.produce_list_of_runs(list_of_new_runs)
+                logger.info(f"producing the list of new runs from runid {last_todo_xom } to runid {last_run_daq }") 
+#                list_of_new_runs = list(range(last_todo_xom +1, last_run_daq +1 ,1))
+                list_of_command = an.produce_list_of_runs(last_xom, last_run_daq)
                 
         time.sleep(constant.exec_period)
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-        #                 # write the command list in the text file
-#                 for command in list_of_command:
-#                     # here either write in the command file or in the todo database
-# #                    xomtododb.insert({})
-
-
-#                     container = command.split()[-1]
-#                     total_command = constant.singularity_base + container + " " + command + '\n'
-#                     #insure the file is not locked by other process:
-#                     fd = ll.acquire(command_file, timeout=10)
-#                     with open(command_file, 'a+') as f:
-#                         f.write(total_command)
-                
-#                     # unlock the txt file 
-#                     ll.release(fd)
-
-
-
-
-
- # result['analyse_name'] = analysis_name
- # result['timestamp'] = int(timestamp/1e9)
- # result['run_id'] = int(run_id)
- # result['var_name'] = var_name
- # result['container'] = container
- # result['value'] = var_value
- # result['tag'] = tag
- # result['data'] = data
-
-
- 
-
-
-
-
-#    a = 1
-# pprint.pprint(f'last run {last_run_daq}')
-# pprint.pprint(f'last run xom {last_run_xom}')
-# #print("xom data = ", xomdata.find_one())
-    # coll = list(rundb.find({"number" : {"$in": [39321, 39323]}, "mode":"tpc_kr83m"},{'number':1}))
-    # for x in coll:
-    #     print(x)
-        
-
-#def last_run_check():
-
-
-

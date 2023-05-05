@@ -29,6 +29,7 @@ class Analysis:
         self.available_type_list = []
         self.runwise = False
         self.analysis_path = ""
+        self.detector = ""
         self.run_mode = ""
         self.command = ""
         self.result = None
@@ -59,6 +60,12 @@ class Analysis:
         if xomconfig.has_option(self.analysis_name,'available_type'):
             available_type_list  = xomconfig.get(self.analysis_name,'available_type')
             self.available_type_list = available_type_list.split(',')
+
+        if xomconfig.has_option(self.analysis_name,'run_mode'):
+            run_mode  = xomconfig.get(self.analysis_name,'run_mode')
+        else:
+            run_mode = 'tpc'
+        self.available_type_list = available_type_list.split(',')
 
         variablelist = xomconfig.get(self.analysis_name,'variable_name')
         self.variable_list = variablelist.split(',')
@@ -172,7 +179,7 @@ class Analysis:
                 self.logger.info('in cont %s, appending new command for runs: %s', cont, valid_runs_str)
                 for r in valid_runs:
                     self.logger.info(f'producing job file for runid {r} for container {cont}')
-                    command = self.command.replace('[run]',str(r))
+                    command = self.command.replace('[run]',str(r).zfill(6))
                     job_filename = self.produce_job_filename()
                     todo_result = xomlib.Xomresult(measurement_name = "xomtodo",
                                                    analysis_name= self.analysis_name, 
